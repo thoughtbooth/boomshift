@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fname:</strong>
+  <%= @client_profile.fname %>
+</p>
+
+<p>
+  <strong>Lname:</strong>
+  <%= @client_profile.lname %>
+</p>
+
+<p>
+  <strong>Addr1:</strong>
+  <%= @client_profile.addr1 %>
+</p>
+
+<p>
+  <strong>Addr2:</strong>
+  <%= @client_profile.addr2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @client_profile.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @client_profile.state %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @client_profile.country %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @client_profile.phone %>
+</p>
+
+<%= link_to 'Edit', edit_client_profile_path(@client_profile) %> |
+<%= link_to 'Back', client_profiles_path %>
