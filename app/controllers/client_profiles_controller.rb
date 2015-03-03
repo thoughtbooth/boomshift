@@ -1,3 +1,4 @@
+# DELETE THIS CONTROLLER
 class ClientProfilesController < ApplicationController
   before_action :set_client_profile, only: [:show, :edit, :update, :destroy]
 

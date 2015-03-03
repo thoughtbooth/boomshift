@@ -40,5 +40,7 @@
   <%= @business_profile.phone %>
 </p>
 
-<%= link_to 'Edit', edit_business_profile_path(@business_profile) %> |
+<% if @pin.user == current_user %>
+  <%= link_to 'Edit', edit_business_profile_path(@business_profile) %> |
+<% end %>
 <%= link_to 'Back', business_profiles_path %>

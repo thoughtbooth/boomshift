@@ -15,11 +15,12 @@
     <ul class="nav navbar-nav navbar-right">
       <li><%= link_to "Home", root_path %></li>
       <% if user_signed_in? %>
-        <li><%= link_to "Business", business_path %></li>
-        <li><%= link_to "Clients", clients_path %></li>
-        <li><%= link_to "Schedule", schedule_path %></li>
+        <li><%= link_to "My Business", mybusiness_path %></li>
+        <li><%= link_to "My Clients", myclients_path %></li>
+        <li><%= link_to "My Schedule", myschedule_path %></li>
         <li><%= link_to "Advertising", advertising_path %></li>
         <li><%= link_to "Reports", reports_path %></li>
+        <li><%= link_to "Account Settings", edit_user_registration_path %></li>
         <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
       <% else %>
         <li><%= link_to "Sign in", new_user_session_path %></li>

@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-  resources :client_profiles
-
-  resources :business_profiles
+  resources  :businesses
+  resources  :client_profiles #REMOVE THIS
 
   devise_for :users
-  root 'pages#home'
   
-  get "business" => "pages#business"
-  get "clients" => "pages#clients"
-  get "schedule" => "pages#schedule"
+  root 'pages#home'
+  get "mybusiness" => "pages#mybusiness"
+  get "myclients" => "pages#myclients"
+  get "myschedule" => "pages#myschedule"
   get "advertising" => "pages#advertising"
   get "reports" => "pages#reports"
 
