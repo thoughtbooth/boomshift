@@ -1,10 +1,10 @@
-<%= form_for(@business_profile) do |f| %>
-  <% if @business_profile.errors.any? %>
+<%= form_for(@client) do |f| %>
+  <% if @client.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@business_profile.errors.count, "error") %> prohibited this business_profile from being saved:</h2>
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
 
       <ul>
-      <% @business_profile.errors.full_messages.each do |message| %>
+      <% @client.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :fname %><br>
+    <%= f.text_field :fname %>
   </div>
   <div class="field">
-    <%= f.label :about %><br>
-    <%= f.text_area :about %>
+    <%= f.label :lname %><br>
+    <%= f.text_field :lname %>
   </div>
   <div class="field">
     <%= f.label :addr1 %><br>

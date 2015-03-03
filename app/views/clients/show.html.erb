@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fname:</strong>
+  <%= @client.fname %>
+</p>
+
+<p>
+  <strong>Lname:</strong>
+  <%= @client.lname %>
+</p>
+
+<p>
+  <strong>Addr1:</strong>
+  <%= @client.addr1 %>
+</p>
+
+<p>
+  <strong>Addr2:</strong>
+  <%= @client.addr2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @client.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @client.state %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @client.country %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @client.phone %>
+</p>
+
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>

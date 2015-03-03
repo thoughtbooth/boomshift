@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   
-  has_many :businesses
-  has_many :client_profiles #REMOVE THIS
+  has_one :businesses
+  has_many :clients
 end

@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  resources  :businesses
-  resources  :client_profiles #REMOVE THIS
-
-  devise_for :users
-  
   root 'pages#home'
+  
+  resources :businesses, :clients
+  devise_for :users
+
   get "mybusiness" => "pages#mybusiness"
   get "myclients" => "pages#myclients"
   get "myschedule" => "pages#myschedule"
