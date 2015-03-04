@@ -16,7 +16,7 @@ class BusinessesController < ApplicationController
   end
 
   def new
-    @business = Business.new
+    @business = current_user.build_business
     respond_with(@business)
   end
 
@@ -33,8 +33,11 @@ class BusinessesController < ApplicationController
   end
 
   def update
-    @business.update(business_params)
-    respond_with @business, notice: 'Your business profile changes were saved.'
+    if @business.update(business_params)
+      respond_with @business, notice: 'Your business profile changes were saved.'
+    else
+      render action: 'edit'
+    end
   end
 
   def destroy
