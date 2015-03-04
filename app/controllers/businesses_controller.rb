@@ -11,8 +11,8 @@ class BusinessesController < ApplicationController
   end
 
   def show
-    #respond_with(@business)
-    redirect_to @business
+    respond_with(@business)
+    #redirect_to @business
   end
 
   def new
@@ -22,15 +22,9 @@ class BusinessesController < ApplicationController
 
   def edit
   end
-
-#  def create
-#    @business = Business.new(business_params)
-#    @business.save
-#    respond_with(@business)
-#  end
   
   def create
-    @business = current_user.businesses.build(business_params)
+    @business = current_user.build_business(business_params)
     if @business.save
       respond_with @business, notice: 'Your business profile has been created.'
     else
@@ -50,12 +44,14 @@ class BusinessesController < ApplicationController
 
   private
     def set_business
-      @business = Business.find(params[:id])
+      @business = current_user.business #Business.find(params[:id])
     end
   
     def correct_user
-      @business = current_user.businesses.find_by(id: params[:id])
-      respond_with business_path, notice: "You are not authorized to modify this business profile." if @business.nil?
+      @business = current_user.business #find_by(id: params[:id])
+      if @business.nil?
+        redirect_to business_path, notice: "You are not authorized for this business profile."
+      end
     end
 
     def business_params

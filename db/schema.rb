@@ -13,22 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150303225359) do
 
-  create_table "business_profiles", force: true do |t|
-    t.string   "name"
-    t.text     "about"
-    t.string   "addr1"
-    t.string   "addr2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-  end
-
-  add_index "business_profiles", ["user_id"], name: "index_business_profiles_on_user_id"
-
   create_table "businesses", force: true do |t|
     t.string   "name"
     t.text     "about"
@@ -44,22 +28,6 @@ ActiveRecord::Schema.define(version: 20150303225359) do
   end
 
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id"
-
-  create_table "client_profiles", force: true do |t|
-    t.string   "fname"
-    t.string   "lname"
-    t.string   "addr1"
-    t.string   "addr2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-  end
-
-  add_index "client_profiles", ["user_id"], name: "index_client_profiles_on_user_id"
 
   create_table "clients", force: true do |t|
     t.string   "fname"
