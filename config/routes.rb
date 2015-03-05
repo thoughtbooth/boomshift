@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :services
+
   root 'pages#home'
   
   resources :businesses, :clients
