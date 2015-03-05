@@ -26,7 +26,8 @@ class BusinessesController < ApplicationController
   def create
     @business = current_user.build_business(business_params)
     if @business.save
-      respond_with @business, notice: 'Your business profile has been created.'
+      flash[:success] = 'Your business profile has been created.'
+      respond_with @business
     else
       render action: 'new'
     end
@@ -34,7 +35,8 @@ class BusinessesController < ApplicationController
 
   def update
     if @business.update(business_params)
-      respond_with @business, notice: 'Your business profile changes were saved.'
+      flash[:success] = 'Your business profile changes were saved.'
+      respond_with @business
     else
       render action: 'edit'
     end
@@ -42,7 +44,8 @@ class BusinessesController < ApplicationController
 
   def destroy
     @business.destroy
-    respond_with @business, notice: 'Your business profile was deleted.'
+    flash[:success] = 'Your business profile was deleted.'
+    respond_with @business
   end
 
   private
@@ -53,7 +56,8 @@ class BusinessesController < ApplicationController
     def correct_user
       @business = current_user.business #find_by(id: params[:id])
       if @business.nil?
-        redirect_to business_path, notice: "You are not authorized for this business profile."
+        flash[:danger] = "You are not authorized for this business profile."
+        redirect_to business_path
       end
     end
 

@@ -1,44 +1,103 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Fname:</strong>
-  <%= @client.fname %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @client.fname %> <%= @client.lname %></h3>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>First Name:</strong>
+      <%= @client.fname %>
+    </p>
+    <p>
+      <strong>Last Name:</strong>
+      <%= @client.lname %>
+    </p>
+    <p>
+      <strong>Address 1:</strong>
+      <%= @client.addr1 %>
+    </p>
+    <p>
+      <strong>Address 2:</strong>
+      <%= @client.addr2 %>
+    </p>
+    <p>
+      <strong>City:</strong>
+      <%= @client.city %>
+    </p>
+    <p>
+      <strong>State:</strong>
+      <%= @client.state %>
+    </p>
+    <p>
+      <strong>Country:</strong>
+      <%= @client.country %>
+    </p>
+    <p>
+      <strong>Phone:</strong>
+      <%= @client.phone %>
+    </p>
+    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    <%= link_to "Edit", edit_client_path(@client), class: "btn btn-primary" %>
+  </div>
+</div>
 
-<p>
-  <strong>Lname:</strong>
-  <%= @client.lname %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Enrolled Services</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <tr>
+        <th>Service</th>
+        <th>Description</th>
+        <th>As Of</th>
+      </tr>
+      <% @services.each do |service| %> <!-- Modify this to filter to the enrollment -->
+        <tr>
+          <td><%= service.name %></td>
+          <td><%= service.description %></td>
+          <td><%= service.price %></td>
+        </tr>
+      <% end %>
+    </table>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      Add
+    </button>
+  </div>
+</div>
 
-<p>
-  <strong>Addr1:</strong>
-  <%= @client.addr1 %>
-</p>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Services I Offer</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tr>
+            <th>Service</th>
+            <th>Description</th>
+            <th>As Of</th>
+          </tr>        
+          <% @services.each do |service| %> <!-- Modify this to filter to the enrollment -->
+            <tr>
+              <td><%= service.name %></td>
+              <td><%= service.description %></td>
+              <td><%= service.price %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Addr2:</strong>
-  <%= @client.addr2 %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @client.city %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @client.state %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @client.country %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @client.phone %>
-</p>
-
-<%= link_to 'Edit', edit_client_path(@client) %> |
 <%= link_to 'Back', clients_path %>

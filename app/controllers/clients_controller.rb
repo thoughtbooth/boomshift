@@ -11,6 +11,7 @@ class ClientsController < ApplicationController
   end
 
   def show
+    @services = @client.services.all
     respond_with(@client)
   end
 
@@ -25,7 +26,8 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.clients.new(client_params)
     if @client.save
-      respond_with @client, notice: 'Client was successfully created.'
+      flash[:success] = 'Client was successfully created.'
+      respond_with @client
     else
       render action: 'new'
     end
@@ -33,6 +35,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
+      flash[:success] = 'Client changes were successfully saved.'
       respond_with(@client)
     else
       render action: 'edit'
@@ -41,6 +44,7 @@ class ClientsController < ApplicationController
 
   def destroy
     @client.destroy
+    flash[:success] = 'Client was successfully deleted.'
     respond_with(@client)
   end
 
@@ -52,7 +56,8 @@ class ClientsController < ApplicationController
     def correct_user
       @client = current_user.clients.find_by(id: params[:id])
       if @client.nil?
-        redirect_to client_path, notice: "You are not authorized for this business profile."
+        flash[:danger] = "You are not authorized for this business profile."
+        redirect_to client_path
       end
     end
 
