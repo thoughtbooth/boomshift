@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :services
-
   root 'pages#home'
   
-  resources :businesses, :clients
+  post 'enroll' => 'application#add_enrollment'
+  #get 'enroll' => 'application#add_enrollment'
+  
+  resources :businesses, :clients, :services#, :enrollments
   devise_for :users
 
   get "mybusiness" => "pages#mybusiness"
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   get "myschedule" => "pages#myschedule"
   get "advertising" => "pages#advertising"
   get "reports" => "pages#reports"
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

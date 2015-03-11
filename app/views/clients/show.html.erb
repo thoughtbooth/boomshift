@@ -37,8 +37,9 @@
       <strong>Phone:</strong>
       <%= @client.phone %>
     </p>
-    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-    <%= link_to "Edit", edit_client_path(@client), class: "btn btn-primary" %>
+    <%= link_to edit_client_path(@client), class: "btn btn-default" do %>
+      <i class="glyphicon glyphicon-edit"></i> Edit
+    <% end %>
   </div>
 </div>
 
@@ -47,22 +48,41 @@
     <h3 class="panel-title">Enrolled Services</h3>
   </div>
   <div class="panel-body">
-    <table class="table">
+    <table class="table table-striped table-hover">
+      <thead>
       <tr>
         <th>Service</th>
         <th>Description</th>
+        <th>Preferences</th>
         <th>As Of</th>
+        <th></th>
       </tr>
-      <% @services.each do |service| %> <!-- Modify this to filter to the enrollment -->
-        <tr>
-          <td><%= service.name %></td>
-          <td><%= service.description %></td>
-          <td><%= service.price %></td>
-        </tr>
-      <% end %>
+      </thead>
+      <tbody>
+        <% @enrollments = @client.services.all %>
+        <% if @enrollments.count > 0 %>
+          <% @enrollments.each do |enrollment| %>
+            <tr>
+              <td><%= enrollment.name %></td>
+              <td><%= enrollment.description %></td>
+              <td><!-- preferences go here. --></td>
+              <td><%= enrollment.created_at %></td>
+              <td><%= link_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td>Click the Add button to add an enrollment.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <tbody>
     </table>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#AddEnrollmentModal">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       Add
     </button>
@@ -70,7 +90,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddEnrollmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,19 +98,31 @@
         <h4 class="modal-title" id="myModalLabel">Services I Offer</h4>
       </div>
       <div class="modal-body">
-        <table class="table">
-          <tr>
-            <th>Service</th>
-            <th>Description</th>
-            <th>As Of</th>
-          </tr>        
-          <% @services.each do |service| %> <!-- Modify this to filter to the enrollment -->
+        <table class="table table-striped table-hover">
+          <thead>
             <tr>
-              <td><%= service.name %></td>
-              <td><%= service.description %></td>
-              <td><%= service.price %></td>
+              <th>Service</th>
+              <th>Description</th>
+              <th></th>
             </tr>
-          <% end %>
+          </thead>
+          <tbody>
+            <% @services = current_user.business.services.all %>
+            <% @services.each do |service| %>
+              <tr>
+                <td><%= service.name %></td>
+                <td><%= service.description %></td>
+                <td>
+                  <% @enrollment = service.clients.first %>
+                  <% if @enrollment.nil? %>
+                    <%= button_to "Enroll", enroll_path(client_id: @client.id, service_id: service.id) %>
+                  <% else %>
+                    Enrolled
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <tbody>
         </table>
       </div>
       <div class="modal-footer">

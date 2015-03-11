@@ -11,7 +11,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @services = @client.services.all
     respond_with(@client)
   end
 
@@ -56,7 +55,7 @@ class ClientsController < ApplicationController
     def correct_user
       @client = current_user.clients.find_by(id: params[:id])
       if @client.nil?
-        flash[:danger] = "You are not authorized for this business profile."
+        flash[:danger] = "You are not authorized for this client profile."
         redirect_to client_path
       end
     end
