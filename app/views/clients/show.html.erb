@@ -65,9 +65,9 @@
             <tr>
               <td><%= enrollment.name %></td>
               <td><%= enrollment.description %></td>
-              <td><!-- preferences go here. --></td>
+              <td><%= current_user.business.services.client.preferences %></td>
               <td><%= enrollment.created_at %></td>
-              <td><%= link_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Delete', '#', method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
         <% else %>

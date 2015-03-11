@@ -1,4 +1,5 @@
 class Client < ActiveRecord::Base
-  belongs_to :user
-  has_and_belongs_to_many :services, :join_table => 'enrollments'
+  belongs_to :business
+  has_many :enrollments
+  has_many :services, through: :enrollments
 end
