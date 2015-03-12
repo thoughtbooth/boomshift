@@ -40,7 +40,7 @@ class EnrollmentsController < ApplicationController
   end
   
   def add_enrollment
-    @client = current_user.clients.find(params[:client_id])
+    @client = current_user.business.clients.find(params[:client_id])
     if @client.nil?
       flash[:danger] = "You are not authorized for this client profile."
       redirect_to @client

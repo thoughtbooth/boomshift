@@ -12,6 +12,11 @@
 </div>
 <div class="panel panel-default">
   <div class="panel-body">
-    <p><%= link_to 'Services I Offer', services_path %></p>
+    <% if @biz %>
+      <p><%= link_to 'Services I Offer', services_path %></p>
+    <% else %>
+      <p>Services I offer (Create your business profile first!)</p>
+    <% end %>
+    
   </div>
 </div>

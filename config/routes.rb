@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   
   post 'enroll' => 'enrollments#add_enrollment'
-  #get 'enroll' => 'enrollments#add_enrollment'
+  get 'enroll' => 'enrollments#add_enrollment'
   
   resources :businesses, :clients, :services, :enrollments
   devise_for :users
