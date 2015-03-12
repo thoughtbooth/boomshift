@@ -4,9 +4,9 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments
   # GET /enrollments.json
   def index
-    @services = current_user.business.services.all
-    @clients = current_user.clients.all
-    @enrollments = @services.clients.all #not sure why this is broken.
+    #@services = current_user.business.services.all
+    #@clients = current_user.business.clients.all
+    @enrollments = Enrollment.all
   end
 
   # GET /enrollments/1

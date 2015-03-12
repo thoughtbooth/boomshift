@@ -59,14 +59,14 @@
       </tr>
       </thead>
       <tbody>
-        <% @enrollments = @client.services.all %>
-        <% if @enrollments.count > 0 %>
-          <% @enrollments.each do |enrollment| %>
+        <% @client_services = @client.services.all %>
+        <% if @client_services.count > 0 %>
+          <% @client_services.each do |client_service| %>
             <tr>
-              <td><%= enrollment.name %></td>
-              <td><%= enrollment.description %></td>
-              <td><!--%= current_user.business.services.client.preferences %></td-->
-              <td><%= enrollment.created_at %></td>
+              <td><%= client_service.name %></td>
+              <td><%= client_service.description %></td>
+              <td><%= render 'enrollments/form' %></td>
+              <td><%= client_service.created_at %></td>
               <td><%= link_to 'Delete', '#', method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
