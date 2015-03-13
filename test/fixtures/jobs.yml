@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job_date: 2015-03-13 20:20:09
+  status_id: 1
+  enrollment_id: 1
+
+two:
+  job_date: 2015-03-13 20:20:09
+  status_id: 1
+  enrollment_id: 1

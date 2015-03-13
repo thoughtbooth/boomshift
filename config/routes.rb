@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
   
-  resources :businesses, :clients, :services, :enrollments
+  resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses
   devise_for :users
 
   get "mybusiness" => "pages#mybusiness"
