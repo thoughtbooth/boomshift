@@ -65,9 +65,13 @@
             <tr>
               <td><%= client_service.name %></td>
               <td><%= client_service.description %></td>
-              <td><!--%= render 'enrollments/form' %--></td>
+              <td>
+                <!--%= client_service.enrollment.preferences %-->
+                <% @enrollment = client_service.enrollment %>
+                <%= render 'enrollments/form', enrollment: @enrollment, client_id: @client.id %>
+              </td>
               <td><%= client_service.created_at %></td>
-              <td><%= link_to 'Delete', '#', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Unenroll', enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
             </tr>
           <% end %>
         <% else %>
@@ -81,7 +85,7 @@
         <% end %>
       <tbody>
     </table>
-    <!-- Button trigger modal -->
+    <!-- Button trigger modal to add enrollments -->
     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#AddEnrollmentModal">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       Add
@@ -89,7 +93,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal for Adding Enrollments -->
 <div class="modal fade" id="AddEnrollmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

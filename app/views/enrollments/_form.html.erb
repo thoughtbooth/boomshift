@@ -1,22 +1,24 @@
-<%= form_for(@enrollment) do |f| %>
-  <% if @enrollment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
+<% if not @enrollment.nil? %>
+  <%= form_for(@enrollment) do |f| %>
+    <% if @enrollment.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
 
-      <ul>
-      <% @enrollment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @enrollment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="input-group">
+      <%= f.text_field :preferences, class: 'form-control' %>
+      <span class="input-group-addon">
+        <%= hidden_field_tag(:client_id, @client.id) %>
+        <%= f.submit 'Update', class: 'btn btn-link btn-xs' %>
+      </span>
     </div>
+
   <% end %>
-
-  <div class="field">
-    <%= f.label :preferences %><br>
-    <%= f.text_field :preferences %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
