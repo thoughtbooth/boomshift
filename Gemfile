@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',                    group: :development
 gem 'bootstrap-sass'
 gem 'devise'
-gem 'formtastic'
+gem 'formtastic', '~> 3.0'
+gem 'formtastic-bootstrap'
 
 # Find out why "gem install" doesn't add the gem to the Gemfile.
