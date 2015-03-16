@@ -1,4 +1,4 @@
 class Job < ActiveRecord::Base
   belongs_to :enrollment
-  has_many :job_statuses
+  has_one :job_status
 end

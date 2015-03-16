@@ -1,3 +1,5 @@
+<% @job = Job.new if @job.nil? %>
+
 <%= form_for(@job) do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
@@ -11,15 +13,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :job_date %><br>
-    <%= f.datetime_select :job_date %>
+  <div class="form-group">
+    <%= f.label 'Date and Time' %><br>
+    <%= f.datetime_local_field :job_date, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :status_id %><br>
-    <%= f.number_field :status_id %>
+    <%= f.select(:status_id, options_for_select([['Scheduled', 1], ['Completed', 2], ['Paid', 3]], 1), {}, {class: "form-control"}) %>
   </div>
-  <div class="field">
+
+
+  <div class="form-group">
     <%= f.label :enrollment_id %><br>
     <%= f.number_field :enrollment_id %>
   </div>

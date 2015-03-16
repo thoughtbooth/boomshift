@@ -14,9 +14,9 @@
     
     <div class="input-group">
       <%= f.text_field :preferences, class: 'form-control' %>
-      <span class="input-group-addon">
+      <span class="input-group-btn">
         <%= hidden_field_tag(:client_id, @client.id) %>
-        <%= f.submit 'Update', class: 'btn btn-link btn-xs' %>
+        <%= f.submit 'Update', class: 'btn btn-default' %>
       </span>
     </div>
 

@@ -13,7 +13,6 @@
     <% @job_statuses.each do |job_status| %>
       <tr>
         <td><%= job_status.status %></td>
-        <td><%= job_status.job_id %></td>
         <td><%= link_to 'Show', job_status %></td>
         <td><%= link_to 'Edit', edit_job_status_path(job_status) %></td>
         <td><%= link_to 'Destroy', job_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
