@@ -12,7 +12,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',                    group: :development
 gem 'bootstrap-sass'
 gem 'devise'
-gem 'formtastic', '~> 3.0'
-gem 'formtastic-bootstrap'
+gem 'simple_form'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 
 # Find out why "gem install" doesn't add the gem to the Gemfile.
