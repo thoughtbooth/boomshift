@@ -1,34 +1,8 @@
 <% @job = Job.new if @job.nil? %>
 
-<%= form_for(@job) do |f| %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
-      <ul>
-      <% @job.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label 'Date and Time' %><br>
-    <%= f.datetime_picker :job_date, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :status_id %><br>
-    <%= f.select(:status_id, options_for_select([['Scheduled', 1], ['Completed', 2], ['Paid', 3]], 1), {}, {class: "form-control"}) %>
-  </div>
-
-
-  <div class="form-group">
-    <%= f.label :enrollment_id %><br>
-    <%= f.number_field :enrollment_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for @job do |f| %>
+  <%= f.association :enrollment, label_method: :name, value_method: :id, prompt: 'Choose an enrolled service' %>
+  <%= f.input :job_date, as: :datetime %>
+  <%= f.association :job_status, label_method: :status, value_method: :id, default: JobStatus.first %>
+  <%= f.button :submit %>
 <% end %>

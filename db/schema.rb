@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316220921) do
+ActiveRecord::Schema.define(version: 20150318193047) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20150316220921) do
 
   create_table "jobs", force: true do |t|
     t.datetime "job_date"
-    t.integer  "job_status_id"
+    t.integer  "job_status_id", default: 1
     t.integer  "enrollment_id"
     t.datetime "created_at"
     t.datetime "updated_at"

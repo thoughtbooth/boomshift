@@ -1,8 +1,10 @@
-<div class="panel panel-default">
+<div class="panel panel-default" data-id="<%= job.id %>">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= job.enrollment.client.fname %> <%= job.enrollment.client.lname %></h3>
+    <h4 class="panel-title"><%= job.enrollment.client.fname %> <%= job.enrollment.client.lname %></h4>
   </div>
   <div class="panel-body">
-    <%= truncate job.enrollment.service.name, length: 50 %>
+    <p><%= truncate job.enrollment.service.name, length: 50 %></p>
+    <p><%= job.job_date %></p>
+    <p><%= link_to 'Edit', edit_job_path(job) %></p>
   </div>
 </div>

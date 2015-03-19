@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   
   resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses
   devise_for :users
+  
+  resources :jobs do
+    put :sort, on: :collection
+  end 
 
   get "mybusiness" => "pages#mybusiness"
   get "myclients" => "pages#myclients"
