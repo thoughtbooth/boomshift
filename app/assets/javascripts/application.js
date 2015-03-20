@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require html.sortable
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
