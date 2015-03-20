@@ -21,9 +21,14 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.new(job_params)
-    @job.save
-    respond_with(@job)
+    @job = Job.create(job_params)
+    if @job.save
+      flash[:success] = 'Job was successfully created.'
+      redirect_to jobs_path
+      #respond_with(@job)
+    else
+      render action: 'new'
+    end
   end
   
   def sort
@@ -35,7 +40,8 @@ class JobsController < ApplicationController
 
   def update
     @job.update(job_params)
-    respond_with(@job)
+    #respond_with(@job)
+    redirect_to jobs_path
   end
 
   def destroy
@@ -49,6 +55,6 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:job_date, :status_id, :enrollment_id)
+      params.require(:job).permit(:job_date, :job_status_id, :enrollment_id)
     end
 end

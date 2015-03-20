@@ -1,8 +1,21 @@
 <% @job = Job.new if @job.nil? %>
 
 <%= simple_form_for @job do |f| %>
-  <%= f.association :enrollment, label_method: :name, value_method: :id, prompt: 'Choose an enrolled service' %>
+
+  <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+      <% @job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.association :enrollment, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service' %>
   <%= f.input :job_date, as: :datetime %>
-  <%= f.association :job_status, label_method: :status, value_method: :id, default: JobStatus.first %>
+  <%= f.association :job_status, label_method: :status, value_method: :id %>
   <%= f.button :submit %>
 <% end %>
