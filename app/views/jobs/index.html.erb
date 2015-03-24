@@ -1,39 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<!-- Button trigger modal to add new jobs -->
-<!--button type="button" class="btn btn-default" data-toggle="modal" data-target="#AddJobModal">
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-  New Job
-</button--> 
-
 <%= link_to new_job_path(@job), class: "btn btn-default" do %>
   <i class="glyphicon glyphicon-plus"></i> New Job
 <% end %>
 
-<div class="row">
+<div class="row" id="board">
   <div class="col-md-4"><h2>Scheduled Jobs</h2>
-    <div class="col-md-12"><h3>Yesterday</h3>
+    <div class="col-md-12" id="ScheduledYesterday"><h3>Yesterday</h3>
       <% if @jobs.where(job_date: ((Time.now.beginning_of_day - 1.day)..Time.now.beginning_of_day), job_status_id: 1).any? %>
         <%= render @jobs.where(job_date: ((Time.now.beginning_of_day - 1.day)..Time.now.beginning_of_day), job_status_id: 1) %>
       <% else %>
         <p>No jobs were scheduled for yesterday.</p>
       <% end %>
     </div>
-    <div class="col-md-12"><h3>Today</h3>
+    <div class="col-md-12" id="ScheduledToday"><h3>Today</h3>
       <% if @jobs.where(job_date: Time.now.beginning_of_day..Time.now.end_of_day, job_status_id: 1).any? %>
         <%= render @jobs.where(job_date: Time.now.beginning_of_day..Time.now.end_of_day, job_status_id: 1) %>
       <% else %>
         <p>No jobs are scheduled for today.</p>
       <% end %>
     </div>
-    <div class="col-md-12"><h3>Tomorrow</h3>
+    <div class="col-md-12" id="ScheduledTomorrow"><h3>Tomorrow</h3>
       <% if @jobs.where(job_date: Time.now.end_of_day..(Time.now.end_of_day + 1.day), job_status_id: 1).any? %>
         <%= render @jobs.where(job_date: Time.now.end_of_day..(Time.now.end_of_day + 1.day), job_status_id: 1) %>
       <% else %>
         <p>No jobs are scheduled for tomorrow.</p>
       <% end %>
     </div>
-    <div class="col-md-12"><h3>Later</h3>
+    <div class="col-md-12" id="ScheduledLater"><h3>Later</h3>
       <% if @jobs.where(job_date: (Time.now.end_of_day + 1.day)..(Time.now.end_of_day + 10.years), job_status_id: 1).any? %>
         <%= render @jobs.where(job_date: (Time.now.end_of_day + 1.day)..(Time.now.end_of_day + 10.years), job_status_id: 1) %>
       <% else %>
@@ -41,14 +35,14 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-4"><h2>Completed Jobs</h2>
+  <div class="col-md-4" id="Completed"><h2>Completed Jobs</h2>
     <% if @jobs.where(job_status_id: 2).any? %>
       <%= render @jobs.where(job_status_id: 2) %>
     <% else %>
       <p>No jobs are complete.</p>
     <% end %>
   </div>
-  <div class="col-md-4"><h2>Paid Jobs</h2>
+  <div class="col-md-4" id="Paid"><h2>Paid Jobs</h2>
     <% if @jobs.where(job_status_id: 3).any? %>
       <%= render @jobs.where(job_status_id: 3) %>
     <% else %>
@@ -57,20 +51,3 @@
   </div>
 </div>
 
-<!-- Modal for Adding New Jobs -->
-<!--<div class="modal fade" id="AddJobModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">New Job</h4>
-      </div>
-      <div class="modal-body">
-<!--        <%= render 'form' %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>

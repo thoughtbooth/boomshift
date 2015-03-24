@@ -1,10 +1,31 @@
-<div class="panel panel-default" data-id="<%= job.id %>">
+<div class="panel panel-default"> <!-- id="<%= job.id %>" data-id="<%= job.id %>" draggable="true" -->
   <div class="panel-heading">
-    <h4 class="panel-title"><%= job.enrollment.client.fname %> <%= job.enrollment.client.lname %></h4>
+    <div class="row">
+      <div class="col-md-8">
+        <h4 class="panel-title"><%= job.enrollment.client.fname %> <%= job.enrollment.client.lname %></h4>
+      </div>
+      <div class="col-md-4 text-right">
+        <% if job.job_status_id == 1 %>
+        <%= link_to job_path(job, job: {id: job.id, job_status_id: 2}), method: :put, class: "" do %>
+            <i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Mark this job complete"></i>
+          <% end %>
+        <% end %>
+        <% if job.job_status_id == 2 %>
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3}), method: :put, class: "" do %>
+            <i class="glyphicon glyphicon-piggy-bank" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
+          <% end %>
+        <% end %>
+      </div>    
+    </div>
   </div>
   <div class="panel-body">
     <p><%= truncate job.enrollment.service.name, length: 50 %></p>
-    <p><%= job.job_date %></p>
-    <p><%= link_to 'Edit', edit_job_path(job) %> <%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <p><%= job.job_date.strftime("%B #{job.job_date.day.ordinalize}, %Y %l:%M %p") %></p>
+    <%= link_to edit_job_path(job), class: "btn btn-default" do %>
+      <i class="glyphicon glyphicon-edit"></i> Edit
+    <% end %>
+    <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
+      <i class="glyphicon glyphicon-trash"></i> Delete
+    <% end %>
   </div>
 </div>
