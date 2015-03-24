@@ -37,6 +37,9 @@ GEM
       sass (>= 3.2.19)
     bootstrap3-datetimepicker-rails (4.7.14)
       momentjs-rails (>= 2.8.1)
+    browser-timezone-rails (0.0.8)
+      jquery-rails
+      rails (>= 3.1)
     builder (3.2.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -141,6 +144,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.7.14)
+  browser-timezone-rails
   coffee-rails (~> 4.0.0)
   devise
   jbuilder (~> 2.0)
