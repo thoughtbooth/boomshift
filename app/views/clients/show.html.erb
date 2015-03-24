@@ -70,8 +70,12 @@
                 <% @enrollment = client_service.enrollment %>
                 <%= render 'enrollments/form', enrollment: @enrollment, client_id: @client.id %>
               </td>
-              <td><%= client_service.created_at %></td>
-              <td><%= link_to 'Unenroll', enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+              <td><%= client_service.created_at.strftime("%B #{client_service.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
+              <td>
+                <%= link_to enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
+                  <i class="glyphicon glyphicon-remove"></i> Unenroll
+                <% end %>
+              </td>
             </tr>
           <% end %>
         <% else %>
@@ -119,9 +123,11 @@
                 <td>
                   <% @enrollment = service.clients.first %>
                   <% if @enrollment.nil? %>
-                    <%= button_to "Enroll", enroll_path(client_id: @client.id, service_id: service.id) %>
+                    <%= link_to enroll_path(client_id: @client.id, service_id: service.id), class: 'btn btn-default' do %>
+                      <i class="glyphicon glyphicon-ok"></i> Enroll
+                    <% end %>
                   <% else %>
-                    Enrolled
+                    <i class="glyphicon glyphicon-check"></i> Enrolled
                   <% end %>
                 </td>
               </tr>
