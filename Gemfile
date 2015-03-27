@@ -18,5 +18,6 @@ gem 'simple_form'
 gem 'browser-timezone-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+gem "paranoia", "~> 2.0"
 
 # Find out why "gem install" doesn't add the gem to the Gemfile.

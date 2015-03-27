@@ -59,20 +59,20 @@
       </tr>
       </thead>
       <tbody>
-        <% @client_services = @client.services.all %>
-        <% if @client_services.count > 0 %>
-          <% @client_services.each do |client_service| %>
+        <!-- Instead of using @client_services, put the service info in the description (already done) and pull from there. -->
+        <% @enrollments = Enrollment.where(client_id: @client.id) %> <!-- fix this -->
+        <% if @enrollments.count > 0 %>
+          <% @enrollments.each do |enrollment| %>
             <tr>
-              <td><%= client_service.name %></td>
-              <td><%= client_service.description %></td>
+              <td><%= enrollment.service_name %></td>
+              <td><%= enrollment.service_description %></td>
               <td>
-                <!--%= client_service.enrollment.preferences %-->
-                <% @enrollment = client_service.enrollment %>
-                <%= render 'enrollments/form', enrollment: @enrollment, client_id: @client.id %>
+                <%= enrollment.preferences %>
+                <%= render 'enrollments/form', enrollment: enrollment, client_id: @client.id %>
               </td>
-              <td><%= client_service.created_at.strftime("%B #{client_service.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
+              <td><%= enrollment.created_at.strftime("%B #{enrollment.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
               <td>
-                <%= link_to enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
+                <%= link_to enrollment_path(id: enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
                   <i class="glyphicon glyphicon-remove"></i> Unenroll
                 <% end %>
               </td>
@@ -121,7 +121,7 @@
                 <td><%= service.name %></td>
                 <td><%= service.description %></td>
                 <td>
-                  <% @enrollment = service.clients.first %>
+                  <% @enrollment = Enrollment.first %>
                   <% if @enrollment.nil? %>
                     <%= link_to enroll_path(client_id: @client.id, service_id: service.id), class: 'btn btn-default' do %>
                       <i class="glyphicon glyphicon-ok"></i> Enroll

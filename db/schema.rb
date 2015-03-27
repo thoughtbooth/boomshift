@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318193047) do
+ActiveRecord::Schema.define(version: 20150324200643) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -25,8 +25,10 @@ ActiveRecord::Schema.define(version: 20150318193047) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.datetime "deleted_at"
   end
 
+  add_index "businesses", ["deleted_at"], name: "index_businesses_on_deleted_at"
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id"
 
   create_table "clients", force: true do |t|
@@ -41,9 +43,11 @@ ActiveRecord::Schema.define(version: 20150318193047) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "business_id"
+    t.datetime "deleted_at"
   end
 
   add_index "clients", ["business_id"], name: "index_clients_on_business_id"
+  add_index "clients", ["deleted_at"], name: "index_clients_on_deleted_at"
 
   create_table "enrollments", force: true do |t|
     t.integer  "client_id",   null: false
@@ -51,9 +55,11 @@ ActiveRecord::Schema.define(version: 20150318193047) do
     t.text     "preferences"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
   add_index "enrollments", ["client_id", "service_id"], name: "index_enrollments_on_client_id_and_service_id"
+  add_index "enrollments", ["deleted_at"], name: "index_enrollments_on_deleted_at"
   add_index "enrollments", ["service_id", "client_id"], name: "index_enrollments_on_service_id_and_client_id"
 
   create_table "job_statuses", force: true do |t|
@@ -68,8 +74,10 @@ ActiveRecord::Schema.define(version: 20150318193047) do
     t.integer  "enrollment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "jobs", ["deleted_at"], name: "index_jobs_on_deleted_at"
   add_index "jobs", ["enrollment_id"], name: "index_jobs_on_enrollment_id"
   add_index "jobs", ["job_status_id"], name: "index_jobs_on_job_status_id"
 
@@ -80,9 +88,11 @@ ActiveRecord::Schema.define(version: 20150318193047) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "business_id"
+    t.datetime "deleted_at"
   end
 
   add_index "services", ["business_id"], name: "index_services_on_business_id"
+  add_index "services", ["deleted_at"], name: "index_services_on_deleted_at"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -97,8 +107,10 @@ ActiveRecord::Schema.define(version: 20150318193047) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
