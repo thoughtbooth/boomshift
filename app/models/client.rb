@@ -4,4 +4,8 @@ class Client < ActiveRecord::Base
   belongs_to :business
   has_one :enrollment
   has_many :services, through: :enrollment
+  
+  def full_name
+    "#{fname} #{lname}"
+  end
 end

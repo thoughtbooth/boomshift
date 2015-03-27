@@ -1,19 +1,79 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @service.name %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @service.name %></h3>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Description:</strong>
+      <%= @service.description %>
+    </p>
+    <p>
+      <strong>Price:</strong>
+      <%= @service.price %>
+    </p>
+    <%= link_to edit_service_path(@service), class: "btn btn-default" do %>
+      <i class="glyphicon glyphicon-edit"></i> Edit
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @service.description %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Clients</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th>Client</th>
+        <th>Enrolled?</th> <!-- This is for the Enrollment button -->
+        <th>As Of</th>
+        <th>Preferences</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @clients = current_user.business.clients.all %>
+        <% if @clients.count > 0 %>
+          <% @clients.each do |c| %>
+            <tr>
+              <td><%= c.full_name %></td>
+              <% @enrollment = Enrollment.where(client_id: c.id, service_id: @service.id, deleted_at: nil).last %>
+              <% if @enrollment.nil? %>
+                <td>
+                  <%= link_to enroll_path(client_id: c.id, service_id: @service.id), class: 'btn btn-link' do %> <!-- Need to pass a value to the controller here to redirect to the correct place (e.g. client view or service view) -->
+                    <span data-toggle="tooltip" data-placement="top" title="Enroll <%= c.full_name %>"><i class="glyphicon glyphicon-unchecked"></i> No</span>
+                  <% end %>
+                </td>
+                <td></td>
+                <td></td>
+              <% else %>
+                <td>
+                  <%= link_to enrollment_path(id: @enrollment, service_id: @service.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %> <!-- Need to pass a value to the controller here to redirect to the correct place (e.g. client view or service view) -->
+                    <span data-toggle="tooltip" data-placement="top" title="Unenroll <%= c.full_name %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
+                  <% end %>
+                </td>
+                <td><%= @enrollment.created_at.strftime("%B #{@enrollment.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
+                <td>
+                  <!--%= @enrollment.preferences %-->
+                  <%= render 'enrollments/form', enrollment: @enrollment %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td>You haven't created any clients yet. <%= link_to 'Go set up some clients...', clients_path %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <tbody>
+    </table>
+  </div>
+</div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @service.price %>
-</p>
 
-<%= link_to 'Edit', edit_service_path(@service) %> |
 <%= link_to 'Back', services_path %>
