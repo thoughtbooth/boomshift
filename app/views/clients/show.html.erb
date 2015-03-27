@@ -76,7 +76,7 @@
                 <td></td>
               <% else %>
                 <td>
-                  <%= link_to @enrollment, client_id: @client.id, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
+                  <%= link_to enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
                     <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
                   <% end %>
                 </td>
