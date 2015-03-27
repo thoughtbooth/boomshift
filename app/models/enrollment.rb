@@ -1,6 +1,6 @@
 class Enrollment < ActiveRecord::Base
   acts_as_paranoid
-  default_scope { where("deleted_at IS NULL") }
+  #default_scope { where("deleted_at IS NULL") }
   
   belongs_to :service
   belongs_to :client

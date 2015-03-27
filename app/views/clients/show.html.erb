@@ -45,7 +45,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Enrolled Services</h3>
+    <h3 class="panel-title">Available Services</h3>
   </div>
   <div class="panel-body">
     <table class="table table-striped table-hover">
@@ -53,34 +53,44 @@
       <tr>
         <th>Service</th>
         <th>Description</th>
-        <th>Preferences</th>
+        <th>Enrolled?</th> <!-- This is for the Enrollment button -->
         <th>As Of</th>
-        <th></th>
+        <th>Preferences</th>
       </tr>
       </thead>
       <tbody>
-        <!-- Instead of using @client_services, put the service info in the description (already done) and pull from there. -->
-        <% @enrollments = Enrollment.where(client_id: @client.id) %> <!-- fix this -->
-        <% if @enrollments.count > 0 %>
-          <% @enrollments.each do |enrollment| %>
+        <% @services = current_user.business.services.all %>
+        <% if @services.count > 0 %>
+          <% @services.each do |s| %>
             <tr>
-              <td><%= enrollment.service_name %></td>
-              <td><%= enrollment.service_description %></td>
-              <td>
-                <%= enrollment.preferences %>
-                <%= render 'enrollments/form', enrollment: enrollment, client_id: @client.id %>
-              </td>
-              <td><%= enrollment.created_at.strftime("%B #{enrollment.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
-              <td>
-                <%= link_to enrollment_path(id: enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
-                  <i class="glyphicon glyphicon-remove"></i> Unenroll
-                <% end %>
-              </td>
+              <td><%= s.name %></td>
+              <td><%= s.description %></td>
+              <% @enrollment = Enrollment.where(client_id: @client.id, service_id: s.id, deleted_at: nil).last %>
+              <% if @enrollment.nil? %>
+                <td>
+                  <%= link_to enroll_path(client_id: @client.id, service_id: s.id), class: 'btn btn-link' do %>
+                    <span data-toggle="tooltip" data-placement="top" title="Enroll in <%= s.name.downcase %>"><i class="glyphicon glyphicon-unchecked"></i> No</span>
+                  <% end %>
+                </td>
+                <td></td>
+                <td></td>
+              <% else %>
+                <td>
+                  <%= link_to @enrollment, client_id: @client.id, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
+                    <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
+                  <% end %>
+                </td>
+                <td><%= @enrollment.created_at.strftime("%B #{@enrollment.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
+                <td>
+                  <!--%= @enrollment.preferences %-->
+                  <%= render 'enrollments/form', enrollment: @enrollment %>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         <% else %>
           <tr>
-            <td>Click the Add button to add an enrollment.</td>
+            <td>You haven't created any services yet. <%= link_to 'Go set up some services...', services_path %></td>
             <td></td>
             <td></td>
             <td></td>
@@ -89,57 +99,8 @@
         <% end %>
       <tbody>
     </table>
-    <!-- Button trigger modal to add enrollments -->
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#AddEnrollmentModal">
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-      Add
-    </button>
   </div>
 </div>
 
-<!-- Modal for Adding Enrollments -->
-<div class="modal fade" id="AddEnrollmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Services I Offer</h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Description</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @services = current_user.business.services.all %>
-            <% @services.each do |service| %>
-              <tr>
-                <td><%= service.name %></td>
-                <td><%= service.description %></td>
-                <td>
-                  <% @enrollment = Enrollment.first %>
-                  <% if @enrollment.nil? %>
-                    <%= link_to enroll_path(client_id: @client.id, service_id: service.id), class: 'btn btn-default' do %>
-                      <i class="glyphicon glyphicon-ok"></i> Enroll
-                    <% end %>
-                  <% else %>
-                    <i class="glyphicon glyphicon-check"></i> Enrolled
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <%= link_to 'Back', clients_path %>
