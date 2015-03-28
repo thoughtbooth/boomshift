@@ -28,7 +28,7 @@
       <thead>
       <tr>
         <th>Client</th>
-        <th>Enrolled?</th> <!-- This is for the Enrollment button -->
+        <th>Enrolled?</th>
         <th>As Of</th>
         <th>Preferences</th>
       </tr>
@@ -42,7 +42,7 @@
               <% @enrollment = Enrollment.where(client_id: c.id, service_id: @service.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>
                 <td>
-                  <%= link_to enroll_path(client_id: c.id, service_id: @service.id), class: 'btn btn-link' do %> <!-- Need to pass a value to the controller here to redirect to the correct place (e.g. client view or service view) -->
+                  <%= link_to enroll_path(client_id: c.id, service_id: @service.id), class: 'btn btn-link' do %>
                     <span data-toggle="tooltip" data-placement="top" title="Enroll <%= c.full_name %>"><i class="glyphicon glyphicon-unchecked"></i> No</span>
                   <% end %>
                 </td>
@@ -50,7 +50,7 @@
                 <td></td>
               <% else %>
                 <td>
-                  <%= link_to enrollment_path(id: @enrollment, service_id: @service.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %> <!-- Need to pass a value to the controller here to redirect to the correct place (e.g. client view or service view) -->
+                  <%= link_to enrollment_path(id: @enrollment, service_id: @service.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
                     <span data-toggle="tooltip" data-placement="top" title="Unenroll <%= c.full_name %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
                   <% end %>
                 </td>

@@ -25,7 +25,7 @@ class EnrollmentsController < ApplicationController
 
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to @client, notice: 'Enrollment was saved.' }
+        format.html { redirect_to :back, notice: 'Enrollment was saved.' }
       else
         format.html { render :new }
       end
@@ -34,14 +34,8 @@ class EnrollmentsController < ApplicationController
   
   def add_enrollment # TODO: Combine this with def create
     @enrollment = Enrollment.new(params.permit(:client_id, :service_id, :preferences)).save
-    # Determine where to redirect, depending on enrollments are being modified from Client or Service.
-    if @view == 'service' # TODO: Need to pass this value somehow so that the redirect works on show.html.erb views for both Clients and Services. Currently always redirects to Client.
-      @target = current_user.business.services.find(params[:service_id])
-    else
-      @target = current_user.business.clients.find(params[:client_id])
-    end
     flash[:notice] = 'The enrollment was saved.'
-    redirect_to @target
+    redirect_to :back
   end
   helper_method :add_enrollment # Do I even need this?
 
@@ -49,13 +43,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-      # Determine where to redirect, depending on enrollments are being modified from Client or Service.
-        if @view == 'service' # TODO: Need to pass this value somehow so that the redirect works on show.html.erb views for both Clients and Services. Currently always redirects to Client.
-          @target = current_user.business.services.find(params[:service_id])
-        else
-          @target = current_user.business.clients.find(params[:client_id])
-        end
-        format.html { redirect_to @target, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Enrollment was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -66,13 +54,7 @@ class EnrollmentsController < ApplicationController
   def destroy
     @enrollment.destroy
     respond_to do |format|
-      # Determine where to redirect, depending on enrollments are being modified from Client or Service.
-      if @view == 'service' # TODO: Need to pass this value somehow so that the redirect works on show.html.erb views for both Clients and Services. Currently always redirects to Client.
-        @target = current_user.business.services.find(params[:service_id])
-      else
-        @target = current_user.business.clients.find(params[:client_id])
-      end
-      format.html { redirect_to @target, notice: 'The client was unenrolled from the service.' }
+      format.html { redirect_to :back, notice: 'The client was unenrolled from the service.' }
     end
   end
 
