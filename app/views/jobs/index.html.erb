@@ -39,14 +39,14 @@
     <% if @jobs.where(job_status_id: 2).any? %>
       <%= render @jobs.where(job_status_id: 2) %>
     <% else %>
-      <p>No jobs have been completed.</p>
+      <p>No jobs have been completed yet.</p>
     <% end %>
   </div>
   <div class="col-md-4" id="Paid"><h2>Paid Jobs</h2>
     <% if @jobs.where(job_status_id: 3).any? %>
       <%= render @jobs.where(job_status_id: 3) %>
     <% else %>
-      <p>No jobs have been paid.</p>
+      <p>No jobs have been paid yet.</p>
     <% end %>
   </div>
 </div>

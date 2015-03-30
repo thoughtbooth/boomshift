@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+job_statuses = JobStatus.create([{ status: 'Scheduled' }, { status: 'Completed' }, { status: 'Paid' }])
