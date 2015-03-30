@@ -14,8 +14,8 @@
     </div>
   <% end %>
 
-  <%= f.association :enrollment, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service' %>
-  <%= f.input :job_date, as: :datetime %>
+  <%= f.association :enrollment, collection: Enrollment.active, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service' %>
+  <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: Time.zone.now } }, value: Time.zone.now.strftime("%B #{Time.zone.now.day.ordinalize}, %Y @ %l:%M %p") } %>
   <%= f.association :job_status, label_method: :status, value_method: :id %>
   <%= f.button :submit %>
 <% end %>

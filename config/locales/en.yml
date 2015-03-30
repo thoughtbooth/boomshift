@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  datepicker:
+    dformat: 'MMMM Do, YYYY'            # display format of the date
+    pformat: 'MMMM Do, YYYY'            # picking format of the date
+  timepicker:
+    dformat: '@ h:mm A'                 # display format of the time
+    pformat: '@ h:mm A'                 # picking format of the time
+  dayViewHeaderFormat: 'MMMM YYYY'      # picking format of the time

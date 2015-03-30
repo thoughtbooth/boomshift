@@ -17,7 +17,5 @@ gem 'simple_form'
 #gem 'client_side_validations-simple_form' #This does not support Rails 4 or Simple Form 3.  Check https://gemnasium.com/DavyJonesLocker/client_side_validations-simple_form
 gem 'browser-timezone-rails'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem "paranoia", "~> 2.0"
-
-# Find out why "gem install" doesn't add the gem to the Gemfile.

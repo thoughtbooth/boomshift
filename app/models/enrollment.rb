@@ -1,6 +1,6 @@
 class Enrollment < ActiveRecord::Base
   acts_as_paranoid
-  #default_scope { where("deleted_at IS NULL") }
+  scope :active, -> { where(deleted_at: nil) } # Only show active enrollments when this scope is used.
   
   belongs_to :service
   belongs_to :client
@@ -20,6 +20,10 @@ class Enrollment < ActiveRecord::Base
   end
   
   def client_service
-    "#{client.fname} #{client.lname}: #{service.name}"
+    if deleted_at.nil?
+      "#{client.fname} #{client.lname}: #{service.name}"
+    else
+      "#{client.fname} #{client.lname}: #{service.name} (Unenrolled #{deleted_at.strftime("%B #{deleted_at.day.ordinalize}, %Y @ %l:%M %p")})"
+    end
   end
 end
