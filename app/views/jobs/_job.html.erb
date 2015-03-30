@@ -5,14 +5,22 @@
         <h4 class="panel-title"><%= job.enrollment.client.fname %> <%= job.enrollment.client.lname %></h4>
       </div>
       <div class="col-md-4 text-right">
-        <% if job.job_status_id == 1 %>
-        <%= link_to job_path(job, job: {id: job.id, job_status_id: 2}), method: :put, class: "" do %>
+        <% if job.job_status_id == 1 %> <!-- If Scheduled -->
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, completed_on: Time.zone.now}), method: :put, class: "" do %>
             <i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Mark this job complete"></i>
           <% end %>
         <% end %>
-        <% if job.job_status_id == 2 %>
-          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3}), method: :put, class: "" do %>
+        <% if job.job_status_id == 2 %> <!-- If Completed -->
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
+            <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i>
+          <% end %>
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, paid_on: Time.zone.now}), method: :put, class: "" do %>
             <i class="glyphicon glyphicon-piggy-bank" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
+          <% end %>
+        <% end %>
+        <% if job.job_status_id == 3 %> <!-- If Paid -->
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, paid_on: nil}), method: :put, class: "" do %>
+            <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
           <% end %>
         <% end %>
       </div>    
@@ -20,7 +28,14 @@
   </div>
   <div class="panel-body">
     <p><%= truncate job.enrollment.service.name, length: 50 %></p>
-    <p><%= job.job_date.strftime("%B #{job.job_date.day.ordinalize}, %Y @ %l:%M %p") %></p>
+    <p>Appointment: <%= job.job_date.strftime("%B #{job.job_date.day.ordinalize}, %Y @ %l:%M %p") %></p>
+    <% if job.job_status_id == 2 %> <!-- If Completed -->
+      <p>Marked complete on: <%= job.completed_on.strftime("%B #{job.job_date.day.ordinalize}, %Y") %></p>
+    <% end %>
+    <% if job.job_status_id == 3 %> <!-- If Paid -->
+      <p>Marked complete on: <%= job.completed_on.strftime("%B #{job.job_date.day.ordinalize}, %Y") %></p>
+      <p>Marked paid on: <%= job.paid_on.strftime("%B #{job.job_date.day.ordinalize}, %Y") %></p>
+    <% end %>
     <%= link_to edit_job_path(job), class: "btn btn-default" do %>
       <i class="glyphicon glyphicon-edit"></i> Edit
     <% end %>
