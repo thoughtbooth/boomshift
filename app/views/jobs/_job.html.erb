@@ -6,6 +6,17 @@
       </div>
       <div class="col-md-4 text-right">
         <% if job.job_status_id == 1 %> <!-- If Scheduled -->
+          <!-- TODO: Need to hook up events, and make disabled list items based on job_date -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="top" title="Change scheduled job date"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li role="presentation" class=""><a role="menuitem" tabindex="-1" href="#"><i class="glyphicon glyphicon-calendar"></i> Yesterday</a></li>
+            <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1"  href="#"><i class="glyphicon glyphicon-calendar"></i> Today</a></li>
+            <li role="presentation" class=""><a role="menuitem" tabindex="-1"  href="#"><i class="glyphicon glyphicon-calendar"></i> Tomorrow</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation" class=""><a role="menuitem" tabindex="-1"  href="#"><i class="glyphicon glyphicon-edit"></i> Later...</a></li>
+          </ul>
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, completed_on: Time.zone.now}), method: :put, class: "" do %>
             <i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Mark this job complete"></i>
           <% end %>
