@@ -5,31 +5,38 @@
 <% end %>
 
 <div class="row" id="board">
-  <div class="col-md-4"><h2>Scheduled Jobs</h2>
+  <div class="col-md-4" id="Scheduled"><h2>Scheduled Jobs</h2>
+    <div class="col-md-12" id="ScheduledBeforeYesterday"><h3>Before Yesterday</h3>
+      <% if @jobs.where("job_date < ? AND job_status_id = ?", Time.zone.yesterday.beginning_of_day, 1).any? %>
+        <%= render @jobs.where("job_date < ? AND job_status_id = ?", Time.zone.yesterday.beginning_of_day, 1).order(:job_date) %>
+      <% else %>
+        <p>No jobs were scheduled before yesterday.</p>
+      <% end %>
+    </div>
     <div class="col-md-12" id="ScheduledYesterday"><h3>Yesterday</h3>
       <% if @jobs.where(job_date: ((Time.zone.now.beginning_of_day - 1.day)..Time.zone.now.beginning_of_day), job_status_id: 1).any? %>
-        <%= render @jobs.where(job_date: ((Time.zone.now.beginning_of_day - 1.day)..Time.zone.now.beginning_of_day), job_status_id: 1) %>
+        <%= render @jobs.where(job_date: ((Time.zone.now.beginning_of_day - 1.day)..Time.zone.now.beginning_of_day), job_status_id: 1).order(:job_date) %>
       <% else %>
         <p>No jobs were scheduled for yesterday.</p>
       <% end %>
     </div>
     <div class="col-md-12" id="ScheduledToday"><h3>Today</h3>
       <% if @jobs.where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).any? %>
-        <%= render @jobs.where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1) %>
+        <%= render @jobs.where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date) %>
       <% else %>
         <p>No jobs are scheduled for today.</p>
       <% end %>
     </div>
     <div class="col-md-12" id="ScheduledTomorrow"><h3>Tomorrow</h3>
       <% if @jobs.where(job_date: Time.zone.now.end_of_day..(Time.zone.now.end_of_day + 1.day), job_status_id: 1).any? %>
-        <%= render @jobs.where(job_date: Time.zone.now.end_of_day..(Time.zone.now.end_of_day + 1.day), job_status_id: 1) %>
+        <%= render @jobs.where(job_date: Time.zone.now.end_of_day..(Time.zone.now.end_of_day + 1.day), job_status_id: 1).order(:job_date) %>
       <% else %>
         <p>No jobs are scheduled for tomorrow.</p>
       <% end %>
     </div>
-    <div class="col-md-12" id="ScheduledLater"><h3>Later</h3>
+    <div class="col-md-12" id="ScheduledAfterTomorrow"><h3>After Tomorrow</h3>
       <% if @jobs.where(job_date: (Time.zone.now.end_of_day + 1.day)..(Time.zone.now.end_of_day + 10.years), job_status_id: 1).any? %>
-        <%= render @jobs.where(job_date: (Time.zone.now.end_of_day + 1.day)..(Time.zone.now.end_of_day + 10.years), job_status_id: 1) %>
+        <%= render @jobs.where(job_date: (Time.zone.now.end_of_day + 1.day)..(Time.zone.now.end_of_day + 10.years), job_status_id: 1).order(:job_date) %>
       <% else %>
         <p>No jobs are scheduled after tomorrow.</p>
       <% end %>
@@ -37,14 +44,14 @@
   </div>
   <div class="col-md-4" id="Completed"><h2>Completed Jobs</h2>
     <% if @jobs.where(job_status_id: 2).any? %>
-      <%= render @jobs.where(job_status_id: 2) %>
+      <%= render @jobs.where(job_status_id: 2).order(completed_on: :desc) %>
     <% else %>
       <p>No jobs have been completed yet.</p>
     <% end %>
   </div>
   <div class="col-md-4" id="Paid"><h2>Paid Jobs</h2>
     <% if @jobs.where(job_status_id: 3).any? %>
-      <%= render @jobs.where(job_status_id: 3) %>
+      <%= render @jobs.where(job_status_id: 3).order(paid_on: :desc) %>
     <% else %>
       <p>No jobs have been paid yet.</p>
     <% end %>

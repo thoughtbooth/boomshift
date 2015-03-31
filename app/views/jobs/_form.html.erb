@@ -15,7 +15,11 @@
   <% end %>
 
   <%= f.association :enrollment, collection: Enrollment.active, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service' %>
-  <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: Time.zone.now } }, value: Time.zone.now.strftime("%B #{Time.zone.now.day.ordinalize}, %Y @ %l:%M %p") } %>
+  <% if f.object.new_record? %>
+    <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: Time.zone.now } }, value: Time.zone.now.strftime("%B #{Time.zone.now.day.ordinalize}, %Y @ %l:%M %p") } %>
+  <% else %>
+    <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: @job.job_date } }, value: @job.job_date.strftime("%B #{@job.job_date.day.ordinalize}, %Y @ %l:%M %p") } %>
+  <% end %>
   <%= f.association :job_status, label_method: :status, value_method: :id %>
   <%= f.button :submit %>
 <% end %>
