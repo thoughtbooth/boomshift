@@ -3,4 +3,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  
+  
+  def set_return_url
+    # Use this to redirect back to the correct view when an action can be executed from different views.
+    session[:original_url] = request.url
+  end
+  helper_method :set_return_url
+  
+  def clear_return_url
+    session[:original_url] = nil
+  end
+  helper_method :clear_return_url
+  
 end

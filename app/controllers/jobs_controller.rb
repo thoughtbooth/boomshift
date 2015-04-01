@@ -24,8 +24,7 @@ class JobsController < ApplicationController
     @job = Job.create(job_params)
     if @job.save
       flash[:success] = 'Job was successfully created.'
-      redirect_to jobs_path
-      #respond_with(@job)
+      redirect_to session[:original_url]
     else
       render action: 'new'
     end
@@ -33,13 +32,15 @@ class JobsController < ApplicationController
 
   def update
     @job.update(job_params)
-    #respond_with(@job)
-    redirect_to jobs_path
+
+    @url = session[:original_url]
+    redirect_to @url
   end
 
   def destroy
     @job.destroy
-    respond_with(@job)
+    #respond_with(@job)
+    redirect_to :back
   end
 
   private
