@@ -21,5 +21,6 @@
     <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: @job.job_date } }, value: @job.job_date.strftime("%B #{@job.job_date.day.ordinalize}, %Y @ %l:%M %p") } %>
   <% end %>
   <%= f.association :job_status, label_method: :status, value_method: :id %>
+  <%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %>
   <%= f.button :submit %>
 <% end %>

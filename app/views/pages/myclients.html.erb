@@ -1,31 +1,44 @@
 <h1>My Clients</h1>
+<hr>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p><%= link_to "Job Board", jobs_path %></p>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center"><%= link_to "Job Board", jobs_path %></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center">Timesheets</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center">Client Map</h3>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p>Timesheets</p>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center">Billing and Payments</h3>
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p>Client Map</p>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center"><%= link_to "Address Book", clients_path %></h3>
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p>Billing and Payments</p>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p><%= link_to "Address Book", clients_path %></p>
-  </div>
+  <div class="col-md-4"></div>
 </div>

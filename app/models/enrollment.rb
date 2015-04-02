@@ -26,4 +26,9 @@ class Enrollment < ActiveRecord::Base
       "#{client.fname} #{client.lname}: #{service.name} (Unenrolled #{deleted_at.strftime("%B #{deleted_at.day.ordinalize}, %Y @ %l:%M %p")})"
     end
   end
+
+  def service_price
+    service.price
+  end
+  
 end

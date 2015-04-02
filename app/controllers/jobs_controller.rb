@@ -49,6 +49,6 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:job_date, :job_status_id, :enrollment_id, :completed_on, :paid_on)
+      params.require(:job).permit(:job_date, :job_status_id, :enrollment_id, :completed_on, :paid_on, :hours_worked)
     end
 end

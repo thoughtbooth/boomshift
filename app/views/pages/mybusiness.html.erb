@@ -1,22 +1,29 @@
 <h1>My Business</h1>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <% @biz = current_user.business %>
-    <% if @biz %>
-      <% @bizname = @biz.name %>
-      <p><%= link_to 'My Business Profile', business_path(@biz) %> (<%= @bizname %>)</p>
-    <% else %>
-      <p><%= link_to 'Create My Business Profile', new_business_path %></p>
-    <% end %>
+<hr>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% @biz = current_user.business %>
+        <% if @biz %>
+          <h3 class="text-center"><%= link_to 'My Business Profile', business_path(@biz) %></h3>
+        <% else %>
+          <p><%= link_to 'Create My Business Profile', new_business_path %></p>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <% if @biz %>
-      <p><%= link_to 'Services I Offer', services_path %></p>
-    <% else %>
-      <p>Services I offer (Create your business profile first!)</p>
-    <% end %>
-    
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% if @biz %>
+          <h3 class="text-center"><%= link_to 'Services I Offer', services_path %></h3>
+        <% else %>
+          <p>Services I offer (Create your business profile first!)</p>
+        <% end %>
+      </div>
+    </div>
   </div>
+  <div class="col-md-4"></div>
 </div>

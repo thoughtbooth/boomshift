@@ -1,13 +1,20 @@
 <h1>My Schedule</h1>
+<hr>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p><%= link_to "Today's Jobs", itinerary_path %></p>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center"><%= link_to "Today's Jobs", itinerary_path %></h3>
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p>Calendar</p>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center">Calendar</h3>
+      </div>
+    </div>
   </div>
+  <div class="col-md-4"></div>
 </div>
