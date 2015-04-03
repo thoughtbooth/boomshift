@@ -13,11 +13,11 @@ class Job < ActiveRecord::Base
   end
   
   def bill
-    "$#{enrollment.service_price * hours_worked}"
+    enrollment.service_price * hours_worked
   end
   
   def bill_total(job_status_id)
-    "$#{Job.where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price}"
+    Job.where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price
   end
     
 end

@@ -11,7 +11,7 @@
     </p>
     <p>
       <strong>Price:</strong>
-      <%= @service.price %>
+      <%= number_to_currency @service.price %>
     </p>
     <%= link_to edit_service_path(@service), class: "btn btn-default" do %>
       <i class="glyphicon glyphicon-edit"></i> Edit
