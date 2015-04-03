@@ -20,3 +20,4 @@ gem 'browser-timezone-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem "paranoia", "~> 2.0"
+gem 'invoicing'
