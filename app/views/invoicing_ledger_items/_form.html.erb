@@ -2,8 +2,8 @@
   <div class="well">
     <!-- Ledger Item Header -->
     <h4>Invoicing Ledger Item Header</h4>
-    <%= f.input :sender_id %>
-    <%= f.input :recipient_id %>
+    <%= f.association :sender_id, prompt: "Choose the sender (user)" %> <!-- If I can't get this to work, then create migration to rename sender_id to user_id -->
+    <%= f.association :recipient_id, prompt: "Choose the recipient (client)" %>
     <%= f.input :type %>
     <%= f.input :issue_date, as: :datetime_picker %>
     <%= f.input :currency %>
@@ -23,7 +23,7 @@
     <div class="well">
       <!-- Ledger Item Detail (i.e. Line Items) -->
       <h4>New Invoicing Line Item (Ledger Item Detail)</h4>
-      <%= nf.input :job_id %>
+      <%= nf.association :job_id, prompt: "Choose the job" %>
       <%= nf.input :ledger_item_id %>
       <%= nf.input :type %>
       <%= nf.input :net_amount %>

@@ -7,5 +7,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_one :business
-  has_many :invoicing_ledger_items
+  has_many :invoicing_ledger_items, foreign_key: :user_id
 end
