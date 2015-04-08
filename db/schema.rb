@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403221447) do
+ActiveRecord::Schema.define(version: 20150408170120) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -94,7 +94,10 @@ ActiveRecord::Schema.define(version: 20150403221447) do
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "job_id"
   end
+
+  add_index "invoicing_line_items", ["job_id"], name: "index_invoicing_line_items_on_job_id"
 
   create_table "invoicing_tax_rates", force: true do |t|
     t.string   "description"

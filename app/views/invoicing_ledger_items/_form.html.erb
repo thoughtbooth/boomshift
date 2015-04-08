@@ -1,0 +1,39 @@
+<%= simple_form_for @invoicing_ledger_item do |f| %>
+  <div class="well">
+    <!-- Ledger Item Header -->
+    <h4>Invoicing Ledger Item Header</h4>
+    <%= f.input :sender_id %>
+    <%= f.input :recipient_id %>
+    <%= f.input :type %>
+    <%= f.input :issue_date, as: :datetime_picker %>
+    <%= f.input :currency %>
+    <%= f.input :total_amount %>
+    <%= f.input :tax_amount %>
+    <%= f.input :status %>
+    <%= f.input :identifier %>
+    <%= f.input :description %>
+    <%= f.input :period_start, as: :datetime_picker %>
+    <%= f.input :period_end, as: :datetime_picker %>
+    <%= f.input :uuid %>
+    <%= f.input :due_date, as: :datetime_picker %>
+    <%= f.button :submit %>
+  </div>
+  <hr>
+  <%= f.simple_fields_for :invoicing_line_item do |nf| %>
+    <div class="well">
+      <!-- Ledger Item Detail (i.e. Line Items) -->
+      <h4>New Invoicing Line Item (Ledger Item Detail)</h4>
+      <%= nf.input :job_id %>
+      <%= nf.input :ledger_item_id %>
+      <%= nf.input :type %>
+      <%= nf.input :net_amount %>
+      <%= nf.input :tax_amount %>
+      <%= nf.input :description %>
+      <%= nf.input :uuid %>
+      <%= nf.input :tax_point %>
+      <%= nf.input :quantity %> 
+      <%= nf.input :creator_id %>
+      <%= nf.button :submit %>
+    </div>
+  <% end %>
+<% end %>

@@ -4,20 +4,20 @@ Rails.application.routes.draw do
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
   
-  resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses
+  resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses, :invoicing_ledger_items
   devise_for :users
   
   resources :jobs do
     put :sort, on: :collection
-  end 
+  end
+  get "itinerary" => "jobs#itinerary"
 
+  # Main Menu
   get "mybusiness" => "pages#mybusiness"
   get "myclients" => "pages#myclients"
   get "myschedule" => "pages#myschedule"
   get "advertising" => "pages#advertising"
   get "reports" => "pages#reports"
-  
-  get "itinerary" => "jobs#itinerary"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
