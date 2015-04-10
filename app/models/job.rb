@@ -3,11 +3,16 @@ class Job < ActiveRecord::Base
   
   belongs_to :enrollment, -> { with_deleted }
   belongs_to :job_status
-  has_many :line_items, class_name: 'InvoicingLineItem', foreign_key: :line_item_id
+  
+  has_many :line_items, class_name: 'InvoicingLineItem', foreign_key: :job_id
   
   validates :enrollment_id, :job_date, presence: true
   validates :hours_worked, numericality: { greater_than_or_equal_to: 1 }
   validates :hours_worked, presence: true, if: :completed?
+  
+  def description
+    "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p") if job_date
+  end
   
   def completed?
     job_status_id == 2 or 3
