@@ -19,8 +19,9 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+# Go to http://www.foragoodstrftime.com/ to try the formats.
+
 en:
-  hello: "Hello world"
   datepicker:
     dformat: 'MMMM Do, YYYY'            # display format of the date
     pformat: 'MMMM Do, YYYY'            # picking format of the date
@@ -28,3 +29,9 @@ en:
     dformat: 'H:mm'                 # display format of the time
     pformat: 'H:mm'                 # picking format of the time
   dayViewHeaderFormat: 'MMMM YYYY'      # picking format of the time
+  time:
+    formats:
+      default_date: "%-m/%-e/%Y"
+      full_date: "%B %-e, %Y"
+      human_datetime: "%B %{day}, %Y %l:%M %p"
+      default_time: "%l:%M %p"

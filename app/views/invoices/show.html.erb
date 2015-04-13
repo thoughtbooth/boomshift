@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Invoice <%= @invoice.identifier %></h2>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Sender:</strong>
+      <%= @invoice.sender_id %> (TODO: Change this to sender, not sender_id. After it is saving correctly, remove this field from the view because it is redundant.)
+    </p>
+    <p>
+      <strong>Receipient:</strong>
+      <%= @invoice.recipient.full_name %>
+    </p>
+    <p>
+      <strong>Type:</strong>
+      <%= @invoice.type %>
+    </p>
+    <p>
+      <strong>Issue Date:</strong>
+      <%= l @invoice.issue_date, format: :default_date if @invoice.issue_date %>
+    </p>
+    <p>
+      <strong>Total Amount:</strong>
+      <%= number_to_currency @invoice.total_amount %>
+    </p>
+    <p>
+      <strong>Status:</strong>
+      <%= @invoice.status %>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <%= @invoice.description %>
+    </p>
+    <p>
+      <strong>Period Start:</strong>
+      <%= l @invoice.period_start, format: :default_date  %>
+    </p>
+    <p>
+      <strong>Period End:</strong>
+      <%= l @invoice.period_end, format: :default_date %>
+    </p>
+    <p>
+      <strong>Due Date:</strong>
+      <%= l @invoice.due_date, format: :default_date %>
+    </p>
+    
+    <%= link_to edit_invoice_path(@invoice), class: "btn btn-default" do %>
+      <i class="glyphicon glyphicon-edit"></i> Edit
+    <% end %>
+    
+    <hr>
+    
+    <h4>Details:</h4>
+    <div class="panel panel-default">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Col 1</th>
+            <th>Col 2</th>
+            <th>Col 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

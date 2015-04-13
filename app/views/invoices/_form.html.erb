@@ -3,11 +3,12 @@
     <h2 class="panel-title">New Invoice</h2>
   </div>
   <div class="panel-body">
-    <%= simple_form_for @invoicing_ledger_item do |f| %>
+    <%= simple_form_for @invoice do |f| %>
       <%= f.association :client, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %>
-      <%= f.input :type %>
-      <%= f.input :identifier %>
-      <%= f.input :description %>
+      <%= f.hidden_field :type, value: "Invoice" %>
+      <%= f.hidden_field :currency, value: "usd" %>
+      <%= f.input :identifier %>Auto-number specific to client. Start at 001 and increment from there with each invoice. Editable. Required.
+      <%= f.input :description %>"[type] for services rendered." Editable. Optional.
       <%= f.input :period_start, as: :datetime_picker %>
       <%= f.input :period_end, as: :datetime_picker %>
       <%= f.input :due_date, as: :datetime_picker %>
