@@ -22,8 +22,3 @@
 //    event.preventDefault();
 //  });
 //}
-
-// initialize the tooltips
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})

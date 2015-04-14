@@ -84,7 +84,7 @@
                     <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
                   <% end %>
                 </td>
-                <td><%= @enrollment.created_at.strftime("%B #{@enrollment.created_at.day.ordinalize}, %Y %l:%M %p") %></td>
+                <td><%= l @enrollment.created_at, format: :full_date %></td>
                 <td>
                   <!--%= @enrollment.preferences %-->
                   <%= render 'enrollments/form', enrollment: @enrollment %>

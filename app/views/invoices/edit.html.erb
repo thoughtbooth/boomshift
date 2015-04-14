@@ -1,6 +1,10 @@
-<h1>Editing Invoice Ledger Item</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Invoice <%= @invoice.identifier %></h2>
+  </div>
+  <div class="panel-body">
+    <%= render 'form' %>
+  </div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @invoice_ledger_item %> |
-<%= link_to 'Back', mybusiness_path %>
+<%= link_to 'Back', :back %>

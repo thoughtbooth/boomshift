@@ -1,18 +1,24 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">New Invoice</h2>
+<%= simple_form_for @invoice do |f| %>
+  <%= f.association :recipient, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %>
+  <%= f.hidden_field :type, value: "Invoice" %>
+  <%= f.hidden_field :currency, value: "usd" %>
+  <%= f.input :identifier %>Auto-number specific to client. Start at 001 and increment from there with each invoice. Editable. Required.
+  <%= f.input :description %>"[type] for services rendered." Editable. Optional.
+  <% if f.object.new_record? %>
+    <% ps = "" %>
+    <% pe = "" %>
+    <% dd = "" %>
+  <% else %>
+    <% ps = l @invoice.period_start, format: :default_date %>
+    <% pe = l @invoice.period_end, format: :default_date %>
+    <% dd = l @invoice.due_date, format: :default_date %>
+  <% end %>
+  <div class='row datetimerange'>
+    <%= f.input :period_start, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: ps } }, value: ps } %>
+    <%= f.input :period_end, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: pe } }, value: pe } %>
   </div>
-  <div class="panel-body">
-    <%= simple_form_for @invoice do |f| %>
-      <%= f.association :client, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %>
-      <%= f.hidden_field :type, value: "Invoice" %>
-      <%= f.hidden_field :currency, value: "usd" %>
-      <%= f.input :identifier %>Auto-number specific to client. Start at 001 and increment from there with each invoice. Editable. Required.
-      <%= f.input :description %>"[type] for services rendered." Editable. Optional.
-      <%= f.input :period_start, as: :datetime_picker %>
-      <%= f.input :period_end, as: :datetime_picker %>
-      <%= f.input :due_date, as: :datetime_picker %>
-      <%= f.button :submit %>
-    <% end %>
-  </div>
-</div>
+  <%= f.input :due_date, as: :date_picker, input_html: { data: { date_options: { defaultDate: dd } }, value: dd } %>
+  <%= f.button :button, class: 'button btn-default' do %>
+    <i class="glyphicon glyphicon-floppy-disk"></i> Save
+  <% end %>
+<% end %>
