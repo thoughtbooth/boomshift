@@ -15,6 +15,23 @@ class Invoice < InvoicingLedgerItem
   belongs_to :recipient, class_name: 'Client', foreign_key: :recipient_id
   
   validates :recipient_id, :identifier, :period_start, :period_end, :due_date, presence: true
+  
+  #auto_increment Gem has a bug... https://github.com/felipediesel/auto_increment/issues/4
+  #https://github.com/felipediesel/auto_increment
+  #auto_increment column: :identifier, scope: [:recipient_id], initial: '0001', force: false
+  #Might modify and use this example if I can't get auto_increment to work:
+#   before_create :set_code
+#   def set_code
+#     max_code = Operation.maximum(:code)
+#     self.code = max_code.to_i + 1
+#   end
+  
+  after_initialize :defaults
+  def defaults
+    #self.identifier = ???  # Might use this if I can't get auto_increment to work
+    self.description ||= 'Invoice for services rendered'
+  end
+  
 end
 
 class CreditNote < InvoicingLedgerItem

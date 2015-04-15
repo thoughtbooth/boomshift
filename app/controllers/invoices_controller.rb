@@ -39,9 +39,14 @@ class InvoicesController < ApplicationController
   def create
     #WHAT I'M DOING: I'm not going to use nested forms anymore.  Instead I'm going with what I know.  I am creating views for the invoice, and then showing the child line items on that view, much like I did for clients and services.
     #I'll need controllers for both invoices and line items for this to work.
-    #TODO: The params being passed in by the form are what the user enters, and then I'll set the remainder params with the appropriate values, such as sender: current_user.business.name
-    @invoice = Invoice.create(invoice_params)
-    @invoice.sender_id = current_user.business.name
+    
+    # Convert the date formats from Moment.js to Strftime for submission to server
+    invoice_params_strptime = invoice_params
+    invoice_params_strptime[:period_start] = Date.strptime invoice_params_strptime[:period_start], '%m/%d/%Y'
+    invoice_params_strptime[:period_end] = Date.strptime invoice_params_strptime[:period_end], '%m/%d/%Y'
+    invoice_params_strptime[:due_date] = Date.strptime invoice_params_strptime[:due_date], '%m/%d/%Y'
+    @invoice = Invoice.create(invoice_params_strptime)
+    @invoice.sender_id = current_user.business.id
     #@invoice.line_items.build(invoicing_line_item_params)
     if @invoice.save
       flash[:success] = 'The invoice was successfully created.'
@@ -52,7 +57,12 @@ class InvoicesController < ApplicationController
   end
 
   def update
-    @invoice.update(invoice_params)
+    # Convert the date formats from Moment.js to Strftime for submission to server
+    invoice_params_strptime = invoice_params
+    invoice_params_strptime[:period_start] = Date.strptime invoice_params_strptime[:period_start], '%m/%d/%Y'
+    invoice_params_strptime[:period_end] = Date.strptime invoice_params_strptime[:period_end], '%m/%d/%Y'
+    invoice_params_strptime[:due_date] = Date.strptime invoice_params_strptime[:due_date], '%m/%d/%Y'
+    @invoice.update(invoice_params_strptime)
 
     respond_with @invoice
   end
@@ -71,4 +81,5 @@ class InvoicesController < ApplicationController
     def invoice_params
       params.require(:invoice).permit(:sender_id, :recipient_id, :type, :identifier, :issue_date, :currency, :total_amount, :status, :description, :period_start, :period_end, :due_date)
     end
+  
 end
