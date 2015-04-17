@@ -13,7 +13,8 @@ class InvoicingLineItemsController < ApplicationController
   end
 
   def new
-    @invoicing_line_item = InvoicingLineItem.new
+    @invoice = Invoice.find(params[:ledger_item_id])
+    @invoicing_line_item = @invoice.line_items.build(params[:invoicing_line_item])
     respond_with(@invoicing_line_item)
   end
 
@@ -24,7 +25,7 @@ class InvoicingLineItemsController < ApplicationController
     @invoicing_line_item = InvoicingLineItem.create(invoicing_line_item_params)
     if @invoicing_line_item.save
       flash[:success] = 'The line item was successfully added to the invoice.'
-      respond_with @invoicing_line_item.invoice
+      redirect_to :back
     else
       render action: 'new'
     end
@@ -47,6 +48,6 @@ class InvoicingLineItemsController < ApplicationController
     end
   
     def invoicing_line_item_params
-      params.require(:invoicing_line_item).permit(:type, :net_amount, :description, :net_amount, :quantity, :creator_id)
+      params.require(:invoicing_line_item).permit(:ledger_item_id, :type, :net_amount, :description, :net_amount, :quantity, :creator_id)
     end
 end

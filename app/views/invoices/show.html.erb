@@ -54,7 +54,7 @@
         <%= render 'invoicing_line_items/list' %>
       </div>  
       <div class="panel-footer">
-        <%= link_to new_invoicing_line_item_path, class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "top", title: "Click here to bill #{@invoice.recipient.full_name} for a job you completed." do %>
+        <%= link_to new_invoicing_line_item_path(ledger_item_id: @invoice), class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "top", title: "Click here to bill #{@invoice.recipient.full_name} for a job you completed." do %>
           <i class="glyphicon glyphicon-plus"></i> Add Line Item
         <% end %>
       </div>

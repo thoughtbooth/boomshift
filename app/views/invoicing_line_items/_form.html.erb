@@ -1,15 +1,10 @@
 <%= simple_form_for @invoicing_line_item do |f| %>
-  <%= f.input :ledger_item_id %> <!-- Change this to a hidden field after I get it to populate with the correct invoice id -->
-  <!--%= f.hidden_field :currency, value: "usd" %-->
-  <%= f.input :type %> <!-- Is this used for subclassing? Do I need this? -->
-  $<!--%= f.input :net_amount, value: number_with_precision(f.object.net_amount, precision: 2) %-->
+  <!--%= f.hidden_field :ledger_item_id, value: params[:ledger_item_id] %-->
+  <%= f.association :job, collection: Job.completed_or_invoiced, label_method: :description_for_invoice, value_method: :id, prompt: "Choose the job you want to bill for" %>
   <%= f.input :description %>
-  <%= f.input :quantity %>
-  <%= f.input :creator_id %> <!-- Change this to a hidden field after I get it to populate with the correct user id -->
-<%= f.association :job, collection: Job.completed_or_invoiced, label_method: :description, value_method: :id, prompt: "Choose the job you want to bill for" %>
-  <!--%= f.association :recipient, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %-->
-
-
+  <!--%= f.hidden_field :net_amount, value: enrollment.service_price %-->
+  <!--%= f.hidden_field :quantity, value: job.hours_worked %-->
+  <%= f.hidden_field :creator_id, value: current_user.id %> <!-- Set this in the controller instead. -->
   <%= f.button :button, class: 'button btn-default' do %>
     <i class="glyphicon glyphicon-floppy-disk"></i> Save
   <% end %>

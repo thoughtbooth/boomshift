@@ -3,14 +3,11 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>ledger_item_id</th>
-      <th>type</th>
-      <th>net_amount</th>
-      <th>description</th>
-      <th>tax_point</th>
-      <th>quantity</th>
-      <th>creator_id</th>
-      <th>job_id</th>
+      <th>Job</th>
+      <th>Details</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,14 +15,11 @@
   <tbody>
     <% @invoicing_line_items.each do |invoicing_line_item| %>
       <tr>
-        <td><%= invoicing_line_item.ledger_item_id %></td>
-        <td><%= invoicing_line_item.type %></td>
-        <td><%= number_to_currency invoicing_line_item.net_amount %></td>
+        <td><%= Job.find(invoicing_line_item.job_id).description_for_invoice if invoicing_line_item.job_id %></td>
         <td><%= invoicing_line_item.description %></td>
-        <td><%= invoicing_line_item.tax_point %></td>
+        <td><%= number_to_currency invoicing_line_item.net_amount %></td>
         <td><%= invoicing_line_item.quantity %></td>
-        <td><%= invoicing_line_item.creator_id %></td>
-        <td><%= invoicing_line_item.job_id %></td>
+        <td><!--%= number_to_currency(invoicing_line_item.net_amount * invoicing_line_item.quantity) %--></td>
         <td>
           <%= link_to invoicing_line_item, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Preview" do %>
             <i class="glyphicon glyphicon-search"></i>

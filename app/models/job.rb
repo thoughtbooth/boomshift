@@ -15,7 +15,7 @@ class Job < ActiveRecord::Base
 #   scope :scheduled_and_after_tomorrow,    -> {where()} # Finish writing this scope for the Job Board refactor
   scope :completed,                       -> {where job_status_id: 2}
   scope :invoiced,                        -> {where job_status_id: 3}
-  scope :completed_or_invoiced,           -> {where job_status_id: 2 | 3} # This isn't working.
+  scope :completed_or_invoiced,           -> {where 'job_status_id = ? OR job_status_id = ?', 2, 3}
   scope :paid,                            -> {where job_status_id: 4}
   
   validates :enrollment_id, :job_date, presence: true
@@ -23,6 +23,10 @@ class Job < ActiveRecord::Base
   validates :hours_worked, presence: true, if: :completed?
   
   def description
+    "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p (#{job_status.status})") if job_date
+  end
+  
+  def description_for_invoice
     "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p (#{job_status.status})") if job_date
   end
   
