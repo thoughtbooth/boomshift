@@ -1,8 +1,8 @@
-<%= simple_form_for @invoice do |f| %>
+<%= simple_form_for @bill do |f| %>
   <%= f.association :recipient, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %>
-  <%= f.hidden_field :type, value: "Invoice" %>
+  <%= f.hidden_field :type, value: "Bill" %>
   <%= f.hidden_field :currency, value: "usd" %>
-<!--   Auto-number specific to client. Start at 0001 and increment from there with each invoice. Editable. Required. -->
+<!--   Auto-number specific to client. Start at 0001 and increment from there with each bill. Editable. Required. -->
   <%= f.input :identifier %>
   <%= f.input :description %>
   <% if f.object.new_record? %>
@@ -10,9 +10,9 @@
     <% pe = "" %>
     <% dd = "" %>
   <% else %>
-    <% ps = l @invoice.period_start, format: :default_date %>
-    <% pe = l @invoice.period_end, format: :default_date %>
-    <% dd = l @invoice.due_date, format: :default_date %>
+    <% ps = l @bill.period_start, format: :default_date %>
+    <% pe = l @bill.period_end, format: :default_date %>
+    <% dd = l @bill.due_date, format: :default_date %>
   <% end %>
   <div class='row datetimerange'>
     <%= f.input :period_start, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: ps } }, value: ps } %>

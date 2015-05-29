@@ -1,4 +1,4 @@
-<div class="panel panel-default"> 
+<div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-8">
@@ -101,18 +101,18 @@
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
             <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i>
           <% end %>
-          <%= link_to new_invoice_path, class: "" do %>
-            <i class="glyphicon glyphicon-file" data-toggle="tooltip" data-placement="top" title="Create an invoice for this job"></i>
+          <%= link_to new_bill_path, class: "" do %>
+            <i class="glyphicon glyphicon-file" data-toggle="tooltip" data-placement="top" title="Create a bill for this job"></i>
           <% end %>
         <% end %>
         
-        <% if job.job_status_id == 3 %> <!-- If Invoiced -->
+        <% if job.job_status_id == 3 %> <!-- If Billed -->
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 4, paid_on: Time.zone.now}), method: :put, class: "" do %>
             <i class="glyphicon glyphicon-piggy-bank" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
           <% end %>
         <% end %>
         
-        <% if job.job_status_id == 3 %> <!-- If Paid -->
+        <% if job.job_status_id == 4 %> <!-- If Paid -->
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, paid_on: nil}), method: :put, class: "" do %>
             <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
           <% end %>
@@ -128,9 +128,9 @@
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.bill %> owed)</p>
     <% end %>
-    <% if job.job_status_id == 3 %> <!-- If Invoiced -->
+    <% if job.job_status_id == 3 %> <!-- If Billed -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
-      <p>Invoice sent on: <%= l job.invoiced_on, day: job.invoiced_on.day.ordinalize, format: :human_datetime %></p>
+      <p>Bill sent on: <%= l job.billed_on, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.bill %> owed)</p>
     <% end %>
     <% if job.job_status_id == 3 %> <!-- If Paid -->

@@ -59,12 +59,12 @@
       <p>No jobs have been completed yet.</p>
     <% end %>
   </div>
-  <div class="col-md-3" id="Invoiced">
-    <h4>Invoiced Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.bill_total(3) %></span></h4><hr>
-    <% if @jobs.invoiced.any? %>
-      <%= render @jobs.invoiced %>
+  <div class="col-md-3" id="Billed">
+    <h4>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.bill_total(3) %></span></h4><hr>
+    <% if @jobs.billed.any? %>
+      <%= render @jobs.billed %>
     <% else %>
-      <p>No completed jobs have been invoiced yet.</p>
+      <p>No completed jobs have been billed yet.</p>
     <% end %>
   </div>
   <div class="col-md-3" id="Paid">
@@ -72,7 +72,7 @@
     <% if @jobs.paid.any? %>
     <%= render @jobs.paid %>
     <% else %>
-      <p>No invoiced jobs have been paid yet.</p>
+      <p>No billed jobs have been paid yet.</p>
     <% end %>
   </div>
 </div>

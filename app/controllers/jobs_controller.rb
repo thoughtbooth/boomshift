@@ -42,6 +42,12 @@ class JobsController < ApplicationController
     #respond_with(@job)
     redirect_to :back
   end
+  
+  def create_bill_from_job
+    bill = Bill.new sender: current_user.business.id, recipient: asdf, type: "Bill", currency: "usd"
+    bill.line_items.build description: 'Goodies: T-Shirt', net_amount: 10, tax_amount: 0
+    bill.save
+  end
 
   private
     def set_job

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
   
-  resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses, :invoices, :invoicing_line_items # remove invoicing_line_items from routes after development is complete.
+  resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses, :bills, :invoicing_line_items # remove invoicing_line_items from routes after development is complete.
   devise_for :users
   
   resources :jobs do

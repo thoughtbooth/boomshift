@@ -2,47 +2,47 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2 class="panel-title">Invoice <%= @invoice.identifier %></h2>
+    <h2 class="panel-title">Bill <%= @bill.identifier %></h2>
   </div>
   <div class="panel-body">
     <p>
       <strong>Receipient:</strong>
-      <%= @invoice.recipient.full_name %>
+      <%= @bill.recipient.full_name %>
     </p>
     <p>
       <strong>Type:</strong>
-      <%= @invoice.type %>
+      <%= @bill.type %>
     </p>
     <p>
       <strong>Issue Date:</strong>
-      <%= l @invoice.issue_date, format: :default_date if @invoice.issue_date %>
+      <%= l @bill.issue_date, format: :default_date if @bill.issue_date %>
     </p>
     <p>
       <strong>Total Amount:</strong>
-      <%= number_to_currency @invoice.total_amount %>
+      <%= number_to_currency @bill.total_amount %>
     </p>
     <p>
       <strong>Status:</strong>
-      <%= @invoice.status %>
+      <%= @bill.status %>
     </p>
     <p>
       <strong>Description:</strong>
-      <%= @invoice.description %>
+      <%= @bill.description %>
     </p>
     <p>
       <strong>Period Start:</strong>
-      <%= l @invoice.period_start, format: :default_date  %>
+      <%= l @bill.period_start, format: :default_date  %>
     </p>
     <p>
       <strong>Period End:</strong>
-      <%= l @invoice.period_end, format: :default_date %>
+      <%= l @bill.period_end, format: :default_date %>
     </p>
     <p>
       <strong>Due Date:</strong>
-      <%= l @invoice.due_date, format: :default_date %>
+      <%= l @bill.due_date, format: :default_date %>
     </p>
     
-    <%= link_to edit_invoice_path(@invoice), class: "btn btn-default" do %>
+    <%= link_to edit_bill_path(@bill), class: "btn btn-default" do %>
       <i class="glyphicon glyphicon-edit"></i> Edit
     <% end %>
     
@@ -54,7 +54,7 @@
         <%= render 'invoicing_line_items/list' %>
       </div>  
       <div class="panel-footer">
-        <%= link_to new_invoicing_line_item_path(ledger_item_id: @invoice), class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "top", title: "Click here to bill #{@invoice.recipient.full_name} for a job you completed." do %>
+        <%= link_to new_invoicing_line_item_path(ledger_item_id: @bill), class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "top", title: "Click here to bill #{@bill.recipient.full_name} for a job you completed." do %>
           <i class="glyphicon glyphicon-plus"></i> Add Line Item
         <% end %>
       </div>
@@ -62,4 +62,4 @@
   </div>
 </div>
 
-<%= link_to 'Back', invoices_path %>
+<%= link_to 'Back', bills_path %>

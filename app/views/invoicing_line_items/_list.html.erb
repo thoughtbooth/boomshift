@@ -15,7 +15,7 @@
   <tbody>
     <% @invoicing_line_items.each do |invoicing_line_item| %>
       <tr>
-        <td><%= Job.find(invoicing_line_item.job_id).description_for_invoice if invoicing_line_item.job_id %></td>
+        <td><%= Job.find(invoicing_line_item.job_id).description_for_bill if invoicing_line_item.job_id %></td>
         <td><%= invoicing_line_item.description %></td>
         <td><%= number_to_currency invoicing_line_item.net_amount %></td>
         <td><%= invoicing_line_item.quantity %></td>
