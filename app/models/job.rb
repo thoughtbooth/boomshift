@@ -33,11 +33,11 @@ class Job < ActiveRecord::Base
     job_status_id == 2 or 3 or 4
   end
   
-  def bill
+  def bill # Change this to amount
     enrollment.service_price * hours_worked
   end
   
-  def bill_total(job_status_id)
+  def bill_total(job_status_id) #Change this to amount_total
     Job.where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price
   end
     

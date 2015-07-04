@@ -19,6 +19,7 @@ class Invoice < InvoicingLedgerItem
 end
 
 class Bill < Invoice
+  
   #auto_increment Gem has a bug... https://github.com/felipediesel/auto_increment/issues/4
   #https://github.com/felipediesel/auto_increment
   #auto_increment column: :identifier, scope: [:recipient_id], initial: '0001', force: false

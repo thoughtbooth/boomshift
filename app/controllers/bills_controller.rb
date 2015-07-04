@@ -20,8 +20,16 @@ class BillsController < ApplicationController
 #     respond_with(@bill)
 #   end
 
-  def new
+  def create_bill_from_job
     # create a client bill and add line items to it
+    bill = Bill.new sender: current_user.business.id, recipient: job.enrollment.client_name, type: "Bill", currency: "usd"
+    bill.line_items.build description: job.enrollment.description_for_bill, net_amount: 'job cost', tax_amount: 0
+    bill.save
+  end
+  
+  def new
+    
+    @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
     @bill = Bill.new
     #@bill.line_items.build
     #@invoicing_line_item = InvoicingLineItem.new
@@ -37,8 +45,6 @@ class BillsController < ApplicationController
   end
 
   def create
-    #WHAT I'M DOING: I'm not going to use nested forms anymore.  Instead I'm going with what I know.  I am creating views for the bill, and then showing the child line items on that view, much like I did for clients and services.
-    #I'll need controllers for both bills and line items for this to work.
     
     # Convert the date formats from Moment.js to Strftime for submission to server
     bill_params_strptime = bill_params

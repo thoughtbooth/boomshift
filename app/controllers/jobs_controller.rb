@@ -31,6 +31,11 @@ class JobsController < ApplicationController
   end
 
   def update
+    # If changing the job to a status of "billed", then create a bill for the job before changing the status
+    if @job.job_status_id == 3 # I changed this from params[:job_status_id], but it still doesn't appear to be working...
+      bills_controller.create_bill_from_job
+    end
+    
     @job.update(job_params)
 
     @url = session[:original_url]
@@ -42,12 +47,6 @@ class JobsController < ApplicationController
     #respond_with(@job)
     redirect_to :back
   end
-  
-  def create_bill_from_job
-    bill = Bill.new sender: current_user.business.id, recipient: asdf, type: "Bill", currency: "usd"
-    bill.line_items.build description: 'Goodies: T-Shirt', net_amount: 10, tax_amount: 0
-    bill.save
-  end
 
   private
     def set_job
@@ -55,6 +54,6 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:job_date, :job_status_id, :enrollment_id, :completed_on, :paid_on, :hours_worked)
+      params.require(:job).permit(:job_date, :job_status_id, :enrollment_id, :completed_on, :billed_on, :paid_on, :hours_worked)
     end
 end

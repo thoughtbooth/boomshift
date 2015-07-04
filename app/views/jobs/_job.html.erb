@@ -101,7 +101,7 @@
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
             <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i>
           <% end %>
-          <%= link_to new_bill_path, class: "" do %>
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, billed_on: Time.zone.now}), method: :put, class: "" do %>
             <i class="glyphicon glyphicon-file" data-toggle="tooltip" data-placement="top" title="Create a bill for this job"></i>
           <% end %>
         <% end %>
@@ -113,7 +113,7 @@
         <% end %>
         
         <% if job.job_status_id == 4 %> <!-- If Paid -->
-          <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, paid_on: nil}), method: :put, class: "" do %>
+          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, paid_on: nil}), method: :put, class: "" do %>
             <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
           <% end %>
         <% end %>
@@ -133,7 +133,7 @@
       <p>Bill sent on: <%= l job.billed_on, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.bill %> owed)</p>
     <% end %>
-    <% if job.job_status_id == 3 %> <!-- If Paid -->
+    <% if job.job_status_id == 4 %> <!-- If Paid -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Marked paid on: <%= l job.paid_on, day: job.paid_on.day.ordinalize, format: :human_datetime %></p>
       <p>Amount paid: <%= number_to_currency job.bill %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
