@@ -31,15 +31,29 @@ class JobsController < ApplicationController
   end
 
   def update
-    # If changing the job to a status of "billed", then create a bill for the job before changing the status
-    if @job.job_status_id == 3 # I changed this from params[:job_status_id], but it still doesn't appear to be working...
-      bills_controller.create_bill_from_job
+    # If changing the job from status of "completed" to a status to "billed", then create a bill for the job
+    if @job.job_status_id == 2 and job_params[:job_status_id] == "3"  # params[:job_status_id] is nil for some reason...
+      create_bill_from_job
     end
-    
-    @job.update(job_params)
 
-    @url = session[:original_url]
-    redirect_to @url
+#Disabled this for now, so I can test creating a bill from a job.    
+#     @job.update(job_params) 
+
+     @url = session[:original_url]
+     redirect_to @url
+  end
+  
+  def create_bill_from_job
+    # create a client bill and add line items to it
+    #byebug
+    @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
+    @bill = Bill.new sender: current_user.business, recipient: @job.enrollment.client, type: "Bill", currency: "usd"
+    @bill.line_items.build description: @job.description_for_bill, net_amount: 'job cost', tax_amount: 0
+    if @bill.save # The bill isn't being saved. For some reason this always evaluates to false.
+      flash[:notice] = 'The bill was successfully created.'
+    else
+      flash[:notice] = 'The bill could not be created.'
+    end
   end
 
   def destroy

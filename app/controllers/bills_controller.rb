@@ -19,13 +19,6 @@ class BillsController < ApplicationController
     
 #     respond_with(@bill)
 #   end
-
-  def create_bill_from_job
-    # create a client bill and add line items to it
-    bill = Bill.new sender: current_user.business.id, recipient: job.enrollment.client_name, type: "Bill", currency: "usd"
-    bill.line_items.build description: job.enrollment.description_for_bill, net_amount: 'job cost', tax_amount: 0
-    bill.save
-  end
   
   def new
     
