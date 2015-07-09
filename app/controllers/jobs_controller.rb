@@ -35,24 +35,26 @@ class JobsController < ApplicationController
     if @job.job_status_id == 2 and job_params[:job_status_id] == "3"  # params[:job_status_id] is nil for some reason...
       create_bill_from_job
     end
+    
+    if @bill_saved
+      @job.update(job_params)
+    end
 
-#Disabled this for now, so I can test creating a bill from a job.    
-#     @job.update(job_params) 
-
-     @url = session[:original_url]
-     redirect_to @url
+    @url = session[:original_url]
+    redirect_to @url
   end
   
   def create_bill_from_job
     # create a client bill and add line items to it
-    #byebug
     @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
-    @bill = Bill.new sender: current_user.business, recipient: @job.enrollment.client, type: "Bill", currency: "usd"
-    @bill.line_items.build description: @job.description_for_bill, net_amount: 'job cost', tax_amount: 0
-    if @bill.save # The bill isn't being saved. For some reason this always evaluates to false.
+    @bill = Bill.new type: "Bill", currency: "usd", identifier: "0000", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
+    @bill.line_items.build description: @job.description_for_bill, net_amount: 'job cost', tax_amount: 0 #TODO: ADD MISSING FIELDS HERE, AND ALSO ADD VALIDATIONS TO MODEL
+    if @bill.save
       flash[:notice] = 'The bill was successfully created.'
+      @bill_saved = true
     else
-      flash[:notice] = 'The bill could not be created.'
+      flash[:notice] = 'The bill could not be created. The job has not been moved to the Billed column.'
+      @bill_saved = false
     end
   end
 
