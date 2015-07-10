@@ -31,8 +31,8 @@ class JobsController < ApplicationController
   end
 
   def update
-    # If changing the job from status of "completed" to a status to "billed", then create a bill for the job
-    if @job.job_status_id == 2 and job_params[:job_status_id] == "3"  # params[:job_status_id] is nil for some reason...
+    # If changing the job from status of "Scheduled" to a status of "Completed", then create a bill for the job
+    if @job.job_status_id == 1 and job_params[:job_status_id] == "2"
       create_bill_from_job
     end
     
@@ -47,13 +47,13 @@ class JobsController < ApplicationController
   def create_bill_from_job
     # create a client bill and add line items to it
     @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
-    @bill = Bill.new type: "Bill", currency: "usd", identifier: "0000", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
-    @bill.line_items.build description: @job.description_for_bill, net_amount: 'job cost', tax_amount: 0 #TODO: ADD MISSING FIELDS HERE, AND ALSO ADD VALIDATIONS TO MODEL
+    @bill = Bill.new type: "Bill", currency: "usd", identifier: "0000", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
+    @bill.line_items.build job_id: @job.id, description: @job.description_for_bill, net_amount: @job.bill, quantity: 1, creator_id: current_user.id, tax_amount: 0
     if @bill.save
       flash[:notice] = 'The bill was successfully created.'
       @bill_saved = true
     else
-      flash[:notice] = 'The bill could not be created. The job has not been moved to the Billed column.'
+      flash[:notice] = 'The bill could not be created. The job has not been moved to the Completed Jobs column.'
       @bill_saved = false
     end
   end

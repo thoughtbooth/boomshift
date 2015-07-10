@@ -15,7 +15,7 @@ class Invoice < InvoicingLedgerItem
   belongs_to :sender, class_name: 'Business', foreign_key: :sender_id
   belongs_to :recipient, class_name: 'Client', foreign_key: :recipient_id
   
-  validates :sender_id, :recipient_id, :identifier, :period_start, :period_end, :due_date, presence: true
+  validates :type, :status, :sender_id, :recipient_id, :identifier, :period_start, :period_end, :due_date, presence: true
 end
 
 class Bill < Invoice

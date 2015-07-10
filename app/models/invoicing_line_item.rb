@@ -4,4 +4,6 @@ class InvoicingLineItem < ActiveRecord::Base
 
   belongs_to :ledger_item, class_name: 'InvoicingLedgerItem'
   belongs_to :job
+  
+  validates :job_id, :description, :net_amount, :quantity, :creator_id, :tax_amount, presence: true
 end
