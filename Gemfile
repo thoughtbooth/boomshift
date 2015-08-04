@@ -23,3 +23,4 @@ gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: '
 gem "paranoia", "~> 2.0"
 gem 'invoicing'
 #gem "auto_increment" #This is currently breaks the app in Rails 4.1.  Issue opened with developer... https://github.com/felipediesel/auto_increment/issues/4
+gem 'prawn-rails'

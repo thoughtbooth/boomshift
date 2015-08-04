@@ -1,5 +1,5 @@
 class BillsController < ApplicationController
-  before_action :set_bill, only: [:show, :edit, :update, :destroy]
+  before_action :set_bill, only: [:show, :create_pdf, :edit, :update, :destroy]
   
   respond_to :html
 
@@ -10,6 +10,12 @@ class BillsController < ApplicationController
 
   def show
     respond_with(@bill)
+  end
+  
+  def create_pdf
+    require 'invoicing/ledger_item/pdf_generator'
+    pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(@bill)
+    pdf_file = pdf_creator.render Rails.root.join('/path/to/pdf')
   end
   
 #   def add_bill

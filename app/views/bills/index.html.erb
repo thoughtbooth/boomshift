@@ -37,6 +37,9 @@
           <%= link_to edit_bill_path(bill), class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Edit" do %>
             <i class="glyphicon glyphicon-edit"></i>
           <% end %>
+          <%= link_to bill_pdf_path(bill), class: "btn btn-default btn-sm" do %>
+            <i class="glyphicon glyphicon-print"></i>
+          <% end %>
         </td>
         <td>
           <%= link_to bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Delete" do %>

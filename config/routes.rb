@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     put :sort, on: :collection
   end
   get "itinerary" => "jobs#itinerary"
+  
+  get "bill_pdf" => "bills#create_pdf"
 
   # Main Menu
   get "mybusiness" => "pages#mybusiness"
