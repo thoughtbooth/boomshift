@@ -17,7 +17,7 @@ class Job < ActiveRecord::Base
   scope :paid,                            -> {where(job_status_id: 4).order(paid_on: :desc)}
   
   validates :enrollment_id, :job_date, presence: true
-  validates :hours_worked, numericality: { greater_than_or_equal_to: 1 }
+  validates :hours_worked, numericality: { greater_than_or_equal_to: 0 }
   validates :hours_worked, presence: true, if: :completed?
   
   def description

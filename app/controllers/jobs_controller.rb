@@ -21,7 +21,10 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.create(job_params)
+    # Convert the date formats from Moment.js to Strftime for submission to server
+    job_params_strptime = job_params
+    job_params_strptime[:job_date] = DateTime.strptime job_params_strptime[:job_date], '%m/%d/%Y'
+    @job = Job.create(job_params_strptime)
     if @job.save
       flash[:success] = 'Job was successfully created.'
       redirect_to session[:original_url]
@@ -34,10 +37,17 @@ class JobsController < ApplicationController
     # If changing the job from status of "Scheduled" to a status of "Completed", then create a bill for the job
     if @job.job_status_id == 1 and job_params[:job_status_id] == "2"
       create_bill_from_job
-    end
-    
-    if @bill_saved
-      @job.update(job_params)
+      if @bill_saved
+        # Convert the date formats from Moment.js to Strftime for submission to server
+        job_params_strptime = job_params
+        job_params_strptime[:job_date] = DateTime.strptime job_params_strptime[:job_date], '%m/%d/%Y'
+        @job = Job.create(job_params_strptime)
+      end
+    else
+      # Convert the date formats from Moment.js to Strftime for submission to server
+      job_params_strptime = job_params
+      job_params_strptime[:job_date] = DateTime.strptime job_params_strptime[:job_date], '%m/%d/%Y'
+      @job = Job.create(job_params_strptime)
     end
 
     @url = session[:original_url]
@@ -47,7 +57,7 @@ class JobsController < ApplicationController
   def create_bill_from_job
     # create a client bill and add line items to it
     @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
-    @bill = Bill.new type: "Bill", currency: "usd", identifier: "0000", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
+    @bill = Bill.new type: "Bill", currency: "usd", identifier: "0000", description: 'Bill for services rendered for job #{@job.id}', status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
     @bill.line_items.build job_id: @job.id, description: @job.description_for_bill, net_amount: @job.bill, quantity: 1, creator_id: current_user.id, tax_amount: 0
     if @bill.save
       flash[:notice] = 'The bill was successfully created.'
