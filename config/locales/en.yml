@@ -29,15 +29,15 @@
 en:
   time:
     formats:
-      default_date: "%-m/%-e/%Y"                    # 4/3/2015
-      full_date: "%B %-e, %Y"                       # April 3, 2015
-      default_time: "%l:%M %P"                      # 9:43 pm
-      default_datetime: "%-m/%-e/%Y @ %l:%M %P"     # 4/3/2015 @ 9:43 pm
-      human_datetime: "%B %{day}, %Y @ %l:%M %P"    # April 3rd, 2015 @ 9:43 pm
+      default_date: "%-m/%-e/%Y"                    # 4/3/2015 (strftime format)
+      full_date: "%B %-e, %Y"                       # April 3, 2015 (strftime format)
+      default_time: "%l:%M %P"                      # 9:43 pm (strftime format)
+      default_datetime: "%-m/%-e/%Y @ %l:%M %P"     # 4/3/2015 @ 9:43 pm (strftime format)
+      human_datetime: "%B %{day}, %Y @ %l:%M %P"    # April 3rd, 2015 @ 9:43 pm (strftime format)
   datepicker:
-    dformat: 'l'            # display format of the date; see https://github.com/zpaulovics/datetimepicker-rails
-    pformat: 'l'            # picking format of the date
+    dformat: 'l'            # Moment.js display format of the date; see https://github.com/zpaulovics/datetimepicker-rails
+    pformat: 'l'            # Moment.js picking format of the date
   timepicker:
-    dformat: '@ h:mm a'                 # display format of the time
-    pformat: '@ h:mm a'                 # picking format of the time
-  dayViewHeaderFormat: 'MMMM YYYY'      # picking format of the time
+    dformat: '@ h:mm a'                 # Moment.js display format of the time
+    pformat: '@ h:mm a'                 # Moment.js picking format of the time
+  dayViewHeaderFormat: 'MMMM YYYY'      # Moment.js picking format of the time

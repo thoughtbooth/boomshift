@@ -23,7 +23,7 @@ class JobsController < ApplicationController
   def create
     # Convert the date formats from Moment.js to Strftime for submission to server
     job_params_strptime = job_params
-    job_params_strptime[:job_date] = DateTime.strptime job_params_strptime[:job_date], '%m/%d/%Y'
+    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P')
     @job = Job.create(job_params_strptime)
     if @job.save
       flash[:success] = 'Job was successfully created.'
@@ -40,14 +40,14 @@ class JobsController < ApplicationController
       if @bill_saved
         # Convert the date formats from Moment.js to Strftime for submission to server
         job_params_strptime = job_params
-        job_params_strptime[:job_date] = DateTime.strptime job_params_strptime[:job_date], '%m/%d/%Y'
-        @job = Job.create(job_params_strptime)
+        job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P')
+        @job.update(job_params_strptime)
       end
     else
       # Convert the date formats from Moment.js to Strftime for submission to server
       job_params_strptime = job_params
-      job_params_strptime[:job_date] = DateTime.strptime job_params_strptime[:job_date], '%m/%d/%Y'
-      @job = Job.create(job_params_strptime)
+      job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P')
+      @job.update(job_params_strptime)
     end
 
     @url = session[:original_url]
