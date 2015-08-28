@@ -14,7 +14,7 @@
       <%= number_to_currency @service.price %>
     </p>
     <%= link_to edit_service_path(@service), class: "btn btn-default" do %>
-      <i class="glyphicon glyphicon-edit"></i> Edit
+      <i class="fa fa-pencil-square-o"></i> Edit
     <% end %>
   </div>
 </div>
@@ -43,7 +43,7 @@
               <% if @enrollment.nil? %>
                 <td>
                   <%= link_to enroll_path(client_id: c.id, service_id: @service.id), class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Enroll <%= c.full_name %>"><i class="glyphicon glyphicon-unchecked"></i> No</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Enroll <%= c.full_name %>"><i class="fa fa-square-o"></i> No</span>
                   <% end %>
                 </td>
                 <td></td>
@@ -51,7 +51,7 @@
               <% else %>
                 <td>
                   <%= link_to enrollment_path(id: @enrollment, service_id: @service.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Unenroll <%= c.full_name %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Unenroll <%= c.full_name %>"><i class="fa fa-check-square-o"></i> Yes</span>
                   <% end %>
                 </td>
                 <td><%= l @enrollment.created_at, day: @enrollment.created_at.day.ordinalize, format: :full_date %></td>

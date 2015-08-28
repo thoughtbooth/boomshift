@@ -7,12 +7,12 @@
       <div class="col-md-4 text-right">
         <% if job.job_status_id == 1 %> <!-- If Scheduled -->
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="top" title="Change scheduled job date to..."></i>
+            <i class="fa fa-calendar fa-lg" data-toggle="tooltip" data-placement="top" title="Change scheduled job date to..."></i>
           </a>
           <ul class="dropdown-menu" role="menu">
             <li role="presentation" class="">
               <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
-                <i class="glyphicon glyphicon-edit"></i> Before Yesterday...
+                <i class="fa fa-pencil-square-o"></i> Before Yesterday...
               <% end %>
             </li>
             
@@ -32,11 +32,11 @@
               
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt1}), method: :put, role: 'menuitem', tabindex: -1 do %>
-                  <i class="glyphicon glyphicon-calendar"></i> Yesterday
+                  <i class="fa fa-calendar"></i> Yesterday
                 <% end %>
               <% else %>
                 <a role="menuitem" tabindex="-1">
-                  <i class="glyphicon glyphicon-calendar"></i> Yesterday
+                  <i class="fa fa-calendar"></i> Yesterday
                 </a>
               <% end %>
             </li>
@@ -53,11 +53,11 @@
               
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt2}), method: :put, role: 'menuitem', tabindex: -1 do %>
-                  <i class="glyphicon glyphicon-calendar"></i> Today
+                  <i class="fa fa-calendar"></i> Today
                 <% end %>
               <% else %>
                 <a role="menuitem" tabindex="-1">
-                  <i class="glyphicon glyphicon-calendar"></i> Today
+                  <i class="fa fa-calendar"></i> Today
                 </a>
               <% end %>
             </li>
@@ -74,11 +74,11 @@
               
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt3}), method: :put, role: 'menuitem', tabindex: -1 do %>
-                  <i class="glyphicon glyphicon-calendar"></i> Tomorrow
+                  <i class="fa fa-calendar"></i> Tomorrow
                 <% end %>
               <% else %>
                 <a role="menuitem" tabindex="-1">
-                  <i class="glyphicon glyphicon-calendar"></i> Tomorrow
+                  <i class="fa fa-calendar"></i> Tomorrow
                 </a>
               <% end %>
             </li>
@@ -87,34 +87,37 @@
             
             <li role="presentation" class="">
               <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
-                <i class="glyphicon glyphicon-edit"></i> After Tomorrow...
+                <i class="fa fa-pencil-square-o"></i> After Tomorrow...
               <% end %>
             </li>
           </ul>
-        
-          <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, completed_on: Time.zone.now}), method: :put, class: "" do %>
-            <i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it"></i>
-          <% end %>
+                
+          <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#myModal">
+              <i class="fa fa-check fa-lg"></i>
+            </button>
+          </span>
         <% end %>
         
         <% if job.job_status_id == 2 %> <!-- If Completed -->
           <!--%= link_to job_path(job, job: {id: job.id, job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
-            <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i-->
+            <i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i-->
           <!--% end %-->
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, billed_on: Time.zone.now}), method: :put, class: "" do %>
-            <i class="glyphicon glyphicon-send" data-toggle="tooltip" data-placement="top" title="Mark this job billed and send the bill to the client"></i>
+            <i class="fa fa-paper-plane fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job billed and send the bill to the client"></i>
           <% end %>
         <% end %>
         
         <% if job.job_status_id == 3 %> <!-- If Billed -->
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 4, paid_on: Time.zone.now}), method: :put, class: "" do %>
-            <i class="glyphicon glyphicon-piggy-bank" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
+            <i class="fa fa-bank fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
           <% end %>
         <% end %>
         
         <% if job.job_status_id == 4 %> <!-- If Paid -->
           <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, paid_on: nil}), method: :put, class: "" do %>
-            <i class="fa fa-undo" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
+            <i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
           <% end %>
         <% end %>
         
@@ -139,10 +142,33 @@
       <p>Amount paid: <%= number_to_currency job.bill %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
     <%= link_to edit_job_path(job), class: "btn btn-default" do %>
-      <i class="glyphicon glyphicon-edit"></i> Edit
+      <i class="fa fa-pencil-square-o"></i> Edit
     <% end %>
     <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
-      <i class="glyphicon glyphicon-trash"></i> Delete
+      <i class="fa fa-trash"></i> Delete
     <% end %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <i class="fa fa-times"></i> Cancel
+        </button>
+        <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, completed_on: Time.zone.now}), method: :put, class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", title: "Mark this job complete and create a bill for it" do %>
+          <i class="fa fa-floppy-o"></i> Save
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

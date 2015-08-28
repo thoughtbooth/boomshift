@@ -42,7 +42,7 @@
       <%= @client.phone %>
     </p>
     <%= link_to edit_client_path(@client), class: "btn btn-default" do %>
-      <i class="glyphicon glyphicon-edit"></i> Edit
+      <i class="fa fa-pencil-square-o"></i> Edit
     <% end %>
   </div>
 </div>
@@ -73,7 +73,7 @@
               <% if @enrollment.nil? %>
                 <td>
                   <%= link_to enroll_path(client_id: @client.id, service_id: s.id), class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Enroll in <%= s.name.downcase %>"><i class="glyphicon glyphicon-unchecked"></i> No</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Enroll in <%= s.name.downcase %>"><i class="fa fa-square-o"></i> No</span>
                   <% end %>
                 </td>
                 <td></td>
@@ -81,7 +81,7 @@
               <% else %>
                 <td>
                   <%= link_to enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="glyphicon glyphicon-check"></i> Yes</span>
+                    <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="fa fa-check-square-o"></i> Yes</span>
                   <% end %>
                 </td>
                 <td><%= l @enrollment.created_at, format: :full_date %></td>

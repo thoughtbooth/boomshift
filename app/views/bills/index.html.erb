@@ -30,20 +30,20 @@
         <td><%= l bill.due_date, format: :default_date %></td>
         <td>
           <%= link_to bill, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Preview" do %>
-            <i class="glyphicon glyphicon-search"></i>
+            <i class="fa fa-search"></i>
           <% end %>
         </td>
         <td>
           <%= link_to edit_bill_path(bill), class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Edit" do %>
-            <i class="glyphicon glyphicon-edit"></i>
+            <i class="fa fa-pencil-square-o"></i>
           <% end %>
           <%= link_to bill_pdf_path(bill), class: "btn btn-default btn-sm" do %>
-            <i class="glyphicon glyphicon-print"></i>
+            <i class="fa fa-print"></i>
           <% end %>
         </td>
         <td>
           <%= link_to bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Delete" do %>
-            <i class="glyphicon glyphicon-trash"></i>
+            <i class="fa fa-trash"></i>
           <% end %>
         </td>
       </tr>
@@ -54,5 +54,5 @@
 <br>
 
 <%= link_to new_bill_path, class: 'btn btn-default' do %>
-  <i class="glyphicon glyphicon-plus"></i> New Bill
+  <i class="fa fa-plus"></i> New Bill
 <% end %>

@@ -22,17 +22,17 @@
         <td><!--%= number_to_currency(invoicing_line_item.net_amount * invoicing_line_item.quantity) %--></td>
         <td>
           <%= link_to invoicing_line_item, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Preview" do %>
-            <i class="glyphicon glyphicon-search"></i>
+            <i class="fa fa-search"></i>
           <% end %>
         </td>
         <td>
           <%= link_to edit_invoicing_line_item_path(invoicing_line_item), class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Edit" do %>
-            <i class="glyphicon glyphicon-edit"></i>
+            <i class="fa fa-pencil-square-o"></i>
           <% end %>
         </td>
         <td>
           <%= link_to invoicing_line_item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Delete" do %>
-            <i class="glyphicon glyphicon-trash"></i>
+            <i class="fa fa-trash"></i>
           <% end %>
         </td>
       </tr>

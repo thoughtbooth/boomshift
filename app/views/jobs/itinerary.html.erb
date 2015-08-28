@@ -8,7 +8,7 @@
 <hr>
 
 <p><%= link_to new_job_path(@job), class: "btn btn-default" do %>
-  <i class="glyphicon glyphicon-plus"></i> New Job
+  <i class="fa fa-plus"></i> New Job
 <% end %></p>
 <br>
 
@@ -27,10 +27,10 @@
       <div class="panel-body">
         <p><%= truncate job.enrollment.service.name, length: 50 %>, today @ <%= l job.job_date, format: :default_time %>.</p>
         <%= link_to edit_job_path(job), class: "btn btn-default" do %>
-          <i class="glyphicon glyphicon-edit"></i> Edit
+          <i class="fa fa-pencil-square-o"></i> Edit
         <% end %>
         <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
-          <i class="glyphicon glyphicon-trash"></i> Delete
+          <i class="fa fa-trash"></i> Delete
         <% end %>
       </div>
     </div>
