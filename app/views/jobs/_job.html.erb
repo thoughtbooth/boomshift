@@ -94,7 +94,7 @@
                 
           <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#myModal">
+            <button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#JobHours">
               <i class="fa fa-check fa-lg"></i>
             </button>
           </span>
@@ -151,24 +151,28 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
-          <i class="fa fa-times"></i> Cancel
-        </button>
-        <%= link_to job_path(job, job: {id: job.id, job_status_id: 2, completed_on: Time.zone.now}), method: :put, class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", title: "Mark this job complete and create a bill for it" do %>
-          <i class="fa fa-floppy-o"></i> Save
-        <% end %>
+<%= simple_form_for job do |f| %>
+  <div class="modal fade" id="JobHours" tabindex="-1" role="dialog" aria-labelledby="JobHoursLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="JobHoursLabel">Enter Hours Worked</h4>
+        </div>
+        <div class="modal-body">
+          <%= f.hidden_field :job_status_id, value: 2 %>
+          <%= f.hidden_field :completed_on, value: Time.zone.now %>
+          <%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-times"></i> Cancel
+          </button>
+          <%= f.button :button, class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", title: "Mark this job complete and create a bill for it" do %>
+            <i class="fa fa-floppy-o"></i> Save
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
