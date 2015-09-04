@@ -129,17 +129,17 @@
     <p>Appointment: <%= l job.job_date, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
     <% if job.job_status_id == 2 %> <!-- If Completed -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
-      <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.bill %> owed)</p>
+      <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.amount %> owed)</p>
     <% end %>
     <% if job.job_status_id == 3 %> <!-- If Billed -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Bill sent on: <%= l job.billed_on, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
-      <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.bill %> owed)</p>
+      <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.amount %> owed)</p>
     <% end %>
     <% if job.job_status_id == 4 %> <!-- If Paid -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Marked paid on: <%= l job.paid_on, day: job.paid_on.day.ordinalize, format: :human_datetime %></p>
-      <p>Amount paid: <%= number_to_currency job.bill %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
+      <p>Amount paid: <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
     <%= link_to edit_job_path(job), class: "btn btn-default" do %>
       <i class="fa fa-pencil-square-o"></i> Edit

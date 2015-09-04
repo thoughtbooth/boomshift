@@ -81,6 +81,7 @@ class BillsController < ApplicationController
   private
     def set_bill
       @bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:id])
+      @invoicing_line_items = InvoicingLineItem.where 'ledger_item_id = ?', @bill.id
     end
 
     def bill_params

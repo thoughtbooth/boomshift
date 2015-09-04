@@ -1,4 +1,4 @@
-<% @invoicing_line_items = InvoicingLineItem.all if @invoicing_line_items.nil? %>
+<!--% @invoicing_line_items = @bills.InvoicingLineItem.all if @invoicing_line_items.nil? %-->
 
 <table class="table table-striped table-hover">
   <thead>
@@ -15,7 +15,7 @@
   <tbody>
     <% @invoicing_line_items.each do |invoicing_line_item| %>
       <tr>
-        <td><%= Job.find(invoicing_line_item.job_id).description_for_bill if invoicing_line_item.job_id %></td>
+        <td><%= invoicing_line_item.job_id %></td>
         <td><%= invoicing_line_item.description %></td>
         <td><%= number_to_currency invoicing_line_item.net_amount %></td>
         <td><%= invoicing_line_item.quantity %></td>

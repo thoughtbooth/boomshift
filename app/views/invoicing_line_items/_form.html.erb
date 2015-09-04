@@ -1,6 +1,6 @@
 <%= simple_form_for @invoicing_line_item do |f| %>
   <!--%= f.hidden_field :ledger_item_id, value: params[:ledger_item_id] %-->
-  <%= f.association :job, collection: Job.completed_or_billed, label_method: :description_for_bill, value_method: :id, prompt: "Choose the job you want to bill for" %>
+  <%= f.association :job, collection: Job.completed_or_billed, label_method: :description, value_method: :id, prompt: "Choose the job you want to bill for" %>
   <%= f.input :description %>
   <!--%= f.hidden_field :net_amount, value: enrollment.service_price %-->
   <!--%= f.hidden_field :quantity, value: job.hours_worked %-->

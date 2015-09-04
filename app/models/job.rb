@@ -25,7 +25,7 @@ class Job < ActiveRecord::Base
   end
   
   def description_for_bill
-    "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p (#{job_status.status})") if job_date
+    "#{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p") if job_date
   end
   
   # See if this can be deleted in favor of using scope chaining (e.g. job.completed.billed.paid).
@@ -33,11 +33,11 @@ class Job < ActiveRecord::Base
     job_status_id == 2 or 3 or 4
   end
   
-  def bill # Change this to amount
+  def amount
     enrollment.service_price * hours_worked
   end
   
-  def bill_total(job_status_id) #Change this to amount_total
+  def amount_total(job_status_id)
     Job.where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price
   end
     
