@@ -40,5 +40,12 @@ class Job < ActiveRecord::Base
   def amount_total(job_status_id)
     Job.where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price
   end
+  
+  def bill_identifier
+    #InvoicingLineItem.where(invoicing_ledger_item: invoicing_ledger_item)
+    #InvoicingLedgerItem.joins(:invoicing_line_items).where(invoicing_line_items: { invoicing_ledger_item: invoicing_ledger_item })
+    byebug
+    InvoicingLedgerItem.joins(:invoicing_line_items).where("invoicing_line_item.job = ?", job.id).identifier
+  end
     
 end

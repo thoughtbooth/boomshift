@@ -7,7 +7,7 @@
       <th>Details</th>
       <th>Price</th>
       <th>Quantity</th>
-      <th>Total</th>
+      <th>Item Total</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
         <td><%= invoicing_line_item.description %></td>
         <td><%= number_to_currency invoicing_line_item.net_amount %></td>
         <td><%= invoicing_line_item.quantity %></td>
-        <td><!--%= number_to_currency(invoicing_line_item.net_amount * invoicing_line_item.quantity) %--></td>
+        <td><%= number_to_currency(invoicing_line_item.net_amount * invoicing_line_item.quantity) %></td>
         <td>
           <%= link_to invoicing_line_item, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Preview" do %>
             <i class="fa fa-search"></i>

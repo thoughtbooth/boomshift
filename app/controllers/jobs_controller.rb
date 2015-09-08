@@ -33,16 +33,16 @@ class JobsController < ApplicationController
     end
   end
 
-  def update
-    # If changing the job from status of "Scheduled" to a status of "Completed", then create a bill for the job
-    if @job.job_status_id == 1 and job_params[:job_status_id] == "2"
-      create_bill_from_job
-    end
-      
+  def update     
     # Convert the date format from Moment.js to Strftime for submission to server
     job_params_strptime = job_params
     job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P') if job_params_strptime[:job_date]
     @job.update(job_params_strptime)
+    
+    # If the job  status was changed from "Scheduled" to "Completed", then create a bill for the job
+    if @job.job_status_id == 2 and job_params[:job_status_id] == "2"
+      create_bill_from_job
+    end
 
     @url = session[:original_url]
     redirect_to @url

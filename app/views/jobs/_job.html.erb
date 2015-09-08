@@ -130,6 +130,7 @@
     <% if job.job_status_id == 2 %> <!-- If Completed -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <p>Hours worked: <%= job.hours_worked %> (<%= number_to_currency job.amount %> owed)</p>
+      <p>Bill: <%= job.bill_identifier %></p>
     <% end %>
     <% if job.job_status_id == 3 %> <!-- If Billed -->
       <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
