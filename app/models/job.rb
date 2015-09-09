@@ -42,10 +42,8 @@ class Job < ActiveRecord::Base
   end
   
   def bill_identifier
-    #InvoicingLineItem.where(invoicing_ledger_item: invoicing_ledger_item)
-    #InvoicingLedgerItem.joins(:invoicing_line_items).where(invoicing_line_items: { invoicing_ledger_item: invoicing_ledger_item })
-    byebug
-    InvoicingLedgerItem.joins(:invoicing_line_items).where("invoicing_line_item.job = ?", job.id).identifier
+    job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", id)
+    job_bills.first.identifier if job_bills.any?
   end
     
 end
