@@ -5,4 +5,5 @@ class Business < ActiveRecord::Base
   has_many :services
   has_many :clients
   has_many :invoicing_ledger_items
+  has_one :payment_term
 end

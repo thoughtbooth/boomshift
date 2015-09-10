@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Days To Pay:</strong>
+  <%= @payment_term.days_to_pay %>
+</p>
+
+<%= link_to 'Edit', edit_payment_term_path(@payment_term) %> |
+<%= link_to 'Back', :back %>

@@ -24,7 +24,6 @@ end
 class Bill < Invoice
   after_initialize :defaults
   def defaults
-    #self.identifier = ???  # Might use this if I can't get auto_increment to work
     self.description = 'Bill for services rendered'
   end
 end

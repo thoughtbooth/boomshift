@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :payment_terms
+
   root 'pages#home'
   
   post 'enroll' => 'enrollments#add_enrollment'
