@@ -37,6 +37,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    auto_increment (1.2.0)
+      activerecord (~> 4.0)
+      activesupport (~> 4.0)
     autoprefixer-rails (5.2.1.3)
       execjs
       json
@@ -164,6 +167,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  auto_increment
   bootstrap-sass
   byebug
   coffee-rails (~> 4.0.0)

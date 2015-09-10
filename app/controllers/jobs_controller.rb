@@ -51,14 +51,13 @@ class JobsController < ApplicationController
   def create_bill_from_job
     # create a client bill and add line items to it
     @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
-    @bill = Bill.new type: "Bill", currency: "usd", identifier: "0000", description: "Bill for services rendered for Job #{@job.id}", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
+    @bill = Bill.new type: "Bill", currency: "usd", description: "Bill for services rendered for Job #{@job.id}", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: 7.days.from_now
     @bill.line_items.build job_id: @job.id, description: @job.description_for_bill, net_amount: @job.amount, quantity: 1, creator_id: current_user.id, tax_amount: 0
     if @bill.save
       flash[:notice] = 'The bill was successfully created.'
-      @bill_saved = true
     else
+      @job.update(job_status_id: 1)
       flash[:notice] = 'The bill could not be created. The job has not been moved to the Completed Jobs column.'
-      @bill_saved = false
     end
   end
 
