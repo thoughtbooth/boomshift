@@ -1,5 +1,5 @@
 class BillsController < ApplicationController
-  before_action :set_bill, only: [:show, :create_pdf, :edit, :update, :destroy]
+  before_action :set_bill, only: [:show, :edit, :update, :destroy]
   
   respond_to :html
 
@@ -14,8 +14,20 @@ class BillsController < ApplicationController
   
   def create_pdf
     require 'invoicing/ledger_item/pdf_generator'
-    pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(@bill)
-    pdf_file = pdf_creator.render Rails.root.join('/path/to/pdf')
+    @bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:format])
+    @bill.render_html
+    head :ok
+#     @invoice.render_html :quantity_column => false do |i|
+#       i.date_format "%d %B %Y"        # overwrites default "%Y-%m-%d"
+#       i.recipient_label "Customer"    # overwrites default "Recipient"
+#       i.sender_label "Supplier"       # overwrites default "Sender"
+#       i.description_tag do |params|
+#         "<p>Thank you for your order. Here is our invoice for your records.</p>\n" +
+#         "<p>Description: #{params[:description]}</p>\n"
+#       end
+#     end
+    #pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(@bill)
+    #pdf_file = pdf_creator.render Rails.root.join('/tmp/pdf')
   end
   
 #   def add_bill

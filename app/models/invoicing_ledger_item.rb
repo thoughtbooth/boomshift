@@ -9,7 +9,6 @@ class InvoicingLedgerItem < ActiveRecord::Base
 end
 
 class Invoice < InvoicingLedgerItem
-  # Used to bill the client.  If a client was undercharged, send another invoice to makeup the difference rather than editing the invoice
   acts_as_invoice
   
   belongs_to :sender, class_name: 'Business', foreign_key: :sender_id
@@ -17,14 +16,45 @@ class Invoice < InvoicingLedgerItem
   
   validates :type, :status, :sender_id, :recipient_id, :period_start, :period_end, :due_date, presence: true
   
-  #https://github.com/felipediesel/auto_increment
   auto_increment column: :identifier, scope: [:recipient_id], initial: '0001', force: false
 end
 
 class Bill < Invoice
+  # Used to bill the client.
+  
   after_initialize :defaults
   def defaults
     self.description = 'Bill for services rendered'
+  end
+  
+  def sender_details
+    {is_self: false, name: "LawnCo", contact_name: "John Doe", address: "123 Anywhere St.", city: "Somewhere", state: "TX", postal_code: "55555", country: "United States", country_code: "USA", tax_number: "12345"}
+    
+#     :is_self::(false)
+#     :name::(@business.name)
+#     :contact_name::(current_user.email)
+#     :address::(@business.addr1 + " " + @business.addr2)
+#     :city::(@business.city)
+#     :state::(@business.state)
+#     #:postal_code::(@business.postal_code)
+#     :country::(@business.country)
+#     #:country_code::()
+#     #:tax_number::()
+  end
+  
+  def recipient_details
+    {is_self: false, name: "Jane A. Smith", contact_name: "Jane Smith", address: "123 Anywhere St.", city: "Somewhere", state: "TX", postal_code: "55555", country: "United States", country_code: "USA", tax_number: "12345"}
+
+#     :is_self::(false)
+#     :name::(@client.fname + " " + @client.lname)
+#     #:contact_name::()
+#     :address::(@client.addr1 + " " + @business.addr2)
+#     :city::(@client.city)
+#     :state::(@client.state)
+#     #:postal_code::(@client.postal_code)
+#     :country::(@client.country)
+#     #:country_code::()
+#     #:tax_number::()
   end
 end
 

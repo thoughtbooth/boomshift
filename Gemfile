@@ -20,7 +20,8 @@ gem 'simple_form'
 #gem 'browser-timezone-rails' #Removed this (and entries in application.js) as I was seeing strange timezone behavior.
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
-gem "paranoia", "~> 2.0"
+gem 'paranoia', "~> 2.0"
 gem 'invoicing'
-gem "auto_increment"
-gem 'prawn-rails'
+gem 'auto_increment'
+gem 'prawn', '~> 2.0.2'
+gem 'prawn-table', '~> 0.2.2'

@@ -14,7 +14,13 @@ Rails.application.routes.draw do
   end
   get "itinerary" => "jobs#itinerary"
   
-  get "bill_pdf" => "bills#create_pdf"
+#   resources :bills do
+#     member do
+#       get 'create_pdf' => "bills#create_pdf"
+#     end
+#   end
+  
+  get "create_pdf" => "bills#create_pdf"
 
   # Main Menu
   get "mybusiness" => "pages#mybusiness"
