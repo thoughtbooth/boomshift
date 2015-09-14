@@ -15,27 +15,15 @@ class BillsController < ApplicationController
   def create_pdf
     require 'invoicing/ledger_item/pdf_generator'
     @bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:format])
-    @bill.render_html
-    head :ok
-#     @invoice.render_html :quantity_column => false do |i|
-#       i.date_format "%d %B %Y"        # overwrites default "%Y-%m-%d"
-#       i.recipient_label "Customer"    # overwrites default "Recipient"
-#       i.sender_label "Supplier"       # overwrites default "Sender"
-#       i.description_tag do |params|
-#         "<p>Thank you for your order. Here is our invoice for your records.</p>\n" +
-#         "<p>Description: #{params[:description]}</p>\n"
-#       end
-#     end
-    #pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(@bill)
-    #pdf_file = pdf_creator.render Rails.root.join('/tmp/pdf')
+    
+    pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(@bill)
+    pdf_file = pdf_creator.render Rails.root.join('/tmp/pdf')
   end
   
-#   def add_bill
-#     @bill = EndUserBill.new(params[:id])
-#     @bill.line_items.build(params[:id])
-#     @bill.save
-    
-#     respond_with(@bill)
+#   def send
+#     # TODO: Have a mailer which sends bill to client
+#     BillMailer.send_bill(@bill).deliver
+#     # When it gets sent, set issue_date: Time.zone.now
 #   end
   
   def new
@@ -44,10 +32,6 @@ class BillsController < ApplicationController
     @bill = Bill.new
     #@bill.line_items.build
     #@invoicing_line_item = InvoicingLineItem.new
-
-    # TODO: Have a mailer which sends bill to client; install prawn and prawn-table gems
-    # BillMailer.send_bill(bill).deliver
-    # When it gets sent, set issue_date: Time.zone.now
     
     respond_with(@bill)
   end
