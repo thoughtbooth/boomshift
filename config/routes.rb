@@ -20,8 +20,8 @@ Rails.application.routes.draw do
 #     end
 #   end
   
-  get "create_pdf" => "bills#create_pdf"
-  get "bill_html" => "bills#bill"
+  get "bill_pdf" => "bills#create_pdf"
+  get "bill_html" => "bills#view_bill"
 
   # Main Menu
   get "mybusiness" => "pages#mybusiness"

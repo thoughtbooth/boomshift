@@ -12,11 +12,31 @@ class BillsController < ApplicationController
     respond_with(@bill)
   end
   
+  def view_bill
+    bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:format])
+
+    unless bill.sender_id == current_user.id
+      raise ActiveRecord::RecordNotFound, "You do not have permission to view this bill."
+    end
+    
+    bill_text = bill.render_html quantity_column: false do |i|
+      i.date_format "%d %B %Y"        # overwrites default "%Y-%m-%d"
+      i.recipient_label "Customer"    # overwrites default "Recipient"
+      i.sender_label "Supplier"       # overwrites default "Sender"
+      i.description_tag do |params|
+        "<p>Thank you for your order. Here is our invoice for your records.</p>\n" +
+          "<p>Description: #{params[:description]}</p>\n"
+      end
+    end
+    
+    render layout: true, text: bill_text
+  end
+  
   def create_pdf
     require 'invoicing/ledger_item/pdf_generator'
-    @bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:format])
+    bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:format])
     
-    pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(@bill)
+    pdf_creator = Invoicing::LedgerItem::PdfGenerator.new(bill)
     pdf_file = pdf_creator.render Rails.root.join('/tmp/pdf')
   end
   

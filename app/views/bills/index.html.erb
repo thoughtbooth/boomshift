@@ -29,7 +29,7 @@
         <td><%= l bill.period_end, format: :default_date %></td>
         <td><%= l bill.due_date, format: :default_date %></td>
         <td>
-          <%= link_to bill, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Preview" do %>
+          <%= link_to bill, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "View" do %>
             <i class="fa fa-search"></i>
           <% end %>
         </td>
@@ -39,7 +39,7 @@
           <% end %>
         </td>
         <td>
-          <%= link_to create_pdf_path(bill), class: "btn btn-default btn-sm" do %>
+          <%= link_to bill_html_path(bill), class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Print" do %>
             <i class="fa fa-print"></i>
           <% end %>
         </td>
