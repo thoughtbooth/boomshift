@@ -19,13 +19,42 @@ class BillsController < ApplicationController
       raise ActiveRecord::RecordNotFound, "You do not have permission to view this bill."
     end
     
-    bill_text = bill.render_html quantity_column: false do |i|
-      i.date_format "%d %B %Y"        # overwrites default "%Y-%m-%d"
-      i.recipient_label "Customer"    # overwrites default "Recipient"
-      i.sender_label "Supplier"       # overwrites default "Sender"
+    bill_text = bill.render_html tax_point_column: false, quantity_column: false, tax_amount_column: false, subtotal: false do |i|
+      #Show/hide columns by specifying them before: do |i|
+        # :tax_point_column
+        # :quantity_column
+        # :description_column
+        # :net_amount_column
+        # :tax_amount_column
+        # :gross_amount_column
+        # :subtotal
+      
+      #Customize labels:
+      #i.date_format "%d %B %Y"
+      i.invoice_label "Bill"
+      #i.credit_note_label
+      i.recipient_label "Customer"
+      i.sender_label "Supplier"
+      i.tax_number_label "<br />"
+      #i.identifier_label
+      #i.issue_date_label
+      #i.period_start_label
+      #i.period_end_label
+      #i.due_date_label
+      #i.line_tax_point_label
+      #i.line_quantity_label
+      #i.line_description_label
+      i.line_net_amount_label "Price"
+      #i.line_tax_amount_label
+      #i.line_gross_amount_label
+      #i.subtotal_label
+      i.total_label "Total Due"
+      #i.net_amount_label
+      #i.tax_amount_label
+      #i.gross_amount_label      
       i.description_tag do |params|
-        "<p>Thank you for your order. Here is our invoice for your records.</p>\n" +
-          "<p>Description: #{params[:description]}</p>\n"
+        "<p><strong>Description:</strong> #{params[:description]}</p>\n" +
+        "<p>Thank you for your business!</p>\n"
       end
     end
     

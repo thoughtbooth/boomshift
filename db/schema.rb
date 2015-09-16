@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910204416) do
+ActiveRecord::Schema.define(version: 20150916194448) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150910204416) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "deleted_at"
+    t.string   "postal_code"
   end
 
   add_index "businesses", ["deleted_at"], name: "index_businesses_on_deleted_at"
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150910204416) do
     t.integer  "business_id"
     t.datetime "deleted_at"
     t.string   "email"
+    t.string   "postal_code"
   end
 
   add_index "clients", ["business_id"], name: "index_clients_on_business_id"
