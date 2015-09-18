@@ -12,7 +12,7 @@ class BillsController < ApplicationController
     respond_with(@bill)
   end
   
-  def view_bill
+  def render_html # This uses the gem's built-in HTML for an invoice, but the layout isn't that great, so won't use it in the app.
     bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:format])
 
     unless bill.sender_id == current_user.id
@@ -130,7 +130,7 @@ class BillsController < ApplicationController
     end
 
     def bill_params
-      params.require(:bill).permit(:sender_id, :recipient_id, :type, :identifier, :issue_date, :currency, :total_amount, :status, :description, :period_start, :period_end, :due_date)
+      params.require(:bill).permit(:sender_id, :recipient_id, :type, :identifier, :issue_date, :currency, :total_amount, :status, :description, :period_start, :period_end, :due_date, :print)
     end
   
 end

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 #   end
   
   get "bill_pdf" => "bills#create_pdf"
-  get "bill_html" => "bills#view_bill"
+#  get "bill_html" => "bills#render_html" #Don't want to use this in the app because it's ugly.
 
   # Main Menu
   get "mybusiness" => "pages#mybusiness"

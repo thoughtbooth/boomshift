@@ -28,12 +28,14 @@ class Bill < Invoice
   end
   
   def sender_details
+    # This is used by the gem's HTML render of the bill, which the app won't be using.
     @business = Business.find(sender_id)
     {is_self: false, name: @business.name, address: @business.addr1 + " " + @business.addr2, city: @business.city, state: @business.state, postal_code: @business.postal_code, country: @business.country}
     #Test hash: {is_self: false, name: "LawnCo", contact_name: "John Doe", address: "123 Anywhere St.", city: "Somewhere", state: "TX", postal_code: "55555", country: "United States", country_code: "USA", tax_number: "12345"}
   end
   
   def recipient_details
+    # This is used by the gem's HTML render of the bill, which the app won't be using.
     @client = Client.find(recipient_id)
     {is_self: false, name: @client.fname + " " + @client.lname, address: @client.addr1 + " " + @business.addr2, city: @client.city, state: @client.state, postal_code: @client.postal_code, country: @client.country}
     #Test hash: {is_self: false, name: "Jane A. Smith", contact_name: "Jane Smith", address: "123 Anywhere St.", city: "Somewhere", state: "TX", postal_code: "55555", country: "United States", country_code: "USA", tax_number: "12345"}
