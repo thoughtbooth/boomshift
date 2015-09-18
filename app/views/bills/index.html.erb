@@ -39,7 +39,7 @@
           <% end %>
         </td>
         <td>
-          <%= link_to bill, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Print" do %>
+          <%= link_to bill_path(bill, print: 'true'), class: "btn btn-default btn-sm", target: "_blank", "data-toggle" => "tooltip", "data-placement" => "top", title: "Open a new window with this bill in a printer-friendly format." do %>
             <i class="fa fa-print"></i>
           <% end %>
         </td>

@@ -1,47 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h2 class="panel-title">Bill <%= @bill.identifier %></h2>
+<div class="row">
+  <div class="col-md-9">
+    <address>
+      [company letterhead here]
+    </address>
   </div>
-  <div class="panel-body">
-    <p>
-      <strong>Receipient:</strong>
-      <%= @bill.recipient.full_name %>
-    </p>
-    <p>
-      <strong>Type:</strong>
-      <%= @bill.type %>
-    </p>
+  <div class="col-md-3">
     <p>
       <strong>Issue Date:</strong>
       <%= l @bill.issue_date, format: :default_date if @bill.issue_date %>
     </p>
     <p>
-      <strong>Total Amount:</strong>
-      <%= number_to_currency @bill.total_amount %>
-    </p>
-    <p>
-      <strong>Status:</strong>
-      <%= @bill.status %>
-    </p>
-    <p>
-      <strong>Description:</strong>
-      <%= @bill.description %>
-    </p>
-    <p>
-      <strong>Period Start:</strong>
-      <%= l @bill.period_start, format: :default_date  %>
-    </p>
-    <p>
-      <strong>Period End:</strong>
-      <%= l @bill.period_end, format: :default_date %>
-    </p>
-    <p>
       <strong>Due Date:</strong>
       <%= l @bill.due_date, format: :default_date %>
     </p>
-    
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Bill <%= @bill.identifier %></h2>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-1">
+        <h5>Bill To:</h5><br>
+      </div>
+      <div class="col-md-11">
+        <adress>
+          <strong><%= @bill.recipient.full_name %></strong><br>
+          [Client address/phone/email here]
+        </adress>
+      </div>
+    </div>
     <% unless params.has_key?(:print) && params[:print] == 'true' %>
       <%= link_to edit_bill_path(@bill), class: "btn btn-default" do %>
         <i class="fa fa-pencil-square-o"></i> Edit
@@ -58,18 +50,23 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <%= render 'invoicing_line_items/list' %>
-      </div>  
-      <% unless params.has_key?(:print) && params[:print] == 'true' %>
-        <div class="panel-footer">
+        <% unless params.has_key?(:print) && params[:print] == 'true' %>
           <%= link_to new_invoicing_line_item_path(ledger_item_id: @bill), class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "top", title: "Click here to bill #{@bill.recipient.full_name} for a job you completed." do %>
             <i class="fa fa-plus"></i> Add Line Item
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <p class="text-right">
+          <span class="h5"><strong>Bill Total: </strong><%= number_to_currency @bill.total_amount %></span>
+        </p>
+      </div>
     </div>
   </div>
 </div>
 
 <% unless params.has_key?(:print) && params[:print] == 'true' %>
   <%= link_to 'Back', :back %>
+<% else %>
+  Thank you for your business!
 <% end %>
