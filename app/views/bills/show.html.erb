@@ -1,5 +1,16 @@
 <p id="notice"><%= notice %></p>
 
+<% unless params.has_key?(:print) && params[:print] == 'true' %>
+  <%= link_to edit_bill_path(@bill), class: "btn btn-default" do %>
+    <i class="fa fa-pencil-square-o"></i> Edit
+  <% end %>
+
+  <%= link_to bill_path(@bill, print: 'true'), class: "btn btn-default", target: "_blank", "data-toggle" => "tooltip", "data-placement" => "top", title: "Open a new window with this bill in a printer-friendly format." do %>
+    <i class="fa fa-print"></i> Printer Friendly
+  <% end %>
+  <hr>
+<% end %>
+
 <div class="row">
   <div class="col-md-9">
     <address>
@@ -39,15 +50,6 @@
         </adress>
       </div>
     </div>
-    <% unless params.has_key?(:print) && params[:print] == 'true' %>
-      <%= link_to edit_bill_path(@bill), class: "btn btn-default" do %>
-        <i class="fa fa-pencil-square-o"></i> Edit
-      <% end %>
-
-      <%= link_to bill_path(@bill, print: 'true'), class: "btn btn-default", target: "_blank", "data-toggle" => "tooltip", "data-placement" => "top", title: "Open a new window with this bill in a printer-friendly format." do %>
-        <i class="fa fa-print"></i> Printer Friendly
-      <% end %>
-    <% end %>
     
     <hr>
     
@@ -71,6 +73,7 @@
 </div>
 
 <% unless params.has_key?(:print) && params[:print] == 'true' %>
+  <hr>
   <%= link_to 'Back', :back %>
 <% else %>
   Thank you for your business!
