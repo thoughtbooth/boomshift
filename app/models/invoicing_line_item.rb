@@ -6,4 +6,15 @@ class InvoicingLineItem < ActiveRecord::Base
   belongs_to :job
   
   validates :job_id, :description, :net_amount, :quantity, :creator_id, :tax_amount, presence: true
+  
+  def service_rate
+    @job = Job.find(job_id)
+    @enrollment = Enrollment.find(@job.enrollment_id)
+    @service = Service.find(@enrollment.service_id)
+    @service.price
+  end
+  
+  def job_hours
+    @job.hours_worked
+  end
 end

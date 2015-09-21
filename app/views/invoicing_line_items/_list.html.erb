@@ -19,8 +19,8 @@
       <tr>
         <td><%= invoicing_line_item.job_id %></td>
         <td><%= invoicing_line_item.description %></td>
-        <td>[Rate from Service here]</td>
-        <td>[Hours from Job here]</td>
+        <td><%= number_to_currency invoicing_line_item.service_rate %></td>
+        <td><%= invoicing_line_item.job_hours %></td>
         <td><%= number_to_currency invoicing_line_item.net_amount %></td>
         <% unless params.has_key?(:print) && params[:print] == 'true' %>
           <td class="text-right">

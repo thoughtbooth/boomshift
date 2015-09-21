@@ -3,7 +3,10 @@
 <div class="row">
   <div class="col-md-9">
     <address>
-      [company letterhead here]
+      <strong><%= @bill.business_name %></strong><br>
+      <%= @bill.business_addr1 %><br>
+      <%= @bill.business_addr2 %><% unless @bill.business_addr2.blank? %><br><% end %>
+      <%= @bill.business_city %>, <%= @bill.business_state %> <%= @bill.business_postal_code %>
     </address>
   </div>
   <div class="col-md-3">
@@ -30,7 +33,9 @@
       <div class="col-md-11">
         <adress>
           <strong><%= @bill.recipient.full_name %></strong><br>
-          [Client address/phone/email here]
+          <%= @bill.client_addr1 %><br>
+          <%= @bill.client_addr2 %><% unless @bill.client_addr2.blank? %><br><% end %>
+          <%= @bill.client_city %>, <%= @bill.client_state %> <%= @bill.client_postal_code %>
         </adress>
       </div>
     </div>
