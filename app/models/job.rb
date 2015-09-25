@@ -45,5 +45,9 @@ class Job < ActiveRecord::Base
     job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", id)
     job_bills.first.identifier if job_bills.any?
   end
+  
+  def client
+    Client.find(enrollment.client_id)
+  end
     
 end

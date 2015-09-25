@@ -43,6 +43,13 @@ class JobsController < ApplicationController
     if @job.job_status_id == 2 and job_params[:job_status_id] == "2"
       create_bill_from_job
     end
+    
+    # If the job  status was changed from "Completed" to "Billed", then send an email with the bill for the job
+    if @job.job_status_id == 3 and job_params[:job_status_id] == "3"
+      BillMailer.bill_email(@job.client).deliver
+      job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", @job.id)
+      job_bills.first.update issue_date: Time.zone.now
+    end
 
     @url = session[:original_url]
     redirect_to @url

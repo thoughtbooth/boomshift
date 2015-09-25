@@ -23,5 +23,7 @@ gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: '
 gem 'paranoia', "~> 2.0"
 gem 'invoicing'
 gem 'auto_increment'
-gem 'prawn', '~> 2.0.2'
-gem 'prawn-table', '~> 0.2.2'
+gem 'mail_safe', group: [:development, :staging]
+gem 'premailer-rails'
+gem 'nokogiri'
+gem 'figaro'
