@@ -1,2 +1,29 @@
-Hi <%= @client.fname %> <%= @client.lname %>!
-This is your bill.
+Hi <%= @client.fname %> <%= @client.lname %>,
+
+Your bill for recent services is provided below.
+
+Thanks,
+
+<%= @bill.business_contact_name %> at <%= @bill.business_name %>
+
+-------------------------------------------------------------------------
+
+<%= @bill.business_name %>
+<%= @bill.business_addr1 %>
+<% if @bill.business_addr2.blank? %><%= @bill.business_city %>, <%= @bill.business_state %> <%= @bill.business_postal_code %><% else %><%= @bill.business_addr2 %>\n<%= @bill.business_city %>, <%= @bill.business_state %> <%= @bill.business_postal_code %><% end %>
+
+Issue Date: <%= l @bill.issue_date, format: :default_date if @bill.issue_date %>
+Due Date: <%= l @bill.due_date, format: :default_date %>
+
+Bill <%= @bill.identifier %>
+
+Bill To:
+<%= @bill.recipient.full_name %>
+<%= @bill.client_addr1 %>
+<% if @bill.client_addr2.blank? %><%= @bill.client_city %>, <%= @bill.client_state %> <%= @bill.client_postal_code %><% else %><%= @bill.client_addr2 %><%= @bill.client_city %>, <%= @bill.client_state %> <%= @bill.client_postal_code %><% end %>
+
+Details:
+<%= render 'invoicing_line_items/list_email_text' %>
+Bill Total: <%= number_to_currency @bill.total_amount %>
+
+Thank you for your business!

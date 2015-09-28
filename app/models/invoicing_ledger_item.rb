@@ -46,6 +46,11 @@ class Bill < Invoice
     @business.name
   end
   
+  def business_contact_name
+    @business = Business.find(sender_id)
+    @business.contact_name
+  end
+  
   def business_addr1
     @business.addr1
   end

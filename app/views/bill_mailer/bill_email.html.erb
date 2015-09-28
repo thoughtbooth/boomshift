@@ -2,11 +2,77 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" href="/assets/application.css">
   </head>
   <body>
-    <h1>Hi <%= @client.fname %> <%= @client.lname %>!</h1>
+    <h4>Hi <%= @client.fname %> <%= @client.lname %>,</h4>
     <p>
-      This is your bill.
+      Your bill for recent services is provided below.
     </p>
+    <p>
+      Thanks,
+    </p>
+    <p class="h5">
+      <%= @bill.business_contact_name %> at <%= @bill.business_name %>
+    </p>
+    
+    <hr>
+    
+    <div class="row">
+      <div class="col-md-9">
+        <address>
+          <strong><%= @bill.business_name %></strong><br>
+          <%= @bill.business_addr1 %><br>
+          <%= @bill.business_addr2 %><% unless @bill.business_addr2.blank? %><br><% end %>
+          <%= @bill.business_city %>, <%= @bill.business_state %> <%= @bill.business_postal_code %>
+        </address>
+      </div>
+      <div class="col-md-3">
+        <p>
+          <strong>Issue Date:</strong>
+          <%= l @bill.issue_date, format: :default_date if @bill.issue_date %>
+        </p>
+        <p>
+          <strong>Due Date:</strong>
+          <%= l @bill.due_date, format: :default_date %>
+        </p>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Bill <%= @bill.identifier %></h2>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-1">
+            <h5>Bill To:</h5><br>
+          </div>
+          <div class="col-md-11">
+            <adress>
+              <strong><%= @bill.recipient.full_name %></strong><br>
+              <%= @bill.client_addr1 %><br>
+              <%= @bill.client_addr2 %><% unless @bill.client_addr2.blank? %><br><% end %>
+              <%= @bill.client_city %>, <%= @bill.client_state %> <%= @bill.client_postal_code %>
+            </adress>
+          </div>
+        </div>
+
+        <hr>
+
+        <h4>Details:</h4>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= render 'invoicing_line_items/list_email' %>
+          </div>
+          <div class="panel-footer">
+            <p class="text-right">
+              <span class="h5"><strong>Bill Total: </strong><%= number_to_currency @bill.total_amount %></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    Thank you for your business!
   </body>
 </html>
