@@ -1,7 +1,12 @@
 <div class="jumbotron">
   <h1>Welcome to Boomshift!</h1>
   <% if user_signed_in? %>
-    <h2><%= current_user.business.name %></h2>
+    <% @biz = current_user.business %>
+    <% if @biz %>
+      <h2><%= current_user.business.name %></h2>
+    <% else %>
+      <h3>First, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
+    <% end %>
   <% else %>
     <p>
       <%= link_to "Sign in", new_user_session_path, class: "btn btn-default btn-lg" %>

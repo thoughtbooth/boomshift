@@ -1,14 +1,19 @@
 <h1>Reports</h1>
 <hr>
 
-<div class="row">
-  <div class="col-md-4">
+<% @biz = current_user.business %>
+<% if @biz %>
+  <div class="row">
+    <div class="col-md-4">
 
-  </div>
-  <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
 
-  </div>
-  <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
 
-  </div>
-</div>
+    </div>
+  </div>  
+<% else %>
+  <h3>First, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
+<% end %>

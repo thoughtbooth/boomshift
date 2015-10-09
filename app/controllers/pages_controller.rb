@@ -1,14 +1,17 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, except: [:home]
+  before_action :set_business, except: [:home, :mybusiness]
+  
   def home
   end
   
-  def business
+  def mybusiness
   end
   
-  def clients
+  def myclients
   end
   
-  def schedule
+  def myschedule
   end
   
   def advertising

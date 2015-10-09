@@ -16,7 +16,7 @@ class BusinessesController < ApplicationController
   end
 
   def new
-    @business = current_user.build_business
+    @business = current_user.business.build
     respond_with(@business)
   end
 
@@ -24,7 +24,7 @@ class BusinessesController < ApplicationController
   end
   
   def create
-    @business = current_user.build_business(business_params)
+    @business = current_user.business.build(business_params)
     if @business.save
       flash[:success] = 'Your business profile has been created.'
       respond_with @business
