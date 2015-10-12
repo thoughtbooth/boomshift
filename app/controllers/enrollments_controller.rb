@@ -1,5 +1,7 @@
 class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :update_pref]
+  before_action :authenticate_user!
+  before_action :set_business
 
   # GET /enrollments
   def index

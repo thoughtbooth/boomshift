@@ -1,12 +1,13 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!  
+  before_action :authenticate_user!
+  before_action :set_business
 
   respond_to :html
 
   def index
-    @clients = Client.all
+    @clients = Client.where("business_id = ?", current_user.business.id).order(lname: :asc)
     respond_with(@clients)
   end
 
@@ -25,7 +26,7 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.business.clients.new(client_params)
     if @client.save
-      flash[:success] = 'Client was successfully created.'
+      flash[:notice] = 'Client was successfully created.'
       respond_with @client
     else
       render action: 'new'
@@ -34,7 +35,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      flash[:success] = 'Client changes were successfully saved.'
+      flash[:notice] = 'Client changes were successfully saved.'
       respond_with(@client)
     else
       render action: 'edit'
@@ -43,7 +44,7 @@ class ClientsController < ApplicationController
 
   def destroy
     @client.destroy
-    flash[:success] = 'Client was successfully deleted.'
+    flash[:notice] = 'Client was successfully deleted.'
     respond_with(@client)
   end
 
@@ -55,8 +56,8 @@ class ClientsController < ApplicationController
     def correct_user
       @client = current_user.business.clients.find_by(id: params[:id])
       if @client.nil?
-        flash[:danger] = "You are not authorized for this client profile."
-        redirect_to client_path
+        flash[:notice] = "You are not authorized for that client profile."
+        redirect_to clients_path
       end
     end
 

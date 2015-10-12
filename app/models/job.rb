@@ -6,15 +6,15 @@ class Job < ActiveRecord::Base
   
   has_many :line_items, class_name: 'InvoicingLineItem', foreign_key: :job_id
   
-  scope :scheduled_before_yesterday,      -> {where("job_date < ? AND job_status_id = ?", Time.zone.yesterday.beginning_of_day, 1).order(:job_date)}
-  scope :scheduled_yesterday,             -> {where(job_date: ((Time.zone.now.beginning_of_day - 1.day)..Time.zone.now.beginning_of_day), job_status_id: 1).order(:job_date)}
-  scope :scheduled_today,                 -> {where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date)}
-  scope :scheduled_tomorrow,              -> {where(job_date: Time.zone.now.end_of_day..(Time.zone.now.end_of_day + 1.day), job_status_id: 1).order(:job_date)}
-  scope :scheduled_after_tomorrow,        -> {where(job_date: (Time.zone.now.end_of_day + 1.day)..(Time.zone.now.end_of_day + 10.years), job_status_id: 1).order(:job_date)}
-  scope :completed,                       -> {where(job_status_id: 2).order(completed_on: :desc)}
-  scope :billed,                          -> {where(job_status_id: 3).order(billed_on: :desc)}
-  scope :completed_or_billed,             -> {where('job_status_id = ? OR job_status_id = ?', 2, 3)}
-  scope :paid,                            -> {where(job_status_id: 4).order(paid_on: :desc)}
+  scope :scheduled_before_yesterday,      -> { where("job_date < ? AND job_status_id = ?", Time.zone.yesterday.beginning_of_day, 1).order(:job_date) }
+  scope :scheduled_yesterday,             -> { where(job_date: ((Time.zone.now.beginning_of_day - 1.day)..Time.zone.now.beginning_of_day), job_status_id: 1).order(:job_date) }
+  scope :scheduled_today,                 -> { where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date) }
+  scope :scheduled_tomorrow,              -> { where(job_date: Time.zone.now.end_of_day..(Time.zone.now.end_of_day + 1.day), job_status_id: 1).order(:job_date) }
+  scope :scheduled_after_tomorrow,        -> { where(job_date: (Time.zone.now.end_of_day + 1.day)..(Time.zone.now.end_of_day + 10.years), job_status_id: 1).order(:job_date) }
+  scope :completed,                       -> { where(job_status_id: 2).order(completed_on: :desc) }
+  scope :billed,                          -> { where(job_status_id: 3).order(billed_on: :desc) }
+  scope :completed_or_billed,             -> { where('job_status_id = ? OR job_status_id = ?', 2, 3) }
+  scope :paid,                            -> { where(job_status_id: 4).order(paid_on: :desc) }
   
   validates :enrollment_id, :job_date, presence: true
   validates :hours_worked, numericality: { greater_than_or_equal_to: 0 }

@@ -1,5 +1,7 @@
 class InvoicingLineItemsController < ApplicationController
   before_action :set_invoicing_line_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_business
   
   respond_to :html
 

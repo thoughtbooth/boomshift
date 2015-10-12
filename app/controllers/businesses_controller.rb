@@ -6,17 +6,16 @@ class BusinessesController < ApplicationController
   respond_to :html
 
   def index
-    @businesses = Business.all
+    @businesses = Business.where("id = ?", current_user.business.id)
     respond_with(@businesses)
   end
 
   def show
     respond_with(@business)
-    #redirect_to @business
   end
 
   def new
-    @business = current_user.business.build
+    @business = current_user.build_business
     respond_with(@business)
   end
 
@@ -24,9 +23,9 @@ class BusinessesController < ApplicationController
   end
   
   def create
-    @business = current_user.business.build(business_params)
+    @business = current_user.build_business(business_params)
     if @business.save
-      flash[:success] = 'Your business profile has been created.'
+      flash[:notice] = 'Your business profile has been created.'
       respond_with @business
     else
       render action: 'new'
@@ -35,7 +34,7 @@ class BusinessesController < ApplicationController
 
   def update
     if @business.update(business_params)
-      flash[:success] = 'Your business profile changes were saved.'
+      flash[:notice] = 'Your business profile changes were saved.'
       respond_with @business
     else
       render action: 'edit'
@@ -44,20 +43,19 @@ class BusinessesController < ApplicationController
 
   def destroy
     @business.destroy
-    flash[:success] = 'Your business profile was deleted.'
+    flash[:notice] = 'Your business profile was deleted.'
     respond_with @business
   end
 
   private
     def set_business
-      @business = current_user.business #Business.find(params[:id])
+      @business = current_user.business
     end
   
     def correct_user
-      @business = current_user.business #find_by(id: params[:id])
-      if @business.nil?
-        flash[:danger] = "You are not authorized for this business profile."
-        redirect_to business_path
+      unless params[:id].to_i == current_user.business.id
+        flash[:notice] = "You are not authorized for that business profile."
+        redirect_to mybusiness_path
       end
     end
 

@@ -2,11 +2,12 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_business
 
   respond_to :html
 
   def index
-    @services = Service.all
+    @services = Service.where("business_id = ?", current_user.business.id).order(name: :asc)
     respond_with(@services)
   end
 
@@ -25,7 +26,7 @@ class ServicesController < ApplicationController
   def create
     @service = current_user.business.services.new(service_params)
     if @service.save
-      flash[:success] = 'Service was successfully created.'
+      flash[:notice] = 'Service was successfully created.'
       respond_with @service
     else
       render action: 'new'
@@ -34,7 +35,7 @@ class ServicesController < ApplicationController
 
   def update
     if @service.update(service_params)
-      flash[:success] = 'Service changes were successfully saved.'
+      flash[:notice] = 'Service changes were successfully saved.'
       respond_with(@service)
     else
       render action: 'edit'
@@ -43,7 +44,7 @@ class ServicesController < ApplicationController
 
   def destroy
     @service.destroy
-    flash[:success] = 'Service was successfully deleted.'
+    flash[:notice] = 'Service was successfully deleted.'
     respond_with(@service)
   end
 
@@ -53,10 +54,10 @@ class ServicesController < ApplicationController
     end
   
     def correct_user
-      @client = current_user.business.services.find_by(id: params[:id])
-      if @client.nil?
-        flash[:danger] = "You are not authorized for this service."
-        redirect_to client_path
+      @service = current_user.business.services.find_by(id: params[:id])
+      if @service.nil?
+        flash[:notice] = "You are not authorized for that service."
+        redirect_to services_path
       end
     end
 

@@ -15,8 +15,7 @@ class ApplicationController < ActionController::Base
   helper_method :clear_return_url
   
   def set_business
-    biz = current_user.business
-    unless biz
+    unless current_user.business
       flash[:danger] = "Please create your business profile first."
       redirect_to mybusiness_path
     end
