@@ -1,11 +1,12 @@
 class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :update_pref]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :set_business
 
   # GET /enrollments
   def index
-    @enrollments = Enrollment.all
+    @enrollments = Enrollment.joins(:business).where("business_id = ?", current_user.business.id)
   end
 
   # GET /enrollments/1
@@ -65,7 +66,15 @@ class EnrollmentsController < ApplicationController
     def set_enrollment
       @enrollment = Enrollment.find(params[:id])
     end
-
+  
+    def correct_user
+      @enrollment = Enrollment.find_by(id: params[:id], client_id: Client.joins(:business).where("business_id = ?", current_user.business.id))
+      if @enrollment.nil?
+        flash[:notice] = "You are not authorized for that enrollment."
+        redirect_to enrollments_path
+      end
+    end
+  
     # Never trust parameters from the scary internet, only allow the white list through.
     def enrollment_params
       params.require(:enrollment).permit(:client_id, :service_id, :preferences)

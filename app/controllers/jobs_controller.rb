@@ -1,12 +1,13 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :set_business
 
   respond_to :html
 
   def index
-    @jobs = Job.all
+    @jobs = Job.joins(enrollment: [{ client: :business }]).where("business_id = ?", current_user.business.id)
     respond_with(@jobs)
   end
 
@@ -28,7 +29,7 @@ class JobsController < ApplicationController
     job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P')
     @job = Job.create(job_params_strptime)
     if @job.save
-      flash[:success] = 'Job was successfully created.'
+      flash[:notice] = 'Job was successfully created.'
       redirect_to session[:original_url]
     else
       render action: 'new'
@@ -80,7 +81,15 @@ class JobsController < ApplicationController
     def set_job
       @job = Job.find(params[:id])
     end
-
+  
+    def correct_user
+      @job = Job.find_by(id: params[:id], enrollment_id: Enrollment.joins(client: [{ business: :user }]).where("business_id = ?", current_user.business.id))
+      if @job.nil?
+        flash[:notice] = "You are not authorized for that job."
+        redirect_to jobs_path
+      end
+    end
+  
     def job_params
       params.require(:job).permit(:job_date, :job_status_id, :enrollment_id, :completed_on, :billed_on, :paid_on, :hours_worked)
     end

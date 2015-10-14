@@ -1,12 +1,13 @@
 class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :set_business
   
   respond_to :html
 
   def index
-    @bills = InvoicingLedgerItem.where(type: 'Bill')
+    @bills = InvoicingLedgerItem.where(type: 'Bill').where("sender_id = ?", current_user.business.id)
     respond_with(@bills)
   end
 
@@ -101,7 +102,7 @@ class BillsController < ApplicationController
     @bill.sender_id = current_user.business.id
     #@bill.line_items.build(invoicing_line_item_params)
     if @bill.save
-      flash[:success] = 'The bill was successfully created.'
+      flash[:notice] = 'The bill was successfully created.'
       respond_with @bill
     else
       render action: 'new'
@@ -129,6 +130,14 @@ class BillsController < ApplicationController
     def set_bill
       @bill = InvoicingLedgerItem.where(type: 'Bill').find(params[:id])
       @invoicing_line_items = InvoicingLineItem.where 'ledger_item_id = ?', @bill.id
+    end
+  
+    def correct_user
+      @bill = current_user.business.invoicing_ledger_items.find_by(id: params[:id])
+      if @bill.nil?
+        flash[:notice] = "You are not authorized for that bill."
+        redirect_to jobs_path
+      end
     end
 
     def bill_params

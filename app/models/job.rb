@@ -37,8 +37,8 @@ class Job < ActiveRecord::Base
     enrollment.service_price * hours_worked
   end
   
-  def amount_total(job_status_id)
-    Job.where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price
+  def amount_total(job_status_id, current_business_id)
+    Job.joins(enrollment: [{ client: :business }]).where("business_id = ?", current_business_id).where(job_status_id: job_status_id).sum(:hours_worked) * enrollment.service_price # Need to restrict this to current user
   end
   
   def bill_identifier

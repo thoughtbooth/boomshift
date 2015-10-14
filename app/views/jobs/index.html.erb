@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="col-md-3" id="Completed">
-    <h4>Completed Jobs <span class="label label-info" data-toggle="tooltip" data-placement="top" title="This is how much money you should be paid for completed jobs"><%= number_to_currency(@jobs.first.amount_total(2)) if @jobs.completed.any? %></span></h4><hr>
+    <h4>Completed Jobs <span class="label label-info" data-toggle="tooltip" data-placement="top" title="This is how much money you should be paid for completed jobs"><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></span></h4><hr>
     <% if @jobs.completed.any? %>
       <%= render @jobs.completed %>
     <% else %>
@@ -58,7 +58,7 @@
     <% end %>
   </div>
   <div class="col-md-3" id="Billed">
-    <h4>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.amount_total(3) if @jobs.billed.any? %></span></h4><hr>
+    <h4>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></span></h4><hr>
     <% if @jobs.billed.any? %>
       <%= render @jobs.billed %>
     <% else %>
@@ -66,7 +66,7 @@
     <% end %>
   </div>
   <div class="col-md-3" id="Paid">
-    <h4>Paid Jobs <span class="label label-success" data-toggle="tooltip" data-placement="top" title="Cha-ching!"><%= number_to_currency @jobs.first.amount_total(4) if @jobs.paid.any? %></span></h4><hr>
+    <h4>Paid Jobs <span class="label label-success" data-toggle="tooltip" data-placement="top" title="Cha-ching!"><%= number_to_currency @jobs.first.amount_total(4, current_user.business.id) if @jobs.paid.any? %></span></h4><hr>
     <% if @jobs.paid.any? %>
     <%= render @jobs.paid %>
     <% else %>
