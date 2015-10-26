@@ -6,10 +6,10 @@ class PaymentTermsController < ApplicationController
 
   respond_to :html
 
-  def index
-    @payment_terms = PaymentTerm.where("business_id = ?", current_user.business.id)
-    respond_with(@payment_terms)
-  end
+#   def index
+#     @payment_terms = PaymentTerm.where("business_id = ?", current_user.business.id)
+#     respond_with(@payment_terms)
+#   end
 
   def show
     respond_with(@payment_term)

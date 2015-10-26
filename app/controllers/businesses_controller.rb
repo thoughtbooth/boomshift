@@ -5,10 +5,10 @@ class BusinessesController < ApplicationController
 
   respond_to :html
 
-  def index
-    @businesses = Business.where("id = ?", current_user.business.id)
-    respond_with(@businesses)
-  end
+#   def index
+#     @businesses = Business.where("id = ?", current_user.business.id)
+#     respond_with(@businesses)
+#   end
 
   def show
     respond_with(@business)

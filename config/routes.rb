@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  resources :payment_terms
-
   root 'pages#home'
+  
+  devise_for :users
+  
+  resources :businesses, :payment_terms, :invoicing_line_items, except: [:index]
+  resources :clients, :services, :bills
+
+  #TODO: Remove any controller actions and associated views that do not have a route defined in lines 6-7 above.
   
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
-  
-  resources :businesses, :clients, :services, :enrollments, :jobs, :job_statuses, :bills, :invoicing_line_items # Need to remove index route from invoicing_line_items
-  devise_for :users
   
   resources :jobs do
     put :sort, on: :collection
@@ -20,7 +22,7 @@ Rails.application.routes.draw do
 #     end
 #   end
   
-  get "bill_pdf" => "bills#create_pdf"
+#  get "bill_pdf" => "bills#create_pdf"
 #  get "bill_html" => "bills#render_html" #Don't want to use this in the app because it's ugly.
 
   # Main Menu

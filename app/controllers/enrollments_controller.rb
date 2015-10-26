@@ -1,41 +1,41 @@
 class EnrollmentsController < ApplicationController
-  before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :update_pref]
-  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_enrollment, only: [:update, :destroy, :update_pref]
+  before_action :correct_user, only: [:update, :destroy]
   before_action :authenticate_user!
   before_action :set_business
 
-  # GET /enrollments
-  def index
-    @enrollments = Enrollment.joins(:business).where("business_id = ?", current_user.business.id)
-  end
+#   # GET /enrollments
+#   def index
+#     @enrollments = Enrollment.joins(:business).where("business_id = ?", current_user.business.id)
+#   end
 
-  # GET /enrollments/1
-  def show
-  end
+#   # GET /enrollments/1
+#   def show
+#   end
 
-  # GET /enrollments/new
-  def new
-    @enrollment = Enrollment.new
-  end
+#   # GET /enrollments/new
+#   def new
+#     @enrollment = Enrollment.new
+#   end
 
-  # GET /enrollments/1/edit
-  def edit
-  end
+#   # GET /enrollments/1/edit
+#   def edit
+#   end
 
-  # POST /enrollments
-  def create
-    @enrollment = Enrollment.new(enrollment_params)
+#   # POST /enrollments
+#   def create
+#     @enrollment = Enrollment.new(enrollment_params)
 
-    respond_to do |format|
-      if @enrollment.save
-        format.html { redirect_to :back, notice: 'Enrollment was saved.' }
-      else
-        format.html { render :new }
-      end
-    end
-  end
+#     respond_to do |format|
+#       if @enrollment.save
+#         format.html { redirect_to :back, notice: 'Enrollment was saved.' }
+#       else
+#         format.html { render :new }
+#       end
+#     end
+#   end
   
-  def add_enrollment # TODO: Combine this with def create
+  def add_enrollment
     @enrollment = Enrollment.new(params.permit(:client_id, :service_id, :preferences)).save
     flash[:notice] = 'The enrollment was saved.'
     redirect_to :back
