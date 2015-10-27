@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928214511) do
+ActiveRecord::Schema.define(version: 20151026223401) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -170,6 +170,8 @@ ActiveRecord::Schema.define(version: 20150928214511) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "f_name"
+    t.string   "l_name"
   end
 
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
