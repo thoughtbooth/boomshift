@@ -16,9 +16,11 @@ class Job < ActiveRecord::Base
   scope :completed_or_billed,             -> { where('job_status_id = ? OR job_status_id = ?', 2, 3) }
   scope :paid,                            -> { where(job_status_id: 4).order(paid_on: :desc) }
   
-  validates :enrollment_id, :job_date, presence: true
+  validates :enrollment_id, :job_date, :job_status_id, presence: true
   validates :hours_worked, numericality: { greater_than_or_equal_to: 0 }
-  validates :hours_worked, presence: true, if: :completed?
+  #validates :completed_on, :hours_worked, presence: true, if: :completed?
+  #validates :billed_on, presence: true, if: :billed?
+  #validates :paid_on, presence: true, if: :paid?
   
   def description
     "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p (#{job_status.status})") if job_date

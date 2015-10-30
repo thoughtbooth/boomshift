@@ -6,6 +6,7 @@ class Enrollment < ActiveRecord::Base
   belongs_to :client
   has_many :jobs
   
+  validates :client_id, :service_id, presence: true
   
   def client_name
     "#{client.fname} #{client.lname}"

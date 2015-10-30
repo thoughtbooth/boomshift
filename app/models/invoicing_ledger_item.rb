@@ -5,7 +5,7 @@ class InvoicingLedgerItem < ActiveRecord::Base
   has_many :line_items, class_name: 'InvoicingLineItem', foreign_key: :ledger_item_id
   #accepts_nested_attributes_for :line_items # Need this for nested form to work
   
-  validates :currency, presence: true  # currency is required by the database schema
+  validates :sender_id, :recipient_id, :type, :currency, :status, :description, :period_start, :period_end, :due_date, presence: true
 end
 
 class Invoice < InvoicingLedgerItem

@@ -5,4 +5,6 @@ class Service < ActiveRecord::Base
   has_one :enrollment
   has_many :clients, through: :enrollment
   
+  validates :name, :description, :price, :business_id, presence: true
+  
 end
