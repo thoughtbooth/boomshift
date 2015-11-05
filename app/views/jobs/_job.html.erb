@@ -125,24 +125,28 @@
     </div>
   </div>
   <div class="panel-body">
-    <p><%= truncate job.enrollment.service.name, length: 50 %></p>
-    <p>Appointment: <%= l job.job_date, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
+    <h5><strong><%= truncate job.enrollment.service.name, length: 50 %></strong></h5>
+    <hr>
+    <p><strong>Appointment:</strong> <%= l job.job_date, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
     <% if job.job_status_id == 2 %> <!-- If Completed -->
-      <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
+      <p><strong>Marked complete on:</strong> <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <% job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", job.id) %>
-      <p>Hours worked: <%= job.hours_worked %></p>
-      <p>Amount owed: <%= number_to_currency job.amount %> (<%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %>)</p>
+      <p><strong>Hours worked:</strong> <%= job.hours_worked %></p>
+      <p><strong>Amount owed:</strong> <%= number_to_currency job.amount %> (<%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %>)</p>
     <% end %>
     <% if job.job_status_id == 3 %> <!-- If Billed -->
-      <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
+      <p><strong>Marked complete on:</strong> <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
       <% job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", job.id) %>
-      <p><%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %> sent on: <%= l job.billed_on, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
+      <p><strong><%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %> sent on:</strong> <%= l job.billed_on, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
     <% end %>
     <% if job.job_status_id == 4 %> <!-- If Paid -->
-      <p>Marked complete on: <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
-      <p>Marked paid on: <%= l job.paid_on, day: job.paid_on.day.ordinalize, format: :human_datetime %></p>
-      <p>Amount paid: <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
+      <p><strong>Marked complete on:</strong> <%= l job.completed_on, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
+      <% job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", job.id) %>
+      <p><strong><%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %> paid on:</strong> <%= l job.paid_on, day: job.paid_on.day.ordinalize, format: :human_datetime %></p>
+      <p><strong>Amount paid:</strong> <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
+  </div>
+  <div class="panel-footer">
     <%= link_to edit_job_path(job), class: "btn btn-default" do %>
       <i class="fa fa-pencil-square-o"></i> Edit
     <% end %>

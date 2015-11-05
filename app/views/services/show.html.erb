@@ -1,20 +1,27 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= @service.name %></h3>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @service.name %></h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <strong>Description:</strong>
+          <%= @service.description %>
+        </p>
+        <p>
+          <strong>Price:</strong>
+          <%= number_to_currency @service.price %>
+        </p>
+      </div>
+      <div class="panel-footer">
+        <%= link_to edit_service_path(@service), class: "btn btn-default" do %>
+          <i class="fa fa-pencil-square-o"></i> Edit
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="panel-body">
-    <p>
-      <strong>Description:</strong>
-      <%= @service.description %>
-    </p>
-    <p>
-      <strong>Price:</strong>
-      <%= number_to_currency @service.price %>
-    </p>
-    <%= link_to edit_service_path(@service), class: "btn btn-default" do %>
-      <i class="fa fa-pencil-square-o"></i> Edit
-    <% end %>
-  </div>
+  <div class="col-md-8"></div>
 </div>
 
 <div class="panel panel-default">
@@ -36,7 +43,7 @@
         <% if @clients.count > 0 %>
           <% @clients.each do |c| %>
             <tr>
-              <td><%= c.full_name %></td>
+              <td><%= link_to c.full_name, c %></td>
               <% @enrollment = Enrollment.where(client_id: c.id, service_id: @service.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>
                 <td>
@@ -72,6 +79,5 @@
     </table>
   </div>
 </div>
-
 
 <%= link_to 'Back', services_path %>
