@@ -1,27 +1,42 @@
 <% @job = Job.new if @job.nil? %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <%= simple_form_for @job do |f| %>
 
-<%= simple_form_for @job do |f| %>
+        <% if @job.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
 
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+            <ul>
+            <% @job.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-      <ul>
-      <% @job.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <div class="form-inputs">
+          <%= f.association :enrollment, collection: Enrollment.active, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service', label: "Service" %>
+          <% if f.object.new_record? %>
+            <% jd = "" %>
+          <% else %>
+            <% jd = l @job.job_date, format: :default_datetime %>
+          <% end %>
+          <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: jd } }, value: jd } %>
+          <!--%= f.association :job_status, label_method: :status, value_method: :id %-->
+          <!--%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %-->
+        </div>
+        <div class="form-actions">
+          <%= button_tag :submit, class: "btn btn-primary" do %>
+            <i class="fa fa-save"></i> Save
+          <% end %>
+          <%= link_to jobs_path, class: "btn btn-link" do %>
+            <i class="fa fa-times"></i> Cancel
+          <% end %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <%= f.association :enrollment, collection: Enrollment.active, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service' %>
-  <% if f.object.new_record? %>
-    <% jd = "" %>
-  <% else %>
-    <% jd = l @job.job_date, format: :default_datetime %>
-  <% end %>
-  <%= f.input :job_date, as: :datetime_picker, input_html: { data: { date_options: { defaultDate: jd } }, value: jd } %>
-  <%= f.association :job_status, label_method: :status, value_method: :id %>
-  <%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %>
-  <%= f.button :submit %>
-<% end %>
+  </div>
+  <div class="col-md-8"></div>
+</div>

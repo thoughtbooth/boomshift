@@ -55,7 +55,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <%= render 'invoicing_line_items/list' %>
-        <% unless params.has_key?(:print) && params[:print] == 'true' %>
+        <% if 1 == 2 %> <!-- params.has_key?(:print) && params[:print] == 'true' -->
           <%= link_to new_invoicing_line_item_path(ledger_item_id: @bill), class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "top", title: "Click here to bill #{@bill.recipient.full_name} for a job you completed." do %>
             <i class="fa fa-plus"></i> Add Line Item
           <% end %>

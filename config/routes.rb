@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
   
-  resources :jobs do
+  resources :jobs, except: [:show] do
     put :sort, on: :collection
   end
   get "itinerary" => "jobs#itinerary"

@@ -1,25 +1,39 @@
-<%= simple_form_for @bill do |f| %>
-  <%= f.association :recipient, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %>
-  <%= f.hidden_field :type, value: "Bill" %>
-  <%= f.hidden_field :currency, value: "usd" %>
-<!--   Auto-number specific to client. Start at 0001 and increment from there with each bill. Editable. Required. -->
-  <%= f.input :identifier %>
-  <%= f.input :description %>
-  <% if f.object.new_record? %>
-    <% ps = "" %>
-    <% pe = "" %>
-    <% dd = "" %>
-  <% else %>
-    <% ps = l @bill.period_start, format: :default_date %>
-    <% pe = l @bill.period_end, format: :default_date %>
-    <% dd = l @bill.due_date, format: :default_date %>
-  <% end %>
-  <div class='row datetimerange'>
-    <%= f.input :period_start, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: ps } }, value: ps } %>
-    <%= f.input :period_end, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: pe } }, value: pe } %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <%= simple_form_for @bill do |f| %>
+        <div class="form-inputs">
+          <!--%= f.association :recipient, label_method: :full_name, value_method: :id, prompt: "Choose the recipient (client)" %-->
+          <%= f.hidden_field :type, value: "Bill" %>
+          <%= f.hidden_field :currency, value: "usd" %>
+          <!--%= f.input :identifier %-->
+          <!--%= f.input :description %-->
+          <% if f.object.new_record? %>
+            <!--% ps = "" %-->
+            <!--% pe = "" %-->
+            <% dd = "" %>
+          <% else %>
+            <!--% ps = l @bill.period_start, format: :default_date %-->
+            <!--% pe = l @bill.period_end, format: :default_date %-->
+            <% dd = l @bill.due_date, format: :default_date %>
+          <% end %>
+          <div class='row datetimerange'>
+            <!--%= f.input :period_start, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: ps } }, value: ps } %-->
+            <!--%= f.input :period_end, as: :date_picker, wrapper: :ranged_datetime, input_html: { data: { date_options: { defaultDate: pe } }, value: pe } %-->
+          </div>
+          <%= f.input :due_date, as: :date_picker, input_html: { data: { date_options: { defaultDate: dd } }, value: dd } %>
+        </div>
+      
+        <div class="form-actions">
+          <%= button_tag :submit, class: "btn btn-primary" do %>
+            <i class="fa fa-save"></i> Save
+          <% end %>
+          <%= link_to @bill, class: "btn btn-link" do %>
+            <i class="fa fa-times"></i> Cancel
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <%= f.input :due_date, as: :date_picker, input_html: { data: { date_options: { defaultDate: dd } }, value: dd } %>
-  <%= f.button :button, class: 'button btn-default' do %>
-    <i class="fa fa-arrow-circle-right"></i> Save and Continue
-  <% end %>
-<% end %>
+  <div class="col-md-8"></div>
+</div>

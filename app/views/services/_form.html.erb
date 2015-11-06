@@ -1,29 +1,40 @@
-<%= form_for(@service) do |f| %>
-  <% if @service.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <%= simple_form_for(@service) do |f| %>
+        <% if @service.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
 
-      <ul>
-      <% @service.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+            <ul>
+            <% @service.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-inputs">
+          <%= f.input :name %>
+          <%= f.input :description %>
+          <%= f.label :price %>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <%= f.input :price, value: number_with_precision(f.object.price, precision: 2), label: false  %>
+          </div>
+          <br>
+        </div>
+      
+        <div class="form-actions">
+          <%= button_tag :submit, class: "btn btn-primary" do %>
+            <i class="fa fa-save"></i> Save
+          <% end %>
+          <%= link_to @service, class: "btn btn-link" do %>
+            <i class="fa fa-times"></i> Cancel
+          <% end %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    $<%= f.text_field :price, value: number_with_precision(f.object.price, precision: 2)  %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <div class="col-md-8"></div>
+</div>
