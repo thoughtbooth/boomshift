@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   
   devise_for :users
   
-  resources :businesses, :payment_terms, :invoicing_line_items, except: [:index]
+  resources :businesses, :payment_terms, except: [:index]
+  resources :invoicing_line_items, except: [:index, :show, :edit, :new]
   resources :clients, :services, :enrollments, :bills
-
-  #TODO: Remove any controller actions and associated views that do not have a route defined in lines 6-7 above.
   
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
