@@ -18,6 +18,9 @@
         <%= link_to edit_service_path(@service), class: "btn btn-default" do %>
           <i class="fa fa-pencil-square-o"></i> Edit
         <% end %>
+        <%= link_to @service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning", "data-toggle" => "tooltip", "data-placement" => "top", title: "Delete Service" do %>
+          <i class="fa fa-trash"></i> Delete
+        <% end %>
       </div>
     </div>
   </div>

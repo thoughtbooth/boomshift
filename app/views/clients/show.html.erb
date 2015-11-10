@@ -25,6 +25,9 @@
         <%= link_to edit_client_path(@client), class: "btn btn-default" do %>
           <i class="fa fa-pencil-square-o"></i> Edit
         <% end %>
+        <%= link_to @client, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning", "data-toggle" => "tooltip", "data-placement" => "top", title: "Delete Client" do %>
+          <i class="fa fa-trash"></i> Delete
+        <% end %>
       </div>
     </div>
   </div>
