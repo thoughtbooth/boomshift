@@ -18,7 +18,6 @@
           <%= f.input :password, autocomplete: "off", label: "New password" %>
           <%= f.input :password_confirmation, autocomplete: "off", label: "Repeat new password" %>
           <%= f.input :current_password, autocomplete: "off", label: "Current password (to confirm)" %>
-
         </div>
 
         <div class="form-actions">
@@ -38,12 +37,10 @@
 <div class="row">
   <div class="col-md-4">
     <div class="well">
-      <p>
-        Unhappy?
-        <%= button_to registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" do %>
-          <i class="fa fa-trash"></i> Delete My Account
-        <% end %>
-      </p>
+      <strong>Unhappy?</strong>
+      <%= button_to registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-link" do %>
+        <i class="fa fa-trash"></i> Delete My Account
+      <% end %>
     </div>
   </div>
   <div class="col-md-8"></div>

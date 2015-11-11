@@ -1,22 +1,26 @@
-<h2>Change your password</h2>
+<h3>Change Your Password</h3>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+        <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+        <div class="form-inputs">
+          <%= f.password_field :password, autofocus: true, autocomplete: "off", label: "New password" %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", label: "Confirm new password" %>
+        </div>
+
+        <div class="form-actions">
+          <%= button_tag :submit, class: "btn btn-primary" do %>
+            <i class="fa fa-key"></i> Change my password
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+  <div class="col-md-8"></div>
+</div>
 
 <%= render "devise/shared/links" %>
