@@ -21,7 +21,7 @@
         <%= f.input :addr1 %>
         <%= f.input :addr2 %>
         <%= f.input :city %>
-        <%= f.input :state %>
+        <%= f.input :state, collection: us_states_and_ca_provinces %>
         <%= f.input :postal_code %>
         <%= f.input :country %>
         <%= f.input :phone %>
