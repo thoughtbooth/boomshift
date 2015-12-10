@@ -1,13 +1,14 @@
 <% set_return_url %>
 <!--%= session[:original_url] %-->
 
-<%= link_to new_job_path(@job), class: "btn btn-default" do %>
-  <i class="fa fa-plus"></i> New Job
-<% end %>
-
 <div class="row" id="board">
   <div class="col-md-3" id="Scheduled">
-    <h4>Scheduled Jobs</h4><hr>
+    <h4>Scheduled Jobs</h4>
+    <hr>
+    <%= link_to new_job_path(@job), class: "btn btn-default" do %>
+      <i class="fa fa-plus"></i> Schedule a New Job
+    <% end %>
+    <hr>
     <div class="col-md-12" id="ScheduledBeforeYesterday">
       <h5>Before Yesterday</h5>
       <% if @jobs.scheduled_before_yesterday.any? %>

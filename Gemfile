@@ -28,3 +28,4 @@ gem 'mail_safe', group: [:development, :staging]
 gem 'premailer-rails'
 gem 'nokogiri'
 gem 'figaro'
+gem 'bootswatch-rails'

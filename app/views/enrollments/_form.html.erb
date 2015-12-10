@@ -1,5 +1,5 @@
 <% if not @enrollment.nil? %>
-  <%= form_for(@enrollment) do |f| %>
+  <%= simple_form_for(@enrollment) do |f| %>
     <% if @enrollment.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
@@ -15,7 +15,7 @@
     <div class="input-group">
       <%= f.text_field :preferences, class: 'form-control' %>
       <span class="input-group-btn" data-toggle="tooltip" data-placement="left" title="Save preferences">
-        <%= button_tag :submit, class: 'btn btn-primary' do %>
+        <%= button_tag :submit, class: 'btn btn-primary', "data-disable-with" => "Saving..." do %>
           <i class="fa fa-save"></i>
         <% end %>
       </span>

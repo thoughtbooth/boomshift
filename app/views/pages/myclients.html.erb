@@ -7,21 +7,21 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3 class="text-center"><%= link_to "Job Board", jobs_path %></h3>
+          <h3 class="text-center"><%= link_to "Job Board", jobs_path, class: "btn btn-link btn-lg" %></h3>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3 class="text-center">Client Map</h3>
+          <h3 class="text-center"><%= link_to "Client Map (Comming Soon)", myclients_path, class: "btn btn-link btn-lg" %></h3>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3 class="text-center"><%= link_to "Billing and Payments (just bills for now)", bills_path %></h3>
+          <h3 class="text-center"><%= link_to "Billing", bills_path, class: "btn btn-link btn-lg" %></h3>
         </div>
       </div>
     </div>  
@@ -32,12 +32,12 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h3 class="text-center"><%= link_to "Address Book", clients_path %></h3>
+          <h3 class="text-center"><%= link_to "Address Book", clients_path, class: "btn btn-link btn-lg" %></h3>
         </div>
       </div>
     </div>
     <div class="col-md-4"></div>
   </div>
 <% else %>
-  <h3>First, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
+  <h3>First, you need to <%= link_to ' create your business profile...', new_business_path, class: "btn btn-link btn-lg" %></h3>
 <% end %>

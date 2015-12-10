@@ -46,7 +46,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to :back, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Preferences were successfully updated.' }
       else
         format.html { render :edit }
       end

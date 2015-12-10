@@ -174,7 +174,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">
             <i class="fa fa-times"></i> Cancel
           </button>
-          <%= f.button :button, class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", title: "Mark this job complete and create a bill for it" do %>
+          <%= f.button :button, class: "btn btn-primary", "data-disable-with" => "Saving...", "data-toggle" => "tooltip", "data-placement" => "top", title: "Mark this job complete and create a bill for it" do %>
             <i class="fa fa-floppy-o"></i> Save
           <% end %>
         </div>

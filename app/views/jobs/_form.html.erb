@@ -28,7 +28,7 @@
           <!--%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %-->
         </div>
         <div class="form-actions">
-          <%= button_tag :submit, class: "btn btn-primary" do %>
+          <%= button_tag :submit, class: "btn btn-primary", "data-disable-with" => "Saving..." do %>
             <i class="fa fa-save"></i> Save
           <% end %>
           <%= link_to jobs_path, class: "btn btn-link" do %>
