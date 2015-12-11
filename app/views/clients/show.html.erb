@@ -54,7 +54,7 @@
         <% if @services.count > 0 %>
           <% @services.each do |s| %>
             <tr>
-              <td><%= s.name %></td>
+              <td><%= link_to s.name, s %></td>
               <td><%= s.description %></td>
               <% @enrollment = Enrollment.where(client_id: @client.id, service_id: s.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>

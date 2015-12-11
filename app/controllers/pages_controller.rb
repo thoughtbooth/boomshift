@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
   
   def mybusiness
+    @business = current_user.business
   end
   
   def myclients

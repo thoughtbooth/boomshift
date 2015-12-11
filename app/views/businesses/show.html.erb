@@ -1,40 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">My Business Profile</h3>
-      </div>
-      <div class="panel-body">
-        <p>
-          <strong>Name:</strong>
-          <%= @business.name %>
-        </p>
-        <p>
-          <strong>About:</strong>
-          <%= @business.about %>
-        </p>
-        <p>
-          <strong>Contact Name:</strong>
-          <%= @business.contact_name %>
-        </p>
-        <address>
-          <strong>Address</strong><br>
-          <%= @business.addr1 %><br>
-          <%= @business.addr2 %><% unless @business.addr2.blank? %><br><% end %>
-          <%= @business.city %>, <%= @business.state %> <%= @business.postal_code %><br>
-          <%= @business.country %>
-        </address>
-        <p>
-          <strong>Phone:</strong>
-          <%= @business.phone %>
-        </p>
-      </div>
-      <div class="panel-footer">
-        <%= link_to edit_business_path(@business), class: "btn btn-default" do %>
-        <i class="fa fa-pencil-square-o"></i> Edit
-        <% end %>
-      </div>
-    </div>
+    <%= render "business" %>
   </div>
   <div class="col-md-8"></div>
 </div>

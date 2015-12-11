@@ -18,54 +18,19 @@
     <ul class="nav navbar-nav navbar-right">
       <li><%= link_to "Dashboard", root_path %></li>
       <% if user_signed_in? %>
-        <li class="dropdown">
-          <%= link_to mybusiness_path, class: "dropdown-toggle", "data-toggle" => "dropdown", role: "button", "aria-haspopup" => "true", "aria-expanded" => "false" do %>
-            My Business <span class="caret"></span>
-          <% end %>
-            <ul class="dropdown-menu">
-              <li>
-                <%= link_to "My Business", mybusiness_path %>
-              </li>
-              <li role="separator" class="divider"></li>
-              <li>
-                <% @biz = current_user.business %>
-                <% if @biz %>
-                  <%= link_to 'My Business Profile', business_path(@biz), class: "btn btn-link btn-lg" %>
-                <% else %>
-                  <%= link_to 'Create My Business Profile', new_business_path, class: "btn btn-link btn-lg" %>
-                <% end %>
-              </li>
-              <li>
-                <% if @biz %>
-                  <%= link_to 'Services I Offer', services_path, class: "btn btn-link btn-lg" %>
-                <% else %>
-                  <a href="#">Services I Offer (Create your business profile first!)</a>
-                <% end %>
-              </li>
-              <li>
-                <% if @biz %>
-                  <% @terms = current_user.business.payment_term %>
-                  <% if @terms%>
-                    <%= link_to 'My Payment Terms', payment_term_path(current_user.business.payment_term), class: "btn btn-link btn-lg" %>
-                  <% else %>
-                    <%= link_to 'Create My Payment Terms', new_payment_term_path, class: "btn btn-link btn-lg" %>
-                  <% end %>
-                <% else %>
-                  <a href="#">My Payment Terms (Create your business profile first!)</a>
-                <% end %>
-              </li>
-            </ul>
+        <li>
+          <%= link_to "My Business", mybusiness_path %>
         </li>
         <% if current_user.business %>
           <li><%= link_to "My Clients", myclients_path %></li>
           <li><%= link_to "My Schedule", myschedule_path %></li>
-          <li><%= link_to "Advertising", advertising_path %></li>
-          <li><%= link_to "Reports", reports_path %></li>
+<!--           <li><%= link_to "Advertising", advertising_path %></li>
+          <li><%= link_to "Reports", reports_path %></li> -->
         <% else %>
           <li class="disabled"><%= link_to "My Clients", myclients_path %></li>
           <li class="disabled"><%= link_to "My Schedule", myschedule_path %></li>
-          <li class="disabled"><%= link_to "Advertising", advertising_path %></li>
-          <li class="disabled"><%= link_to "Reports", reports_path %></li>
+<!--           <li class="disabled"><%= link_to "Advertising", advertising_path %></li>
+          <li class="disabled"><%= link_to "Reports", reports_path %></li> -->
         <% end %>
         <li><%= link_to "Account Settings", edit_user_registration_path %></li>
         <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>

@@ -3,21 +3,16 @@
 
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <% @biz = current_user.business %>
-        <% if @biz %>
-          <h3 class="text-center"><%= link_to 'My Business Profile', business_path(@biz), class: "btn btn-link btn-lg" %></h3>
-        <% else %>
-          <h3 class="text-center"><%= link_to 'Create My Business Profile', new_business_path, class: "btn btn-link btn-lg" %></h3>
-        <% end %>
-      </div>
-    </div>
+    <% if @business %>
+      <%= render partial: "businesses/business", object: @business %>
+    <% else %>
+      <h3 class="text-center"><%= link_to 'Create My Business Profile', new_business_path, class: "btn btn-link btn-lg" %></h3>
+    <% end %>
   </div>
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-body">
-        <% if @biz %>
+        <% if @business %>
           <h3 class="text-center"><%= link_to 'Services I Offer', services_path, class: "btn btn-link btn-lg" %></h3>
         <% else %>
           <h3 class="text-center">Services I Offer</h3>
@@ -29,7 +24,7 @@
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-body">
-        <% if @biz %>
+        <% if @business %>
           <% @terms = current_user.business.payment_term %>
           <% if @terms%>
             <h3 class="text-center"><%= link_to 'My Payment Terms', payment_term_path(current_user.business.payment_term), class: "btn btn-link btn-lg" %></h3>
