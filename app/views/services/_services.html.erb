@@ -1,0 +1,29 @@
+<h3>Services I Offer</h3>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price/Hr</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td>
+          <%= link_to service, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Service" do %>
+            <i class="fa fa-search"></i> <%= service.name %>
+          <% end %>
+        </td>
+        <td><%= service.description %></td>
+        <td><%= number_to_currency service.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to new_service_path, class: "btn btn-default", "data-toggle" => "tooltip", "data-placement" => "top", title: "New Service" do %>
+  <i class="fa fa-plus"></i> New Service
+<% end %>

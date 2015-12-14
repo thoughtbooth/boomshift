@@ -1,0 +1,29 @@
+<h3>Open Bills <%= link_to "Details...", bills_path, class: "btn btn-link" %></h3>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Bill</th>
+      <th>Due Date</th>
+      <th>Total Amount</th>
+      <th>Job</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bills.where("status = 'open'").each do |bill| %>
+      <tr>
+        <td><%= bill.recipient.full_name %></td>
+        <td>
+          <%= link_to bill, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Bill" do %>
+            <i class="fa fa-search"></i> <%= bill.identifier %>
+          <% end %>
+        </td>
+        <td><%= l bill.due_date, format: :default_date %></td>
+        <td><%= number_to_currency bill.total_amount %></td>
+        <td><%= bill.line_items.first.job.short_description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

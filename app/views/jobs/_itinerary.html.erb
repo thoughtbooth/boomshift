@@ -1,19 +1,19 @@
 <% set_return_url %>
 <!--%= session[:original_url] %-->
 
-<h2>Today's Jobs</h2>
+<h3>Today's Jobs</h3>
 
 <hr>
 
-<p><%= link_to new_job_path(@job), class: "btn btn-default" do %>
-  <i class="fa fa-plus"></i> New Job
-<% end %></p>
+<p>
+  <%= link_to new_job_path(@job), class: "btn btn-default" do %>
+    <i class="fa fa-plus"></i> New Job
+  <% end %>
+</p>
 <br>
 
-<% @jobs = Job.where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date) %>
-
-<% if @jobs.any? %>
-  <% @jobs.each do |job| %>
+<% if @jobs_today.any? %>
+  <% @jobs_today.each do |job| %>
     <div class="panel panel-default"> 
       <div class="panel-heading">
         <div class="row">

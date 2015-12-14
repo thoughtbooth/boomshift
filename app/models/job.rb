@@ -6,6 +6,7 @@ class Job < ActiveRecord::Base
   
   has_many :line_items, class_name: 'InvoicingLineItem', foreign_key: :job_id
   
+  scope :scheduled,                       -> { where(job_status_id: 1).order(job_date: :asc) }
   scope :scheduled_before_yesterday,      -> { where("job_date < ? AND job_status_id = ?", Time.zone.yesterday.beginning_of_day, 1).order(:job_date) }
   scope :scheduled_yesterday,             -> { where(job_date: ((Time.zone.now.beginning_of_day - 1.day)..Time.zone.now.beginning_of_day), job_status_id: 1).order(:job_date) }
   scope :scheduled_today,                 -> { where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date) }
@@ -24,6 +25,10 @@ class Job < ActiveRecord::Base
   
   def description
     "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p (#{job_status.status})") if job_date
+  end
+  
+  def short_description
+    "Job #{id}: #{enrollment.service_name} (#{job_status.status})" if job_date
   end
   
   def description_for_bill

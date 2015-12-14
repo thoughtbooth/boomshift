@@ -5,37 +5,29 @@
   <div class="col-md-4">
     <% if @business %>
       <%= render partial: "businesses/business", object: @business %>
+      <% if @payment_term%>
+        <%= render partial: "payment_terms/payment_terms", object: @payment_terms %>
+      <% else %>
+        <h3 class="text-center"><%= link_to 'Create My Payment Terms', new_payment_term_path, class: "btn btn-link btn-lg" %></h3>
+      <% end %>
     <% else %>
       <h3 class="text-center"><%= link_to 'Create My Business Profile', new_business_path, class: "btn btn-link btn-lg" %></h3>
+      <hr>
+      <h3 class="text-center">My Payment Terms</h3>
+      <p class="text-center">(Create your business profile first!)</p>
+    <% end %>
+    <% if @business %>
+
+    <% else %>
+
     <% end %>
   </div>
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <% if @business %>
-          <h3 class="text-center"><%= link_to 'Services I Offer', services_path, class: "btn btn-link btn-lg" %></h3>
-        <% else %>
-          <h3 class="text-center">Services I Offer</h3>
-          <p class="text-center">(Create your business profile first!)</p>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <% if @business %>
-          <% @terms = current_user.business.payment_term %>
-          <% if @terms%>
-            <h3 class="text-center"><%= link_to 'My Payment Terms', payment_term_path(current_user.business.payment_term), class: "btn btn-link btn-lg" %></h3>
-          <% else %>
-            <h3 class="text-center"><%= link_to 'Create My Payment Terms', new_payment_term_path, class: "btn btn-link btn-lg" %></h3>
-          <% end %>
-        <% else %>
-          <h3 class="text-center">My Payment Terms</h3>
-          <p class="text-center">(Create your business profile first!)</p>
-        <% end %>
-      </div>
-    </div>
+  <div class="col-md-8">
+    <% if @business %>
+      <%= render partial: "services/services", object: @services %>
+    <% else %>
+      <h3 class="text-center">Services I Offer</h3>
+      <p class="text-center">(Create your business profile first!)</p>
+    <% end %>
   </div>
 </div>
