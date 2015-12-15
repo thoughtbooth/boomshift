@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     if user_signed_in?
       @business = current_user.business
       @jobs = Job.joins(enrollment: [{ client: :business }]).where("business_id = ?", current_user.business.id)
-      @jobs_today = Job.where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date)
+      @jobs_today = @jobs.where(job_date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, job_status_id: 1).order(:job_date)
       @bills = InvoicingLedgerItem.where(type: 'Bill').where("sender_id = ?", current_user.business.id)
     end
   end

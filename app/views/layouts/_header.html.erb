@@ -18,16 +18,14 @@
     <ul class="nav navbar-nav navbar-left">
       <li><%= link_to "Home", root_path %></li>
       <% if user_signed_in? %>
-        <li>
-          <%= link_to "My Business", mybusiness_path %>
-        </li>
         <% if current_user.business %>
+          <li><%= link_to "Job Board", jobs_path %></li>    
           <li><%= link_to "My Clients", myclients_path %></li>
-          <li><%= link_to "My Jobs", jobs_path %></li>
         <% else %>
+          <li class="disabled"><%= link_to "Job Board", jobs_path %></li>
           <li class="disabled"><%= link_to "My Clients", myclients_path %></li>
-          <li class="disabled"><%= link_to "My Jobs", jobs_path %></li>
         <% end %>
+        <li><%= link_to "My Business", mybusiness_path %></li>
       <% end %>
     </ul>
     <ul class="nav navbar-nav navbar-right">

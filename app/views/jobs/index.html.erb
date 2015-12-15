@@ -5,28 +5,26 @@
   <div class="col-md-3" id="Scheduled">
     <h4>Scheduled Jobs</h4>
     <hr>
-    <div class="col-md-12" id="ScheduledBeforeYesterday">
-      <%= link_to new_job_path(@job), class: "btn btn-default" do %>
-        <i class="fa fa-plus"></i> Schedule a New Job
-      <% end %>
-      <hr>
-      <h5>Before Yesterday</h5>
-      <% if @jobs.scheduled_before_yesterday.any? %>
-        <%= render @jobs.scheduled_before_yesterday %>
-      <% else %>
-        <p>No jobs were scheduled before yesterday.</p>
-      <% end %>
-    </div>
-    <div class="col-md-12" id="ScheduledYesterday">
-      <hr><h5>Yesterday</h5>
-      <% if @jobs.scheduled_yesterday.any? %>
+      <div class="col-md-12" id="ScheduledBeforeYesterday">
+        <%= link_to new_job_path(@job), class: "btn btn-default" do %>
+          <i class="fa fa-plus"></i> Schedule a New Job
+        <% end %>
+        <% if @jobs.scheduled_before_yesterday.any? %>
+          <hr>
+          <h5>Before Yesterday</h5>
+          <%= render @jobs.scheduled_before_yesterday %>
+        <% end %>
+      </div>
+    <% if @jobs.scheduled_yesterday.any? %>
+      <div class="col-md-12" id="ScheduledYesterday">
+        <hr>
+        <h5>Yesterday</h5>
         <%= render @jobs.scheduled_yesterday %>
-      <% else %>
-        <p>No jobs were scheduled for yesterday.</p>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
     <div class="col-md-12" id="ScheduledToday">
-      <hr><h5>Today</h5>
+      <hr>
+      <h5>Today</h5>
       <% if @jobs.scheduled_today.any? %>
         <%= render @jobs.scheduled_today %>
       <% else %>
@@ -34,7 +32,8 @@
       <% end %>
     </div>
     <div class="col-md-12" id="ScheduledTomorrow">
-      <hr><h5>Tomorrow</h5>
+      <hr>
+      <h5>Tomorrow</h5>
       <% if @jobs.scheduled_tomorrow.any? %>
         <%= render @jobs.scheduled_tomorrow %>
       <% else %>
@@ -42,7 +41,8 @@
       <% end %>
     </div>
     <div class="col-md-12" id="ScheduledAfterTomorrow">
-      <hr><h5>After Tomorrow</h5>
+      <hr>
+      <h5>After Tomorrow</h5>
       <% if @jobs.scheduled_after_tomorrow.any? %>
         <%= render @jobs.scheduled_after_tomorrow %>
       <% else %>
