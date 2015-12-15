@@ -3,15 +3,6 @@
 
 <h3>Today's Jobs</h3>
 
-<hr>
-
-<p>
-  <%= link_to new_job_path(@job), class: "btn btn-default" do %>
-    <i class="fa fa-plus"></i> New Job
-  <% end %>
-</p>
-<br>
-
 <% if @jobs_today.any? %>
   <% @jobs_today.each do |job| %>
     <div class="panel panel-default"> 
@@ -35,4 +26,8 @@
   <% end %>
 <% else %>
   <p>No jobs are scheduled for today.</p>
+<% end %>
+
+<%= link_to new_job_path(@job), class: "btn btn-default" do %>
+  <i class="fa fa-plus"></i> New Job
 <% end %>

@@ -1,58 +1,29 @@
-<div class="jumbotron">
-  <h1>Welcome to Boomshift!</h1>
-  <% if user_signed_in? %>
-    <% @biz = current_user.business %>
-    <% if @biz %>
-      <h2><%= current_user.business.name %></h2>
-    <% else %>
-      <h3>First, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
-    <% end %>
-  <% else %>
-    <p>
-      <%= link_to "Sign in", new_user_session_path, class: "btn btn-default btn-lg" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-lg" %>
-    </p>
+<% if user_signed_in? %>
+  <% unless @business %>
+    <h3>First, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
   <% end %>
-</div>
+<% else %>
+  <h2>Welcome to Boomshift!</h2>
+  <p>
+    <%= link_to "Sign in", new_user_session_path, class: "btn btn-default btn-lg" %>
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+  </p>
+  <hr>
+<% end %>
 
 <% if user_signed_in? %>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-3">
+      <%= render partial: "jobs/summary", object: @jobs %>
+      <br>
       <%= render partial: "jobs/itinerary", object: @jobs_today %>
     </div>
-    <div class="col-md-4">
-      <h3>Job Summary</h3>
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Count</th>
-            <th>Dollars</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Scheduled Jobs</td>
-            <td><%= @jobs.scheduled.count %></td>
-            <td>N/A</td>
-          </tr>
-          <tr>
-            <td>Completed Jobs</td>
-            <td><%= @jobs.completed.count %></td>
-            <td><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></td>
-          </tr>
-          <tr>
-            <td>Billed Jobs</td>
-            <td><%= @jobs.billed.count %></td>
-            <td><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></td>
-          </tr>
-          <tr>
-            <td>Paid Jobs</td>
-            <td><%= @jobs.paid.count %></td>
-            <td><%= number_to_currency @jobs.first.amount_total(4, current_user.business.id) if @jobs.paid.any? %></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <%= render partial: "bills/today", object: @bills %>
+      <br><br><br>
+      <%= render partial: "bills/late", object: @bills %>
     </div>
+    <div class="col-md-2"></div>
   </div>
 <% end %>
