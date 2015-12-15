@@ -16,16 +16,16 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav navbar-left">
-      <li><%= link_to "Home", root_path %></li>
+      <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
       <% if user_signed_in? %>
         <% if current_user.business %>
-          <li><%= link_to "Job Board", jobs_path %></li>    
-          <li><%= link_to "My Clients", myclients_path %></li>
+          <li class="<%= 'active' if current_page?(jobs_path) %>"><%= link_to "Job Board", jobs_path %></li>    
+          <li class="<%= 'active' if current_page?(myclients_path) %>"><%= link_to "My Clients", myclients_path %></li>
         <% else %>
           <li class="disabled"><%= link_to "Job Board", jobs_path %></li>
           <li class="disabled"><%= link_to "My Clients", myclients_path %></li>
         <% end %>
-        <li><%= link_to "My Business", mybusiness_path %></li>
+        <li class="<%= 'active' if current_page?(mybusiness_path) %>"><%= link_to "My Business", mybusiness_path %></li>
       <% end %>
     </ul>
     <ul class="nav navbar-nav navbar-right">
