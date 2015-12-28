@@ -2,29 +2,29 @@
 <!--%= session[:original_url] %-->
 
 <div class="row" id="board">
-  <div class="col-md-3" id="Scheduled">
-    <h4>Scheduled Jobs</h4>
+  <div class="col-md-3 vr-right" id="Scheduled">
+    <h3>Scheduled Jobs</h3>
     <hr>
+    <%= link_to new_job_path(@job), class: "btn btn-default" do %>
+      <i class="fa fa-plus"></i> Schedule a New Job
+    <% end %>
       <div class="col-md-12" id="ScheduledBeforeYesterday">
-        <%= link_to new_job_path(@job), class: "btn btn-default" do %>
-          <i class="fa fa-plus"></i> Schedule a New Job
-        <% end %>
         <% if @jobs.scheduled_before_yesterday.any? %>
-          <hr>
-          <h5>Before Yesterday</h5>
+          <br>
+          <h4>Before Yesterday</h4>
           <%= render @jobs.scheduled_before_yesterday %>
         <% end %>
       </div>
     <% if @jobs.scheduled_yesterday.any? %>
       <div class="col-md-12" id="ScheduledYesterday">
         <hr>
-        <h5>Yesterday</h5>
+        <h4>Yesterday</h4>
         <%= render @jobs.scheduled_yesterday %>
       </div>
     <% end %>
     <div class="col-md-12" id="ScheduledToday">
       <hr>
-      <h5>Today</h5>
+      <h4>Today</h4>
       <% if @jobs.scheduled_today.any? %>
         <%= render @jobs.scheduled_today %>
       <% else %>
@@ -33,7 +33,7 @@
     </div>
     <div class="col-md-12" id="ScheduledTomorrow">
       <hr>
-      <h5>Tomorrow</h5>
+      <h4>Tomorrow</h4>
       <% if @jobs.scheduled_tomorrow.any? %>
         <%= render @jobs.scheduled_tomorrow %>
       <% else %>
@@ -42,7 +42,7 @@
     </div>
     <div class="col-md-12" id="ScheduledAfterTomorrow">
       <hr>
-      <h5>After Tomorrow</h5>
+      <h4>After Tomorrow</h4>
       <% if @jobs.scheduled_after_tomorrow.any? %>
         <%= render @jobs.scheduled_after_tomorrow %>
       <% else %>
@@ -50,16 +50,16 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-3" id="Completed">
-    <h4>Completed Jobs <span class="label label-info" data-toggle="tooltip" data-placement="top" title="This is how much money you should be paid for completed jobs"><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></span></h4><hr>
+  <div class="col-md-3 vr-right" id="Completed">
+    <h3>Completed Jobs <span class="label label-info" data-toggle="tooltip" data-placement="top" title="This is how much money you should be paid for completed jobs"><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></span></h3><hr>
     <% if @jobs.completed.any? %>
       <%= render @jobs.completed %>
     <% else %>
       <p>No jobs have been completed yet.</p>
     <% end %>
   </div>
-  <div class="col-md-3" id="Billed">
-    <h4>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></span></h4><hr>
+  <div class="col-md-3 vr-right" id="Billed">
+    <h3>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></span></h3><hr>
     <% if @jobs.billed.any? %>
       <%= render @jobs.billed %>
     <% else %>
@@ -67,7 +67,7 @@
     <% end %>
   </div>
   <div class="col-md-3" id="Paid">
-    <h4>Paid Jobs <span class="label label-success" data-toggle="tooltip" data-placement="top" title="Cha-ching!"><%= number_to_currency @jobs.first.amount_total(4, current_user.business.id) if @jobs.paid.any? %></span></h4><hr>
+    <h3>Paid Jobs <span class="label label-success" data-toggle="tooltip" data-placement="top" title="Cha-ching!"><%= number_to_currency @jobs.first.amount_total(4, current_user.business.id) if @jobs.paid.any? %></span></h3><hr>
     <% if @jobs.paid.any? %>
     <%= render @jobs.paid %>
     <% else %>
