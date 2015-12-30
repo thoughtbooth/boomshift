@@ -51,7 +51,7 @@
     </div>
   </div>
   <div class="col-md-3 vr-right" id="Completed">
-    <h3>Completed Jobs <span class="label label-info" data-toggle="tooltip" data-placement="top" title="This is how much money you should be paid for completed jobs"><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></span></h3><hr>
+    <h3>Completed Jobs <span class="label label-info" data-toggle="tooltip" data-placement="top" title="This is how much money you should be paid for completed jobs."><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></span></h3><hr>
     <% if @jobs.completed.any? %>
       <%= render @jobs.completed %>
     <% else %>
@@ -59,7 +59,7 @@
     <% end %>
   </div>
   <div class="col-md-3 vr-right" id="Billed">
-    <h3>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you"><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></span></h3><hr>
+    <h3>Billed Jobs <span class="label label-warning" data-toggle="tooltip" data-placement="top" title="This is how much money you are waiting for your clients to pay you."><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></span></h3><hr>
     <% if @jobs.billed.any? %>
       <%= render @jobs.billed %>
     <% else %>
