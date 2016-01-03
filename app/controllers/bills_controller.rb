@@ -102,7 +102,7 @@ class BillsController < ApplicationController
     @bill.sender_id = current_user.business.id
     #@bill.line_items.build(invoicing_line_item_params)
     if @bill.save
-      flash[:notice] = 'The bill was successfully created.'
+      flash[:success] = 'The bill was successfully created.'
       respond_with @bill
     else
       render action: 'new'
@@ -135,7 +135,7 @@ class BillsController < ApplicationController
     def correct_user
       @bill = current_user.business.invoicing_ledger_items.find_by(id: params[:id])
       if @bill.nil?
-        flash[:notice] = "You are not authorized for that bill."
+        flash[:error] = "You are not authorized for that bill."
         redirect_to jobs_path
       end
     end

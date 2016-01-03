@@ -26,7 +26,7 @@ class ServicesController < ApplicationController
   def create
     @service = current_user.business.services.new(service_params)
     if @service.save
-      flash[:notice] = 'Service was successfully created.'
+      flash[:success] = 'Service was successfully created.'
       respond_with @service
     else
       render action: 'new'
@@ -35,7 +35,7 @@ class ServicesController < ApplicationController
 
   def update
     if @service.update(service_params)
-      flash[:notice] = 'Service changes were successfully saved.'
+      flash[:success] = 'Service changes were successfully saved.'
       respond_with(@service)
     else
       render action: 'edit'
@@ -56,7 +56,7 @@ class ServicesController < ApplicationController
     def correct_user
       @service = current_user.business.services.find_by(id: params[:id])
       if @service.nil?
-        flash[:notice] = "You are not authorized for that service."
+        flash[:error] = "You are not authorized for that service."
         redirect_to services_path
       end
     end

@@ -26,7 +26,7 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.business.clients.new(client_params)
     if @client.save
-      flash[:notice] = 'Client was successfully created.'
+      flash[:success] = 'Client was successfully created.'
       respond_with @client
     else
       render action: 'new'
@@ -35,7 +35,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      flash[:notice] = 'Client changes were successfully saved.'
+      flash[:success] = 'Client changes were successfully saved.'
       respond_with(@client)
     else
       render action: 'edit'
@@ -56,7 +56,7 @@ class ClientsController < ApplicationController
     def correct_user
       @client = current_user.business.clients.find_by(id: params[:id])
       if @client.nil?
-        flash[:notice] = "You are not authorized for that client profile."
+        flash[:error] = "You are not authorized for that client profile."
         redirect_to clients_path
       end
     end

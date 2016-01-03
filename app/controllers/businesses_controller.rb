@@ -25,7 +25,7 @@ class BusinessesController < ApplicationController
   def create
     @business = current_user.build_business(business_params)
     if @business.save
-      flash[:notice] = 'Your business profile has been created.'
+      flash[:success] = 'Your business profile has been created.'
       respond_with @business
     else
       render action: 'new'
@@ -34,7 +34,7 @@ class BusinessesController < ApplicationController
 
   def update
     if @business.update(business_params)
-      flash[:notice] = 'Your business profile changes were saved.'
+      flash[:success] = 'Your business profile changes were saved.'
       respond_with @business
     else
       render action: 'edit'
@@ -54,7 +54,7 @@ class BusinessesController < ApplicationController
   
     def correct_user
       unless params[:id].to_i == current_user.business.id
-        flash[:notice] = "You are not authorized for that business profile."
+        flash[:error] = "You are not authorized for that business profile."
         redirect_to mybusiness_path
       end
     end

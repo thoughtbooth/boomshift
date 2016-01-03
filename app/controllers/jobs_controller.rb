@@ -29,7 +29,7 @@ class JobsController < ApplicationController
     job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P')
     @job = Job.create(job_params_strptime)
     if @job.save
-      flash[:notice] = 'Job was successfully created.'
+      flash[:success] = 'Job was successfully created.'
       redirect_to session[:original_url]
     else
       render action: 'new'
@@ -64,10 +64,10 @@ class JobsController < ApplicationController
     @bill = Bill.new type: "Bill", currency: "usd", description: "Bill for services rendered for Job #{@job.id}", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: current_user.business.payment_term.days_to_pay.days.from_now
     @bill.line_items.build job_id: @job.id, description: @job.description_for_bill, net_amount: @job.amount, quantity: 1, creator_id: current_user.id, tax_amount: 0
     if @bill.save
-      flash[:notice] = 'The bill was successfully created.'
+      flash[:success] = 'The bill was successfully created.'
     else
       @job.update(job_status_id: 1)
-      flash[:notice] = 'The bill could not be created. The job has not been moved to the Completed Jobs column.'
+      flash[:error] = 'The bill could not be created. The job has not been moved to the Completed Jobs column.'
     end
   end
 
@@ -85,7 +85,7 @@ class JobsController < ApplicationController
     def correct_user
       @job = Job.find_by(id: params[:id], enrollment_id: Enrollment.joins(client: [{ business: :user }]).where("business_id = ?", current_user.business.id))
       if @job.nil?
-        flash[:notice] = "You are not authorized for that job."
+        flash[:error] = "You are not authorized for that job."
         redirect_to jobs_path
       end
     end

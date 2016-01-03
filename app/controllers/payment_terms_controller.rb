@@ -26,7 +26,7 @@ class PaymentTermsController < ApplicationController
   def create
     @payment_term = PaymentTerm.new(payment_term_params)
     if @payment_term.save
-      flash[:notice] = 'Payment terms were successfully created.'
+      flash[:success] = 'Payment terms were successfully created.'
       respond_with(@payment_term)
     else
       render action: 'new'
@@ -35,7 +35,7 @@ class PaymentTermsController < ApplicationController
 
   def update
     if @payment_term.update(payment_term_params)
-      flash[:notice] = 'Payment terms changes were successfully saved.'
+      flash[:success] = 'Payment terms changes were successfully saved.'
       respond_with(@payment_term)
     else
       render action: 'edit'
@@ -55,7 +55,7 @@ class PaymentTermsController < ApplicationController
   
     def correct_user
       unless params[:id].to_i == current_user.business.payment_term.id
-        flash[:notice] = "You are not authorized for those payment terms."
+        flash[:error] = "You are not authorized for those payment terms."
         redirect_to mybusiness_path
       end
     end

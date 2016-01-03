@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="col-xs-12">
-        <p id="notice"><%= notice %></p>
+        <%= render partial: "shared/flash_messages", flash: flash %>
         <%= yield %>
       </div>
     </div>

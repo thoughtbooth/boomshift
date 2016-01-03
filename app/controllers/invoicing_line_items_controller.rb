@@ -27,7 +27,7 @@ class InvoicingLineItemsController < ApplicationController
   def create
     @invoicing_line_item = InvoicingLineItem.create(invoicing_line_item_params)
     if @invoicing_line_item.save
-      flash[:notice] = 'The line item was successfully added to the bill.'
+      flash[:success] = 'The line item was successfully added to the bill.'
       redirect_to :back
     else
       render action: 'new'
@@ -53,7 +53,7 @@ class InvoicingLineItemsController < ApplicationController
     def correct_user
       @invoicing_line_item = InvoicingLineItem.find_by(id: params[:id], ledger_item_id: InvoicingLedgerItem.where("sender_id = ?", current_user.business.id)) #current_user.business.invoicing_ledger_items.line_items.find_by(id: params[:id])
       if @invoicing_line_item.nil?
-        flash[:notice] = "You are not authorized for that line item."
+        flash[:error] = "You are not authorized for that line item."
         redirect_to jobs_path
       end
     end

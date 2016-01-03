@@ -28,7 +28,7 @@ class EnrollmentsController < ApplicationController
 
 #     respond_to do |format|
 #       if @enrollment.save
-#         format.html { redirect_to :back, notice: 'Enrollment was saved.' }
+#         format.html { redirect_to :back, success: 'Enrollment was saved.' }
 #       else
 #         format.html { render :new }
 #       end
@@ -37,7 +37,7 @@ class EnrollmentsController < ApplicationController
   
   def add_enrollment
     @enrollment = Enrollment.new(params.permit(:client_id, :service_id, :preferences)).save
-    flash[:notice] = 'The enrollment was saved.'
+    flash[:success] = 'The enrollment was saved.'
     redirect_to :back
   end
   helper_method :add_enrollment # Do I even need this?
@@ -46,7 +46,7 @@ class EnrollmentsController < ApplicationController
   def update
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to :back, notice: 'Preferences were successfully updated.' }
+        format.html { redirect_to :back, success: 'Preferences were successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -57,7 +57,7 @@ class EnrollmentsController < ApplicationController
   def destroy
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'The client was unenrolled from the service.' }
+      format.html { redirect_to :back, success: 'The client was unenrolled from the service.' }
     end
   end
 
@@ -70,7 +70,7 @@ class EnrollmentsController < ApplicationController
     def correct_user
       @enrollment = Enrollment.find_by(id: params[:id], client_id: Client.joins(:business).where("business_id = ?", current_user.business.id))
       if @enrollment.nil?
-        flash[:notice] = "You are not authorized for that enrollment."
+        flash[:error] = "You are not authorized for that enrollment."
         redirect_to enrollments_path
       end
     end
