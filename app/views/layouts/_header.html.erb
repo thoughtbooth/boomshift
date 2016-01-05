@@ -12,14 +12,16 @@
     </a>
     <% if user_signed_in? and current_user.business %>
       <p class="navbar-text h4"> <%= current_user.business.name %></p>
+    <% else %>
+      <p class="navbar-text h4"> Boomshift</p>
     <% end %>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav navbar-left">
-      <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
       <% if user_signed_in? %>
+        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
         <% if current_user.business %>
           <li class="<%= 'active' if current_page?(jobs_path) %>"><%= link_to "Job Board", jobs_path %></li>    
           <li class="<%= 'active' if current_page?(myclients_path) %>"><%= link_to "My Clients", myclients_path %></li>
