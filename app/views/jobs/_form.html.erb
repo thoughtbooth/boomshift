@@ -17,7 +17,7 @@
         <% end %>
 
         <div class="form-inputs">
-          <%= f.association :enrollment, collection: Enrollment.active, label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service', label: "Service" %>
+          <%= f.association :enrollment, collection: Enrollment.active.where(client_id: Client.joins(:business).where("business_id = ?", current_user.business.id)), label_method: :client_service, value_method: :id, prompt: 'Choose an enrolled service', label: "Service" %>
           <% if f.object.new_record? %>
             <% jd = "" %>
           <% else %>

@@ -8,22 +8,20 @@
     <%= link_to new_job_path(@job), class: "btn btn-default" do %>
       <i class="fa fa-plus"></i> Schedule a New Job
     <% end %>
-      <div class="col-md-12" id="ScheduledBeforeYesterday">
-        <% if @jobs.scheduled_before_yesterday.any? %>
-          <br>
+    <br><br>
+      <% if @jobs.scheduled_before_yesterday.any? %>
+        <div class="col-md-12" id="ScheduledBeforeYesterday">
           <h4>Before Yesterday</h4>
           <%= render @jobs.scheduled_before_yesterday %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% if @jobs.scheduled_yesterday.any? %>
       <div class="col-md-12" id="ScheduledYesterday">
-        <hr>
         <h4>Yesterday</h4>
         <%= render @jobs.scheduled_yesterday %>
       </div>
     <% end %>
     <div class="col-md-12" id="ScheduledToday">
-      <hr>
       <h4>Today</h4>
       <% if @jobs.scheduled_today.any? %>
         <%= render @jobs.scheduled_today %>
@@ -32,7 +30,6 @@
       <% end %>
     </div>
     <div class="col-md-12" id="ScheduledTomorrow">
-      <hr>
       <h4>Tomorrow</h4>
       <% if @jobs.scheduled_tomorrow.any? %>
         <%= render @jobs.scheduled_tomorrow %>
@@ -41,7 +38,6 @@
       <% end %>
     </div>
     <div class="col-md-12" id="ScheduledAfterTomorrow">
-      <hr>
       <h4>After Tomorrow</h4>
       <% if @jobs.scheduled_after_tomorrow.any? %>
         <%= render @jobs.scheduled_after_tomorrow %>

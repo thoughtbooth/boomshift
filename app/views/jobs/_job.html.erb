@@ -20,15 +20,17 @@
             
             <% @t = job.job_date.time %>
             
+            <!-- Yesterday -->
             <% if job.job_date.day == Time.now.yesterday.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
             <% end %>
             
+            <!-- Yesterday -->
             <li role="presentation" class='<%= @disabled %>'>
               <% @d = Date.new(Time.now.yesterday.year, Time.now.yesterday.month, Time.now.yesterday.day) %>
-              <% @job_dt1 = (@d + @t.seconds_since_midnight.seconds).to_datetime %>
+              <% @job_dt1 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
               
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt1}), method: :put, role: 'menuitem', tabindex: -1 do %>
@@ -41,15 +43,17 @@
               <% end %>
             </li>
             
+            <!-- Today -->
             <% if job.job_date.day == Time.now.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
             <% end %>
             
+            <!-- Today -->
             <li role="presentation" class='<%= @disabled %>'>
               <% @d = Date.new(Time.now.year, Time.now.month, Time.now.day) %>
-              <% @job_dt2 = (@d + @t.seconds_since_midnight.seconds).to_datetime %>
+              <% @job_dt2 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
               
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt2}), method: :put, role: 'menuitem', tabindex: -1 do %>
@@ -62,15 +66,17 @@
               <% end %>
             </li>
             
+            <!-- Tomorrow -->
             <% if job.job_date.day == Time.now.tomorrow.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
             <% end %>
             
+            <!-- Tomorrow -->
             <li role="presentation" class='<%= @disabled %>'>
               <% @d = Date.new(Time.now.tomorrow.year, Time.now.tomorrow.month, Time.now.tomorrow.day) %>
-              <% @job_dt3 = (@d + @t.seconds_since_midnight.seconds).to_datetime %>
+              <% @job_dt3 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
               
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt3}), method: :put, role: 'menuitem', tabindex: -1 do %>

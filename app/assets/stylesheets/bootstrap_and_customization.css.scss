@@ -6,16 +6,16 @@
 @import "bootstrap-datetimepicker";
 @import "font-awesome";
 
+.vr-right {
+  border-right: solid 1px #bbb;
+  height: 100vh;
+}
+
 hr {
   height: 1px;
   color: #bbb;
   background-color: #bbb;
   border: none;
-}
-
-.vr-right {
-  border-right: solid 1px #bbb;
-  height:100vh;
 }
 
 .navbar-brand {
