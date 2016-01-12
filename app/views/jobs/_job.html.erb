@@ -107,22 +107,22 @@
         <% end %>
         
         <% if job.job_status_id == 2 %> <!-- If Completed -->
-          <!--%= link_to job_path(job, job: {id: job.id, job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
+          <!--%= link_to job_path(job, job: {job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
             <i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i-->
           <!--% end %-->
-          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, billed_on: Time.zone.now}), method: :put, class: "" do %>
+          <%= link_to job_path(job, job: {job_status_id: 3, billed_on: Time.current}), method: :put, class: "" do %>
             <i class="fa fa-paper-plane fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job billed and send the bill to the client"></i>
           <% end %>
         <% end %>
         
         <% if job.job_status_id == 3 %> <!-- If Billed -->
-          <%= link_to job_path(job, job: {id: job.id, job_status_id: 4, paid_on: Time.zone.now}), method: :put, class: "" do %>
+          <%= link_to job_path(job, job: {job_status_id: 4, paid_on: Time.current}), method: :put, class: "" do %>
             <i class="fa fa-bank fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
           <% end %>
         <% end %>
         
         <% if job.job_status_id == 4 %> <!-- If Paid -->
-          <%= link_to job_path(job, job: {id: job.id, job_status_id: 3, paid_on: nil}), method: :put, class: "" do %>
+          <%= link_to job_path(job, job: {job_status_id: 3, paid_on: nil}), method: :put, class: "" do %>
             <i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
           <% end %>
         <% end %>
@@ -173,7 +173,7 @@
         </div>
         <div class="modal-body">
           <%= f.hidden_field :job_status_id, value: 2 %>
-          <%= f.hidden_field :completed_on, value: Time.zone.now %>
+          <%= f.hidden_field :completed_on, value: Time.current %>
           <%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %>
         </div>
         <div class="modal-footer">
