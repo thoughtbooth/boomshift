@@ -100,7 +100,7 @@
                 
           <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#JobHours">
+            <button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#JobHours_<%= job.id %>">
               <i class="fa fa-check fa-lg"></i>
             </button>
           </span>
@@ -164,12 +164,12 @@
 
 <!-- Modal -->
 <%= simple_form_for job do |f| %>
-  <div class="modal fade" id="JobHours" tabindex="-1" role="dialog" aria-labelledby="JobHoursLabel">
+  <div class="modal fade" id="JobHours_<%= job.id %>" tabindex="-1" role="dialog" aria-labelledby="JobHoursLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="JobHoursLabel">Enter Hours Worked</h4>
+          <h4 class="modal-title" id="JobHoursLabel">Enter Hours Worked for Job <%= job.id %></h4>
         </div>
         <div class="modal-body">
           <%= f.hidden_field :job_status_id, value: 2 %>
