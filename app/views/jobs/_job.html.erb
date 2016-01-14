@@ -99,16 +99,14 @@
           </ul>
                 
           <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#JobHours_<%= job.id %>">
-              <i class="fa fa-check fa-lg"></i>
-            </button>
+            <!-- Icon trigger modal -->
+            <a href="#"><i class="fa fa-check fa-lg" data-toggle="modal" data-target="#JobHours_<%= job.id %>"></i></a>
           </span>
         <% end %>
         
         <% if job.job_status_id == 2 %> <!-- If Completed -->
-          <!--%= link_to job_path(job, job: {job_status_id: 1, completed_on: nil }), method: :put, class: "" do %>
-            <i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i-->
+          <!--%= link_to job_path(job, job: {job_status_id: 1, completed_on: nil }), method: :put, class: "" do %-->
+            <!--i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i-->
           <!--% end %-->
           <%= link_to job_path(job, job: {job_status_id: 3, billed_on: Time.current}), method: :put, class: "" do %>
             <i class="fa fa-paper-plane fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job billed and send the bill to the client"></i>
@@ -122,9 +120,9 @@
         <% end %>
         
         <% if job.job_status_id == 4 %> <!-- If Paid -->
-          <%= link_to job_path(job, job: {job_status_id: 3, paid_on: nil}), method: :put, class: "" do %>
-            <i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i>
-          <% end %>
+          <!--%= link_to job_path(job, job: {job_status_id: 3, paid_on: nil}), method: :put, class: "" do %-->
+            <!--i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i-->
+          <!--% end %-->
         <% end %>
         
       </div>    
@@ -152,14 +150,16 @@
       <p><strong>Amount paid:</strong> <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
   </div>
-  <div class="panel-footer">
-    <%= link_to edit_job_path(job), class: "btn btn-default" do %>
-      <i class="fa fa-pencil-square-o"></i> Edit
-    <% end %>
-    <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
-      <i class="fa fa-trash"></i> Delete
-    <% end %>
-  </div>
+  <% if job.job_status_id == 1 %> <!-- If Scheduled -->
+    <div class="panel-footer">
+      <%= link_to edit_job_path(job), class: "btn btn-default" do %>
+        <i class="fa fa-pencil-square-o"></i> Edit
+      <% end %>
+      <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
+        <i class="fa fa-trash"></i> Delete
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <!-- Modal -->
