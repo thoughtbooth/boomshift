@@ -22,7 +22,7 @@ gem 'simple_form'
 gem 'country_select'
 #gem 'client_side_validations'
 #gem 'client_side_validations-simple_form' #This does not support Rails 4 or Simple Form 3.  Check https://gemnasium.com/DavyJonesLocker/client_side_validations-simple_form
-#gem 'browser-timezone-rails' #Removed this (and entries in application.js) as I was seeing strange timezone behavior.
+gem 'browser-timezone-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'paranoia', "~> 2.0"

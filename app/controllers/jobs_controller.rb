@@ -26,7 +26,8 @@ class JobsController < ApplicationController
   def create
     # Convert the date format from Moment.js to Strftime for submission to server
     job_params_strptime = job_params
-    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P')
+    # The DateTimePicker control sends time in local timezone to the controller, which  incorrectly assumes it is UTC. Using change method to move the offset to compensate.
+    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false))
     @job = Job.create(job_params_strptime)
     if @job.save
       flash[:success] = 'Job was successfully created.'
