@@ -30,7 +30,7 @@ class JobsController < ApplicationController
     job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false))
     @job = Job.create(job_params_strptime)
     if @job.save
-      flash[:success] = 'Job was successfully created.'
+      flash[:success] = 'The job was successfully created.'
       redirect_to session[:original_url]
     else
       render action: 'new'
@@ -74,6 +74,7 @@ class JobsController < ApplicationController
 
   def destroy
     @job.destroy
+    flash[:notice] = 'The job was deleted.'
     #respond_with(@job)
     redirect_to :back
   end

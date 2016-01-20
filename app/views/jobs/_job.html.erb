@@ -1,11 +1,19 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-7">
         <h5 class="panel-title"><%= job.id %>: <%= job.enrollment.client.full_name %></h5>
       </div>
-      <div class="col-md-4 text-right">
+      <div class="col-md-5 text-right">
         <% if job.job_status_id == 1 %> <!-- If Scheduled -->
+          <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fa fa-trash fa-lg" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+          <% end %>
+          &nbsp;
+          <%= link_to edit_job_path(job) do %>
+            <i class="fa fa-pencil-square-o fa-lg" data-toggle="tooltip" data-placement="top" title="Edit"></i>
+          <% end %>
+          &nbsp;
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-calendar fa-lg" data-toggle="tooltip" data-placement="top" title="Change scheduled job date to..."></i>
           </a>
@@ -80,6 +88,14 @@
                 </a>
               <% end %>
             </li>
+            
+            <li role="presentation" class="divider"></li>
+            
+            <li role="presentation" class="">
+              <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
+                <i class="fa fa-pencil-square-o"></i> Something else...
+              <% end %>
+            </li>
           </ul>
           &nbsp;
           <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
@@ -91,18 +107,29 @@
           <!--%= link_to job_path(job, job: {job_status_id: 1, completed_on: nil }), method: :put, class: "" do %-->
             <!--i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been completed yet..."></i-->
           <!--% end %-->
+          <%= link_to bill_path(job.bill) do %>
+            <i class="fa fa-file-text-o fa-lg" data-toggle="tooltip" data-placement="top" title="Go to the bill for this job"></i>
+          <% end %>
+          &nbsp;
           <%= link_to job_path(job, job: {job_status_id: 3, billed_on: Time.now}), method: :put, class: "" do %>
             <i class="fa fa-paper-plane fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job billed and send the bill to the client"></i>
           <% end %>
         <% end %>
         
         <% if job.job_status_id == 3 %> <!-- If Billed -->
+          <%= link_to bill_path(job.bill) do %>
+            <i class="fa fa-file-text-o fa-lg" data-toggle="tooltip" data-placement="top" title="Go to the bill for this job"></i>
+          <% end %>
+          &nbsp;
           <%= link_to job_path(job, job: {job_status_id: 4, paid_on: Time.now}), method: :put, class: "" do %>
             <i class="fa fa-bank fa-lg" data-toggle="tooltip" data-placement="top" title="Mark this job paid"></i>
           <% end %>
         <% end %>
         
         <% if job.job_status_id == 4 %> <!-- If Paid -->
+          <%= link_to bill_path(job.bill) do %>
+            <i class="fa fa-file-text-o fa-lg" data-toggle="tooltip" data-placement="top" title="Go to the bill for this job"></i>
+          <% end %>
           <!--%= link_to job_path(job, job: {job_status_id: 3, paid_on: nil}), method: :put, class: "" do %-->
             <!--i class="fa fa-undo fa-lg" data-toggle="tooltip" data-placement="top" title="Actually this job hasn't been paid yet..."></i-->
           <!--% end %-->
@@ -112,42 +139,23 @@
     </div>
   </div>
   <div class="panel-body">
-    <h5><strong><%= truncate job.enrollment.service.name, length: 50 %> &nbsp;</strong>
-      <% if job.job_status_id == 1 %> <!-- If Scheduled -->
-        <%= link_to edit_job_path(job) do %>
-          <i class="fa fa-pencil-square-o fa-lg"></i>
-        <% end %>
-        &nbsp;
-        <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' } do %>
-          <i class="fa fa-trash fa-lg"></i>
-        <% end %>
-      <% end %>
-    </h5>
+    <h5><strong><%= truncate job.enrollment.service.name, length: 50 %></strong></h5>
     <hr>
     <p>
-      <strong>Appointment:</strong> <%= l job.job_date.in_time_zone, day: job.job_date.day.ordinalize, format: :human_datetime %> &nbsp;
-      <% if job.job_status_id == 1 %> <!-- If Scheduled -->
-        <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
-          <i class="fa fa-calendar"></i>
-        <% end %>
-      <% end %>
-    </p>
+      <strong>Appointment:</strong> <%= l job.job_date.in_time_zone, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
     <% if job.job_status_id == 2 || job.job_status_id == 3 || job.job_status_id == 4 %> <!-- If Completed, Billed, Paid -->
       <p><strong>Marked complete on:</strong> <%= l job.completed_on.in_time_zone, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
     <% end %>
     <% if job.job_status_id == 2 %> <!-- If Completed -->
-      <% job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", job.id) %>
       <p><strong>Hours worked:</strong> <%= job.hours_worked %></p>
-      <p><strong>Amount owed:</strong> <%= number_to_currency job.amount %> (<%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %>)</p>
+      <p><strong>Amount owed:</strong> <%= number_to_currency job.amount %> (<%= link_to 'Bill ' + job.bill_identifier, bill_path(job.bill) %>)</p>
     <% end %>
     <% if job.job_status_id == 3 %> <!-- If Billed -->
-      <% job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", job.id) %>
-      <p><strong><%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %> sent on:</strong> <%= l job.billed_on.in_time_zone, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
-      <p><strong>Amount owed:</strong> <%= number_to_currency job.amount %></p>
+      <p><strong><%= link_to 'Bill ' + job.bill_identifier, bill_path(job.bill) %> sent on:</strong> <%= l job.billed_on.in_time_zone, day: job.billed_on.day.ordinalize, format: :human_datetime %></p>
+      <p><strong>Amount owed:</strong> <%= number_to_currency job.amount %>  (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
     <% if job.job_status_id == 4 %> <!-- If Paid -->
-      <% job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", job.id) %>
-      <p><strong><%= link_to 'Bill ' + job.bill_identifier, bill_path(job_bills.first) if job_bills.any? %> paid on:</strong> <%= l job.paid_on.in_time_zone, day: job.paid_on.day.ordinalize, format: :human_datetime %></p>
+      <p><strong><%= link_to 'Bill ' + job.bill_identifier, bill_path(job.bill) %> paid on:</strong> <%= l job.paid_on.in_time_zone, day: job.paid_on.day.ordinalize, format: :human_datetime %></p>
       <p><strong>Amount paid:</strong> <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
   </div>
