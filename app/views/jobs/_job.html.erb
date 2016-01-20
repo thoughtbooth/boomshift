@@ -10,28 +10,20 @@
             <i class="fa fa-calendar fa-lg" data-toggle="tooltip" data-placement="top" title="Change scheduled job date to..."></i>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li role="presentation" class="">
-              <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
-                <i class="fa fa-pencil-square-o"></i> Before Yesterday...
-              <% end %>
-            </li>
-            
-            <li role="presentation" class="divider"></li>
-            
             <% @t = job.job_date.time %>
-            
+
             <!-- Yesterday -->
             <% if job.job_date.day == Time.now.yesterday.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
             <% end %>
-            
+
             <!-- Yesterday -->
             <li role="presentation" class='<%= @disabled %>'>
               <% @d = Date.new(Time.now.yesterday.year, Time.now.yesterday.month, Time.now.yesterday.day) %>
               <% @job_dt1 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
-              
+
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt1}), method: :put, role: 'menuitem', tabindex: -1 do %>
                   <i class="fa fa-calendar"></i> Yesterday
@@ -42,19 +34,19 @@
                 </a>
               <% end %>
             </li>
-            
+
             <!-- Today -->
             <% if job.job_date.day == Time.now.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
             <% end %>
-            
+
             <!-- Today -->
             <li role="presentation" class='<%= @disabled %>'>
               <% @d = Date.new(Time.now.year, Time.now.month, Time.now.day) %>
               <% @job_dt2 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
-              
+
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt2}), method: :put, role: 'menuitem', tabindex: -1 do %>
                   <i class="fa fa-calendar"></i> Today
@@ -65,19 +57,19 @@
                 </a>
               <% end %>
             </li>
-            
+
             <!-- Tomorrow -->
             <% if job.job_date.day == Time.now.tomorrow.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
             <% end %>
-            
+
             <!-- Tomorrow -->
             <li role="presentation" class='<%= @disabled %>'>
               <% @d = Date.new(Time.now.tomorrow.year, Time.now.tomorrow.month, Time.now.tomorrow.day) %>
               <% @job_dt3 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
-              
+
               <% if @disabled == "" %>
                 <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt3}), method: :put, role: 'menuitem', tabindex: -1 do %>
                   <i class="fa fa-calendar"></i> Tomorrow
@@ -88,18 +80,9 @@
                 </a>
               <% end %>
             </li>
-            
-            <li role="presentation" class="divider"></li>
-            
-            <li role="presentation" class="">
-              <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
-                <i class="fa fa-pencil-square-o"></i> After Tomorrow...
-              <% end %>
-            </li>
           </ul>
-                
+          &nbsp;
           <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
-            <!-- Icon trigger modal -->
             <a href="#"><i class="fa fa-check fa-lg" data-toggle="modal" data-target="#JobHours_<%= job.id %>"></i></a>
           </span>
         <% end %>
@@ -129,9 +112,26 @@
     </div>
   </div>
   <div class="panel-body">
-    <h5><strong><%= truncate job.enrollment.service.name, length: 50 %></strong></h5>
+    <h5><strong><%= truncate job.enrollment.service.name, length: 50 %> &nbsp;</strong>
+      <% if job.job_status_id == 1 %> <!-- If Scheduled -->
+        <%= link_to edit_job_path(job) do %>
+          <i class="fa fa-pencil-square-o fa-lg"></i>
+        <% end %>
+        &nbsp;
+        <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class="fa fa-trash fa-lg"></i>
+        <% end %>
+      <% end %>
+    </h5>
     <hr>
-    <p><strong>Appointment:</strong> <%= l job.job_date.in_time_zone, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
+    <p>
+      <strong>Appointment:</strong> <%= l job.job_date.in_time_zone, day: job.job_date.day.ordinalize, format: :human_datetime %> &nbsp;
+      <% if job.job_status_id == 1 %> <!-- If Scheduled -->
+        <%= link_to edit_job_path(job), role: 'menuitem', tabindex: -1 do %>
+          <i class="fa fa-calendar"></i>
+        <% end %>
+      <% end %>
+    </p>
     <% if job.job_status_id == 2 || job.job_status_id == 3 || job.job_status_id == 4 %> <!-- If Completed, Billed, Paid -->
       <p><strong>Marked complete on:</strong> <%= l job.completed_on.in_time_zone, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
     <% end %>
@@ -151,16 +151,6 @@
       <p><strong>Amount paid:</strong> <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
   </div>
-  <% if job.job_status_id == 1 %> <!-- If Scheduled -->
-    <div class="panel-footer">
-      <%= link_to edit_job_path(job), class: "btn btn-default" do %>
-        <i class="fa fa-pencil-square-o"></i> Edit
-      <% end %>
-      <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
-        <i class="fa fa-trash"></i> Delete
-      <% end %>
-    </div>
-  <% end %>
 </div>
 
 <!-- Modal -->
