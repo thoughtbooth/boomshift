@@ -70,8 +70,6 @@
   </div>
 </div>
 
-<% unless params.has_key?(:print) && params[:print] == 'true' %>
-  <%= link_to 'Back', :back %>
-<% else %>
+<% if  params.has_key?(:print) && params[:print] == 'true' %>
   Thank you for your business!
 <% end %>
