@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
-  <% unless @business %>
-    <h3>First, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
+  <% if current_user.business %>
+    <h1><%= current_user.business.name %></h1>
   <% end %>
 <% else %>
   <h2>Welcome to Boomshift!</h2>
@@ -12,6 +12,10 @@
 <% end %>
 
 <% if user_signed_in? %>
+  <% unless @business %>
+    <%= render "new_user_wizard" %>
+  <% end %>
+
   <div class="row">
     <div class="col-md-3">
       <%= render partial: "jobs/summary", object: @jobs %>

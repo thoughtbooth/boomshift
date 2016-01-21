@@ -1,6 +1,10 @@
 <h1>My Business</h1>
 <hr>
 
+<% unless @business %>
+  <%= render "new_user_wizard" %>
+<% end %>
+
 <div class="row">
   <div class="col-md-4">
     <% if @business %>
@@ -10,24 +14,11 @@
       <% else %>
         <h3 class="text-center"><%= link_to 'Create My Payment Terms', new_payment_term_path, class: "btn btn-link btn-lg" %></h3>
       <% end %>
-    <% else %>
-      <h3 class="text-center"><%= link_to 'Create My Business Profile', new_business_path, class: "btn btn-link btn-lg" %></h3>
-      <hr>
-      <h3 class="text-center">My Payment Terms</h3>
-      <p class="text-center">(Create your business profile first!)</p>
-    <% end %>
-    <% if @business %>
-
-    <% else %>
-
     <% end %>
   </div>
   <div class="col-md-8">
     <% if @business %>
       <%= render partial: "services/services", object: @services %>
-    <% else %>
-      <h3 class="text-center">Services I Offer</h3>
-      <p class="text-center">(Create your business profile first!)</p>
     <% end %>
   </div>
 </div>

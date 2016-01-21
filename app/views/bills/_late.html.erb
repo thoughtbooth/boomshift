@@ -10,22 +10,33 @@
     </tr>
   </thead>
 
+  
   <tbody>
-    <% @bills_past_due = @bills.where("status = 'open' and due_date < ?", Time.zone.now.beginning_of_day) %>
-    <% @bills_past_due.each do |bill| %>
+    <% unless @bills.nil? %>
+      <% @bills_past_due = @bills.where("status = 'open' and due_date < ?", Time.zone.now.beginning_of_day) %>
+      <% @bills_past_due.each do |bill| %>
+        <tr>
+          <td><%= bill.recipient.full_name %></td>
+          <td>
+            <%= link_to bill, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Bill" do %>
+              <i class="fa fa-search"></i> <%= bill.identifier %>
+            <% end %>
+          </td>
+          <td><%= l bill.due_date, format: :default_date %></td>
+          <td><%= number_to_currency bill.total_amount %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= bill.recipient.full_name %></td>
-        <td>
-          <%= link_to bill, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Bill" do %>
-          <i class="fa fa-search"></i> <%= bill.identifier %>
-          <% end %>
-        </td>
-        <td><%= l bill.due_date, format: :default_date %></td>
-        <td><%= number_to_currency bill.total_amount %></td>
+        <td colspan="4">There are no late bills right now.</td>
       </tr>
     <% end %>
   </tbody>
+  
 </table>
-<% unless @bills_past_due.any? %>
-  There are no past due bills.
+
+<% unless @bills.nil? %>
+  <% unless @bills_past_due.any? %>
+    There are no past due bills.
+  <% end %>
 <% end %>

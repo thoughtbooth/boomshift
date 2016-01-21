@@ -8,25 +8,45 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Scheduled</td>
-      <td><%= @jobs.scheduled.count %></td>
-      <td>N/A</td>
-    </tr>
-    <tr>
-      <td>Completed</td>
-      <td><%= @jobs.completed.count %></td>
-      <td><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></td>
-    </tr>
-    <tr>
-      <td>Billed</td>
-      <td><%= @jobs.billed.count %></td>
-      <td><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></td>
-    </tr>
-    <tr>
-      <td>Paid</td>
-      <td><%= @jobs.paid.count %></td>
-      <td><%= number_to_currency @jobs.first.amount_total(4, current_user.business.id) if @jobs.paid.any? %></td>
-    </tr>
+    <% unless @jobs.nil? %>
+      <tr>
+        <td><strong>Scheduled</strong></td>
+        <td><%= @jobs.scheduled.count %></td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td><strong>Completed</strong></td>
+        <td><%= @jobs.completed.count %></td>
+        <td><%= number_to_currency(@jobs.first.amount_total(2, current_user.business.id)) if @jobs.completed.any? %></td>
+      </tr>
+      <tr>
+        <td><strong>Billed</strong></td>
+        <td><%= @jobs.billed.count %></td>
+        <td><%= number_to_currency @jobs.first.amount_total(3, current_user.business.id) if @jobs.billed.any? %></td>
+      </tr>
+      <tr>
+        <td><strong>Paid</strong></td>
+        <td><%= @jobs.paid.count %></td>
+        <td><%= number_to_currency @jobs.first.amount_total(4, current_user.business.id) if @jobs.paid.any? %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><strong>Scheduled</strong></td>
+        <td colspan="2">There are no scheduled jobs right now.</td>
+      </tr>
+      <tr>
+        <td><strong>Completed</strong></td>
+        <td colspan="2">There are no completed jobs right now.</td>
+      </tr>
+      <tr>
+        <td><strong>Billed</strong></td>
+        <td colspan="2">There are no billed jobs right now.</td>
+      </tr>
+      <tr>
+        <td><strong>Paid</strong></td>
+        <td colspan="2">You have not been paid for any jobs yet.</td>
+      </tr>
+    <% end %>
   </tbody>
+  
 </table>

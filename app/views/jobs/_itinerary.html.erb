@@ -3,26 +3,30 @@
 
 <h3>Today's Jobs</h3>
 
-<% if @jobs_today.any? %>
-  <% @jobs_today.each do |job| %>
-    <div class="panel panel-default"> 
-      <div class="panel-heading">
-        <div class="row">
-          <div class="col-md-8">
-            <h4 class="panel-title"><%= job.enrollment.client.full_name %></h4>
+<% unless @jobs_today.nil? %>
+  <% if @jobs_today.any? %>
+    <% @jobs_today.each do |job| %>
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-md-8">
+              <h4 class="panel-title"><%= job.enrollment.client.full_name %></h4>
+            </div>
           </div>
         </div>
+        <div class="panel-body">
+          <p><%= truncate job.enrollment.service.name, length: 50 %>, today @ <%= l job.job_date, format: :default_time %>.</p>
+          <%= link_to edit_job_path(job), class: "btn btn-default" do %>
+            <i class="fa fa-pencil-square-o"></i> Edit
+          <% end %>
+          <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
+            <i class="fa fa-trash"></i> Delete
+          <% end %>
+        </div>
       </div>
-      <div class="panel-body">
-        <p><%= truncate job.enrollment.service.name, length: 50 %>, today @ <%= l job.job_date, format: :default_time %>.</p>
-        <%= link_to edit_job_path(job), class: "btn btn-default" do %>
-          <i class="fa fa-pencil-square-o"></i> Edit
-        <% end %>
-        <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" do %>
-          <i class="fa fa-trash"></i> Delete
-        <% end %>
-      </div>
-    </div>
+    <% end %>
+  <% else %>
+    <p>No jobs are scheduled for today.</p>
   <% end %>
 <% else %>
   <p>No jobs are scheduled for today.</p>

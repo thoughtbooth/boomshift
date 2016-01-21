@@ -10,8 +10,12 @@
     <a class="navbar-brand" href="/">
       <%= image_tag "favicon-96x96.png", height: "45", width: "45", alt: "Boomshift" %>
     </a>
-    <% if user_signed_in? and current_user.business %>
-      <p class="navbar-text h4"> <%= current_user.business.name %></p>
+    <% if current_user.business %>
+      <% if current_user.business.name.blank? %>
+        <p class="navbar-text h4"> Boomshift</p>
+      <% else %>
+        <p class="navbar-text h4"> <%= current_user.business.name %></p>
+      <% end %>
     <% else %>
       <p class="navbar-text h4"> Boomshift</p>
     <% end %>

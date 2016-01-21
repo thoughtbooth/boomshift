@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   
   def set_business
     unless current_user.business
-      flash[:danger] = "Please create your business profile first."
+      flash[:alert] = "Please create your business profile first."
       redirect_to mybusiness_path
     end
   end
