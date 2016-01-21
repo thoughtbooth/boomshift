@@ -43,10 +43,10 @@ Rails.application.configure do
   
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT_DEV'],
-    :address        => ENV['MAILGUN_SMTP_SERVER_DEV'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN_DEV'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD_DEV'],
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
     :domain         => 'boomshift.heroku.com',
     :authentication => :plain
     #:enable_starttls_auto => true
