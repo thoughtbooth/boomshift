@@ -48,9 +48,14 @@ class JobsController < ApplicationController
       create_bill_from_job
     end
     
-    # If the job status was changed from "Completed" to "Billed", then send an email with the bill for the job
+    # If the job status was changed from "Completed" to "Billed", then send an email with the bill for the job (if there is an email address)
     if @job.job_status_id == 3 and job_params[:job_status_id] == "3"
-      BillMailer.bill_email(@job.client, @job.bill, @job.line_items).deliver
+      unless @job.client.email.blank?
+        BillMailer.bill_email(@job.client, @job.bill, @job.line_items).deliver
+        flash[:success] = 'The bill has been emailed to ' + @job.client.full_name + '.'
+      else
+        flash[:notice] = 'There is no email address on file for ' + @job.client.full_name + '. You will need to print out and deliver the bill.'
+      end
       job_bills = InvoicingLedgerItem.joins(:line_items).where("job_id = ?", @job.id)
       job_bills.first.update issue_date: Time.zone.now, status: "closed"
     end

@@ -7,7 +7,7 @@ class Client < ActiveRecord::Base
   has_many :invoicing_ledger_items, foreign_key: :recipient_id
   
   validates :fname, :lname, :addr1, :city, :state, :country, :phone, :business_id, :postal_code, presence: true
-  validates :email, presence: true, format: /.+@.+\..+/i   # If this isn't good enough, try https://github.com/balexand/email_validator
+  validates :email, allow_nil: true, allow_blank: true, format: /.+@.+\..+/i   # If this isn't good enough, try https://github.com/balexand/email_validator
   
   def full_name
     "#{fname} #{lname}"

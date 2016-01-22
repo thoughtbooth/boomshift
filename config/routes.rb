@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get "myschedule" => "pages#myschedule"
   get "advertising" => "pages#advertising"
   get "reports" => "pages#reports"
+  
+  get 'resend_confirmation' => 'pages#resend_confirmation'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

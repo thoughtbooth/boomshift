@@ -11,6 +11,10 @@ class PagesController < ApplicationController
     end
   end
   
+  def resend_confirmation
+    current_user.send_confirmation_instructions
+  end
+  
   def mybusiness
     if user_signed_in? and not current_user.business.nil?
       @business = current_user.business
