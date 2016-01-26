@@ -16,8 +16,13 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new
-    respond_with(@job)
+    if not current_user.business.payment_term
+      flash[:alert] = "Please set your payment terms before creating a job."
+      redirect_to request.referrer
+    else
+      @job = Job.new
+      respond_with(@job)
+    end
   end
 
   def edit

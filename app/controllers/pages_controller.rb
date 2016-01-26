@@ -13,6 +13,8 @@ class PagesController < ApplicationController
   
   def resend_confirmation
     current_user.send_confirmation_instructions
+    flash[:success] = 'The confirmation email has been resent.'
+    redirect_to root_path
   end
   
   def mybusiness

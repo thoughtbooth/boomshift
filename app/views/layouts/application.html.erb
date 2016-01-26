@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-xs-12">
           <% if user_signed_in? %>
-            <% if current_user.confirmed? %>
+            <% if current_user.business and current_user.business.payment_term and not current_user.confirmed? %>
               <div class="panel panel-warning">
                 <div class="panel-body">
                   <strong>You have not yet confirmed your account.</strong>  <%= link_to "Resend confirmation email...", resend_confirmation_path %>
