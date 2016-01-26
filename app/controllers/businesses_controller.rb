@@ -26,7 +26,7 @@ class BusinessesController < ApplicationController
     @business = current_user.build_business(business_params)
     if @business.save
       flash[:success] = 'Your business profile has been created.'
-      respond_with @business
+      redirect_to mybusiness_path
     else
       render action: 'new'
     end
@@ -35,7 +35,7 @@ class BusinessesController < ApplicationController
   def update
     if @business.update(business_params)
       flash[:success] = 'Your business profile changes were saved.'
-      respond_with @business
+      redirect_to mybusiness_path
     else
       render action: 'edit'
     end
@@ -44,7 +44,7 @@ class BusinessesController < ApplicationController
   def destroy
     @business.destroy
     flash[:notice] = 'Your business profile was deleted.'
-    respond_with @business
+    redirect_to mybusiness_path
   end
 
   private

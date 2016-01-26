@@ -27,7 +27,7 @@ class PaymentTermsController < ApplicationController
     @payment_term = PaymentTerm.new(payment_term_params)
     if @payment_term.save
       flash[:success] = 'Payment terms were successfully created.'
-      respond_with(@payment_term)
+      redirect_to mybusiness_path
     else
       render action: 'new'
     end
@@ -36,7 +36,7 @@ class PaymentTermsController < ApplicationController
   def update
     if @payment_term.update(payment_term_params)
       flash[:success] = 'Payment terms changes were successfully saved.'
-      respond_with(@payment_term)
+      redirect_to mybusiness_path
     else
       render action: 'edit'
     end
@@ -45,7 +45,7 @@ class PaymentTermsController < ApplicationController
   def destroy
     @payment_term.destroy
     flash[:notice] = 'Payment terms were successfully deleted.'
-    respond_with(@payment_term)
+    redirect_to mybusiness_path
   end
 
   private
