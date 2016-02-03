@@ -1,6 +1,8 @@
 class Client < ActiveRecord::Base
   acts_as_paranoid
   
+  before_create :confirmation_token
+  
   belongs_to :business
   has_one :enrollment
   has_many :services, through: :enrollment
@@ -12,4 +14,17 @@ class Client < ActiveRecord::Base
   def full_name
     "#{fname} #{lname}"
   end
+  
+  def email_activate
+    self.email_confirmed = true
+    self.confirm_token = nil
+    save!(validate: false)
+  end
+  
+  private
+    def confirmation_token
+      if self.confirm_token.blank?
+        self.confirm_token = SecureRandom.urlsafe_base64.to_s
+      end
+    end
 end

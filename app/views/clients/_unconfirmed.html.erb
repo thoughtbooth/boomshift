@@ -1,0 +1,10 @@
+<% unless @client.email_confirmed %>
+  <div class="panel panel-warning">
+    <div class="panel-body">
+      <strong>This client has not confirmed their email address.</strong>
+      <%= link_to resend_client_confirmation_path(id: @client, user_id: current_user.id), class: 'btn btn-link btn-xs', "data-disable-with" => "Sending..." do %>
+        <i class="fa fa-send"></i> Resend confirmation email to client
+      <% end %>
+    </div>
+  </div>
+<% end %>

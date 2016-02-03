@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122210053) do
+ActiveRecord::Schema.define(version: 20160127184157) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20160122210053) do
     t.datetime "deleted_at"
     t.string   "email"
     t.string   "postal_code"
+    t.boolean  "email_confirmed", default: false
+    t.string   "confirm_token"
   end
 
   add_index "clients", ["business_id"], name: "index_clients_on_business_id"

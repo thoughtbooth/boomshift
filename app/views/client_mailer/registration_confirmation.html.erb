@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" href="/assets/application.css">
+  </head>
+  <body>
+    <h4>Hi <%= @client.full_name %>,</h4>
+    <p>
+      I've added you as a client for my business (<%= @user.business.name %>) on Boomshift, 
+      an app that I use to run my business.  I would like to use Boomshift to communicate with you via email, 
+      but first you need to confirm your email address by clicking on the link below.
+    </p>
+    
+    <p><%= confirm_email_client_url(@client.confirm_token) %></p>
+    
+    <p>Thanks,</p>
+    
+    <p>
+      <%= @user.full_name %><br>
+      <%= @user.business.name %><br>
+      <%= @user.business.phone %><br>
+    </p>
+    
+  </body>
+</html>

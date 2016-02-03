@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   validates :f_name, :l_name, presence: true
   validates :email, presence: true, uniqueness: true, format: /.+@.+\..+/i
   
+  def full_name
+    "#{f_name} #{l_name}"
+  end
+  
 end

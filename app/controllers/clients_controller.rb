@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:show, :resend_client_confirmation, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :set_business
@@ -26,7 +26,12 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.business.clients.new(client_params)
     if @client.save
-      flash[:success] = 'Client was successfully created.'
+      if @client.email
+        ClientMailer.registration_confirmation(@client).deliver
+        flash[:success] = 'Client was successfully created.  A request has been sent to the client for them to confirm their email address.'
+      else
+        flash[:success] = 'Client was successfully created.'
+      end
       respond_with @client
     else
       render action: 'new'
@@ -34,8 +39,14 @@ class ClientsController < ApplicationController
   end
 
   def update
+    c_email = @client.email
     if @client.update(client_params)
-      flash[:success] = 'Client changes were successfully saved.'
+      if @client.email != c_email
+        ClientMailer.registration_confirmation(@client).deliver
+        flash[:success] = 'Client changes were successfully saved, including a different email address.  A request has been sent to the client for them to confirm their email address.'
+      else
+        flash[:success] = 'Client changes were successfully saved.'
+      end
       respond_with(@client)
     else
       render action: 'edit'
@@ -46,6 +57,24 @@ class ClientsController < ApplicationController
     @client.destroy
     flash[:notice] = 'Client was successfully deleted.'
     respond_with(@client)
+  end
+  
+  def confirm_email
+    client = Client.find_by_confirm_token(params[:id])
+    if client
+      client.email_activate
+      flash[:success] = "Thank you for confirming your email address."
+      redirect_to root_path
+    else
+      flash[:error] = "Sorry. Client does not exist."
+      redirect_to root_path
+    end
+  end
+  
+  def resend_client_confirmation
+    ClientMailer.registration_confirmation(@client, current_user).deliver
+    flash[:success] = 'The confirmation email has been resent to the client.'
+    redirect_to request.referrer
   end
 
   private

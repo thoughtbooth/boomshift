@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   
   resources :businesses, :payment_terms, except: [:index]
   resources :invoicing_line_items, except: [:index, :show, :edit, :new]
-  resources :clients, :services, :enrollments, :bills
+  resources :services, :enrollments, :bills
+  
+  resources :clients do
+    member do
+      get :confirm_email
+    end
+  end
   
   post 'enroll' => 'enrollments#add_enrollment'
   get 'enroll' => 'enrollments#add_enrollment'
@@ -32,6 +38,7 @@ Rails.application.routes.draw do
   get "reports" => "pages#reports"
   
   get 'resend_confirmation' => 'pages#resend_confirmation'
+  get 'resend_client_confirmation' => 'clients#resend_client_confirmation'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

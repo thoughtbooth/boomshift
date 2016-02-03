@@ -5,19 +5,27 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Confirmed?</th>
       <th>Phone</th>
     </tr>
   </thead>
 
   <tbody>
     <% @clients.each do |client| %>
-      <tr>
+      <tr class="<%= 'warning' unless client.email_confirmed %>">
         <td>
           <%= link_to client, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Client" do %>
             <i class="fa fa-search"></i> <%= client.fname %> <%= client.lname %>
           <% end %>
         </td>
         <td><%= client.email %></td>
+        <td>
+          <% if client.email_confirmed %>
+            <i class="fa fa-check-square-o fa-lg"></i>  
+          <% else %>
+            <i class="fa fa-square-o fa-lg"></i>
+          <% end %>
+        </td>
         <td><%= client.phone %></td>
       </tr>
     <% end %>
