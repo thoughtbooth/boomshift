@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   
   devise_for :users
+  get "user_setup_complete" => "pages#user_setup_complete"
   
   resources :businesses, :payment_terms, except: [:index]
   resources :invoicing_line_items, except: [:index, :show, :edit, :new]

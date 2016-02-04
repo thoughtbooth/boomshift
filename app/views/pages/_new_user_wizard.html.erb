@@ -1,2 +1,26 @@
-<h3>To get started using Boomshift, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
-<hr>
+<div class="well">
+  <h4><strong>Boomshift Setup</strong></h4>
+  <% new_user_wizard %>
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped prog-text-center" role="progressbar" aria-valuenow="<%= @progress * 100 %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage @progress * 100, precision: 0 %>">
+      <small><%= number_to_percentage @progress * 100, precision: 0 %></small>
+    </div>
+  </div>
+  <p><i class="fa <%= @confirm_email ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Confirm your email address</p>
+  <p><i class="fa <%= @create_biz ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Create your business profile</p>
+  <p><i class="fa <%= @set_terms ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Set your payment terms</p>
+  <p><i class="fa <%= @add_service ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Add your first service</p>
+  <p><i class="fa <%= @add_client ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Add your first client</p>
+  <p><i class="fa <%= @enroll_client ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Enroll a client in a service</p>
+  <p><i class="fa <%= @schedule_job ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Schedule your first job</p>
+  
+  <% if @progress == 1 %>
+    <i class="fa fa-thumbs-up fa-5x"></i>
+    <br>
+    <br>
+    <p>Good job getting this far! Now get out there and make some money!</p><br>
+    <%= link_to user_setup_complete_path, class: 'btn btn-primary', "data-disable-with" => "Closing..." do %>
+      <i class="fa fa-times"></i> Close
+    <% end %>
+  <% end %>
+</div>

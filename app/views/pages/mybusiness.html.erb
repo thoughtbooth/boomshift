@@ -2,7 +2,8 @@
 <hr>
 
 <% unless @business %>
-  <%= render "new_user_wizard" %>
+  <h3>To get started using Boomshift, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
+  <hr>
 <% end %>
 
 <div class="row">

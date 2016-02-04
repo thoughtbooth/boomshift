@@ -2,6 +2,11 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, except: [:home]
   before_action :set_business, except: [:home, :mybusiness]
   
+  def user_setup_complete
+    current_user.setup_complete = true
+    redirect_to request.referrer if current_user.save
+  end
+  
   def home
     if user_signed_in? and not current_user.business.nil?
       @business = current_user.business
