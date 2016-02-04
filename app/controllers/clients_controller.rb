@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :resend_client_confirmation, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:confirm_email]
   before_action :set_business
 
   respond_to :html
@@ -27,7 +27,7 @@ class ClientsController < ApplicationController
     @client = current_user.business.clients.new(client_params)
     if @client.save
       if @client.email
-        ClientMailer.registration_confirmation(@client).deliver
+        ClientMailer.registration_confirmation(@client, current_user).deliver
         flash[:success] = 'Client was successfully created.  A request has been sent to the client for them to confirm their email address.'
       else
         flash[:success] = 'Client was successfully created.'
@@ -42,7 +42,7 @@ class ClientsController < ApplicationController
     c_email = @client.email
     if @client.update(client_params)
       if @client.email != c_email
-        ClientMailer.registration_confirmation(@client).deliver
+        ClientMailer.registration_confirmation(@client, current_user).deliver
         flash[:success] = 'Client changes were successfully saved, including a different email address.  A request has been sent to the client for them to confirm their email address.'
       else
         flash[:success] = 'Client changes were successfully saved.'

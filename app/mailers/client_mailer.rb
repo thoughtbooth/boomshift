@@ -4,6 +4,6 @@ class ClientMailer < ActionMailer::Base
   def registration_confirmation(client, user)
     @client = client
     @user = user
-    mail(to: "#{client.full_name} <#{client.email}>", subject: "Registration Confirmation")
+    mail(to: "#{client.full_name} <#{client.email}>", subject: "Client Confirmation for #{user.business.name}")
   end
 end

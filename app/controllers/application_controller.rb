@@ -16,9 +16,11 @@ class ApplicationController < ActionController::Base
   helper_method :clear_return_url
   
   def set_business
-    unless current_user.business
-      flash[:alert] = "Please create your business profile first."
-      redirect_to mybusiness_path
+    if user_signed_in?
+      unless current_user.business
+        flash[:alert] = "Please create your business profile first."
+        redirect_to mybusiness_path
+      end
     end
   end
 
