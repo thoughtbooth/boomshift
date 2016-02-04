@@ -56,7 +56,7 @@ class ClientsController < ApplicationController
   def destroy
     @client.destroy
     flash[:notice] = 'Client was successfully deleted.'
-    respond_with(@client)
+    redirect_to myclients_path
   end
   
   def confirm_email

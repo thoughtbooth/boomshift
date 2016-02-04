@@ -45,7 +45,7 @@ class ServicesController < ApplicationController
   def destroy
     @service.destroy
     flash[:notice] = 'Service was successfully deleted.'
-    respond_with(@service)
+    redirect_to mybusiness_path
   end
 
   private

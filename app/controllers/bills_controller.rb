@@ -123,7 +123,7 @@ class BillsController < ApplicationController
   def destroy
     @bill.destroy
     #respond_with @bill
-    redirect_to :back
+    redirect_to myclients_path
   end
 
   private
