@@ -26,7 +26,7 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.business.clients.new(client_params)
     if @client.save
-      if @client.email
+      unless @client.email.empty?
         ClientMailer.registration_confirmation(@client, current_user).deliver
         flash[:success] = 'Client was successfully created.  A request has been sent to the client for them to confirm their email address.'
       else
@@ -43,7 +43,7 @@ class ClientsController < ApplicationController
     if @client.update(client_params)
       if @client.email != c_email
         ClientMailer.registration_confirmation(@client, current_user).deliver
-        flash[:success] = 'Client changes were successfully saved, including a different email address.  A request has been sent to the client for them to confirm their email address.'
+        flash[:success] = 'Client changes were successfully saved, including a new or different email address.  A request has been sent to the client for them to confirm that email address.'
       else
         flash[:success] = 'Client changes were successfully saved.'
       end

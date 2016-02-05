@@ -55,9 +55,11 @@ class JobsController < ApplicationController
     
     # If the job status was changed from "Completed" to "Billed", then send an email with the bill for the job (if there is an email address)
     if @job.job_status_id == 3 and job_params[:job_status_id] == "3"
-      unless @job.client.email.blank?
+      if @job.client.email_confirmed
         BillMailer.bill_email(@job.client, @job.bill, @job.line_items).deliver
         flash[:success] = 'The bill has been emailed to ' + @job.client.full_name + '.'
+      elsif not @job.client.email.blank? and not @job.client.email_confirmed
+        flash[:success] = 'The bill has been emailed to ' + @job.client.full_name + ', but he/she has not confirmed their email address. If the email address is incorrect, you will need to print out and deliver the bill.'
       else
         flash[:notice] = 'There is no email address on file for ' + @job.client.full_name + '. You will need to print out and deliver the bill.'
       end

@@ -7,19 +7,67 @@
     </div>
   </div>
   <p><i class="fa <%= @confirm_email ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Confirm your email address</p>
-  <p><i class="fa <%= @create_biz ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Create your business profile</p>
-  <p><i class="fa <%= @set_terms ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Set your payment terms</p>
-  <p><i class="fa <%= @add_service ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Add your first service</p>
-  <p><i class="fa <%= @add_client ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Add your first client</p>
-  <p><i class="fa <%= @enroll_client ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Enroll a client in a service</p>
-  <p><i class="fa <%= @schedule_job ? ('fa-check-circle') : ('fa-circle-o') %> fa-lg"></i> Schedule your first job</p>
+  <p>
+    <% unless @create_biz %>
+      <%= link_to new_business_path do %>
+        <i class="fa fa-circle-o fa-lg"></i> Create your business profile
+      <% end %>
+    <% else %>
+      <i class="fa fa-check-circle fa-lg"></i> Create your business profile
+    <% end %>
+  </p>
+  <p>
+    <% unless @set_terms %>
+      <%= link_to new_payment_term_path do %>
+        <i class="fa fa-circle-o fa-lg"></i> Set your payment terms
+      <% end %>
+    <% else %>
+      <i class="fa fa-check-circle fa-lg"></i> Set your payment terms
+    <% end %>
+  </p>
+  <p>
+    <% unless @add_service %>
+      <%= link_to new_service_path do %>
+        <i class="fa fa-circle-o fa-lg"></i> Add your first service
+      <% end %>
+    <% else %>
+      <i class="fa fa-check-circle fa-lg"></i> Add your first service
+    <% end %>
+  </p>
+  <p>
+    <% unless @add_client %>
+      <%= link_to new_client_path do %>
+        <i class="fa fa-circle-o fa-lg"></i> Add your first client
+      <% end %>
+    <% else %>
+      <i class="fa fa-check-circle fa-lg"></i> Add your first client
+    <% end %>
+  </p>
+  <p>
+    <% unless @enroll_client %>
+      <%= link_to myclients_path do %>
+        <i class="fa fa-circle-o fa-lg"></i> Enroll a client in a service
+      <% end %>
+    <% else %>
+      <i class="fa fa-check-circle fa-lg"></i> Enroll a client in a service
+    <% end %>
+  </p>
+  <p>
+    <% unless @schedule_job %>
+      <%= link_to new_job_path do %>
+        <i class="fa fa-circle-o fa-lg"></i> Schedule your first job
+      <% end %>
+    <% else %>
+      <i class="fa fa-check-circle fa-lg"></i> Schedule your first job
+    <% end %>
+  </p>
   
   <% if @progress == 1 %>
     <i class="fa fa-thumbs-up fa-5x"></i>
     <br>
     <br>
     <p>Good job getting this far! Now get out there and make some money!</p><br>
-    <%= link_to user_setup_complete_path, class: 'btn btn-primary', "data-disable-with" => "Closing..." do %>
+    <%= link_to user_setup_complete_path, class: 'btn btn-default', "data-disable-with" => "Closing..." do %>
       <i class="fa fa-times"></i> Close
     <% end %>
   <% end %>

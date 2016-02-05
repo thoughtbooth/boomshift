@@ -18,7 +18,7 @@
 
   <tbody>
     <% @clients.each do |client| %>
-      <tr class="<%= 'warning' if client.email_confirmed == false %>">
+      <tr class="<%= 'warning' if not client.email.empty? and not client.email_confirmed %>">
         <td>
           <%= link_to client, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Client" do %>
             <i class="fa fa-search"></i> <%= client.fname %> <%= client.lname %>
@@ -27,7 +27,9 @@
         <td><%= client.email %></td>
         <td>
           <% if client.email_confirmed %>
-            <i class="fa fa-check-square-o fa-lg"></i>  
+            <i class="fa fa-check-square-o fa-lg"></i>
+          <% elsif client.email.empty? %>
+            N/A
           <% else %>
             <i class="fa fa-square-o fa-lg"></i>
           <% end %>

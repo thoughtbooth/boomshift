@@ -1,4 +1,4 @@
-<% unless @client.email_confirmed %>
+<% if not @client.email.empty? and not @client.email_confirmed %>
   <div class="panel panel-warning">
     <div class="panel-body">
       <strong>This client has not confirmed their email address.</strong>

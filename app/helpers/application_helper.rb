@@ -1,29 +1,33 @@
 module ApplicationHelper
   
   def new_user_wizard
-    @confirm_email = true if current_user.confirmed?
-    @create_biz = true if current_user.business
-    @set_terms = true if current_user.business.payment_term
-    @add_service = true if current_user.business.services.first
-    @add_client = true if current_user.business.clients.first
-    @enroll_client = true if Enrollment.joins(client: [{ business: :user }]).where("business_id = ?", current_user.business.id).first
-    @schedule_job = true if Job.joins(enrollment: [{ client: :business }]).where("business_id = ?", current_user.business.id).first
-    @completed_step_count = 0
-    @completed_step_count += 1 if @confirm_email
-    @completed_step_count += 1 if @create_biz
-    @completed_step_count += 1 if @set_terms
-    @completed_step_count += 1 if @add_service
-    @completed_step_count += 1 if @add_client
-    @completed_step_count += 1 if @enroll_client
-    @completed_step_count += 1 if @schedule_job
-    @progress = @completed_step_count.to_f / 7
-#     @complete_job
-#     @send_bill
-#     @get_paid
-#     HTML that I took out of template:
-#     <p><i class="fa fa-circle-o fa-lg"></i> Complete your first job</p>
-#     <p><i class="fa fa-circle-o fa-lg"></i> Send your first bill</p>
-#     <p><i class="fa fa-circle-o fa-lg"></i> Get paid!</p>
+    unless current_user.setup_complete
+      @confirm_email = true if current_user.confirmed?
+      @create_biz = true if current_user.business
+      if @create_biz
+        @set_terms = true if current_user.business.payment_term
+        @add_service = true if current_user.business.services.first
+        @add_client = true if current_user.business.clients.first
+        @enroll_client = true if Enrollment.joins(client: [{ business: :user }]).where("business_id = ?", current_user.business.id).first
+        @schedule_job = true if Job.joins(enrollment: [{ client: :business }]).where("business_id = ?", current_user.business.id).first
+      end
+      @completed_step_count = 0
+      @completed_step_count += 1 if @confirm_email
+      @completed_step_count += 1 if @create_biz
+      @completed_step_count += 1 if @set_terms
+      @completed_step_count += 1 if @add_service
+      @completed_step_count += 1 if @add_client
+      @completed_step_count += 1 if @enroll_client
+      @completed_step_count += 1 if @schedule_job
+      @progress = @completed_step_count.to_f / 7
+  #     @complete_job
+  #     @send_bill
+  #     @get_paid
+  #     HTML that I took out of template:
+  #     <p><i class="fa fa-circle-o fa-lg"></i> Complete your first job</p>
+  #     <p><i class="fa fa-circle-o fa-lg"></i> Send your first bill</p>
+  #     <p><i class="fa fa-circle-o fa-lg"></i> Get paid!</p>
+    end
   end
   
   def bootstrap_class_for(flash_type)
