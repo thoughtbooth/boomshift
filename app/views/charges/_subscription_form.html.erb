@@ -1,0 +1,44 @@
+Choose a subscription level:<br><br>
+Starter<br>
+Amount: Free Forever!<br>
+
+<button class="btn btn-primary btn-large">Starter</button><br><br>
+<!-- Don't need to use Stripe Checkout for free plan since a credit card is not required -->
+<!-- This button needs to be wired up to create a customer on Stripe and subscribe them to a Stripe Subscription Plan -->
+
+<%= form_tag charges_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    Unlimited<br>
+    <label class="amount">
+      <span>Amount: $5/mo.</span>
+    </label>
+  </article>
+
+  <button class="btn btn-primary btn-large" id="stripe-unlimited">Unlimited</button>
+  <!-- This button needs to be wired up to create a customer on Stripe and subscribe them to a Stripe Subscription Plan -->
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script>
+  var handler = StripeCheckout.configure({
+    key: "<%= Rails.configuration.stripe[:publishable_key] %>",
+    image: "/favicon-194x194.png",
+    name: "Boomshift",
+    description: "Unlimited Plan ($10/mo.)",
+    amount: "500",
+    locale: "auto",
+    email: "<%= current_user.email %>",
+    panelLabel: "Subscribe!",
+    allowRememberMe: false
+  });
+
+  document.getElementById('stripe-unlimited').addEventListener('click', function(e) {
+    handler.open();
+    e.preventDefault();
+  });
+  </script>
+
+<% end %>
