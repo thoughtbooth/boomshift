@@ -102,7 +102,7 @@ class BillsController < ApplicationController
     @bill.sender_id = current_user.business.id
     #@bill.line_items.build(invoicing_line_item_params)
     if @bill.save
-      flash[:success] = 'The bill was successfully created.'
+      flash[:success] = 'The bill was successfully created for the job.'
       respond_with @bill
     else
       render action: 'new'

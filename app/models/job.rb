@@ -23,6 +23,8 @@ class Job < ActiveRecord::Base
   #validates :billed_on, presence: true, if: :billed?
   #validates :paid_on, presence: true, if: :paid?
   
+  # The number field is for an eventual auto-incrementing job number per user.
+  
   def description
     "Job #{id}: #{enrollment.service_name} on " + job_date.strftime("%B #{job_date.day.ordinalize}, %Y @ %l:%M %p (#{job_status.status})") if job_date
   end

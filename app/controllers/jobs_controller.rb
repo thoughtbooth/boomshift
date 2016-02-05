@@ -77,7 +77,7 @@ class JobsController < ApplicationController
     @bill = Bill.new type: "Bill", currency: "usd", description: "Bill for services rendered for Job #{@job.id}", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: current_user.business.payment_term.days_to_pay.days.from_now
     @bill.line_items.build job_id: @job.id, description: @job.description_for_bill, net_amount: @job.amount, quantity: 1, creator_id: current_user.id, tax_amount: 0
     if @bill.save
-      flash[:success] = 'The bill was successfully created.'
+      flash[:success] = 'The bill was successfully created for the job. Click the airplane icon on the job card to send the bill to the client.'
     else
       @job.update(job_status_id: 1)
       flash[:error] = 'The bill could not be created. The job has not been moved to the Completed Jobs column.'
