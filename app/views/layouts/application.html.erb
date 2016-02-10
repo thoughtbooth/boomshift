@@ -35,12 +35,17 @@
     <%= render 'layouts/header' %>
     <div class="container-fluid">
       <div class="row">
-        <% unless current_user.setup_complete %>
-          <div class="col-xs-2 sidebar">
-            <%= render "pages/new_user_wizard" %>
-          </div>
+        <% if user_signed_in? %>
+          <% setup_complete = current_user.setup_complete %>
+          <% unless setup_complete %>
+            <div class="col-xs-2 sidebar">
+              <%= render "pages/new_user_wizard" %>
+            </div>
+          <% end %>
+        <% else %>
+          <% setup_complete = true %>
         <% end %>
-        <div class="<%= current_user.setup_complete ? ('col-xs-12') : ('col-xs-10') %>">
+        <div class="<%= setup_complete ? ('col-xs-12') : ('col-xs-10') %>">
           <% if user_signed_in? %>
             <% if current_user.business and current_user.business.payment_term and not current_user.confirmed? %>
               <div class="panel panel-warning">
