@@ -64,10 +64,10 @@ class ClientsController < ApplicationController
     if client
       client.email_activate
       flash[:success] = "Thank you for confirming your email address."
-      redirect_to root_path
+      redirect_to dashboard_path
     else
       flash[:error] = "Sorry. Client does not exist."
-      redirect_to root_path
+      redirect_to dashboard_path
     end
   end
   

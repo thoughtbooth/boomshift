@@ -1,0 +1,33 @@
+<% if user_signed_in? %>
+  <% if current_user.business %>
+    <h1><%= current_user.business.name %></h1>
+    <hr>
+  <% end %>
+
+  <% unless @business %>
+    <h3>To get started using Boomshift, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
+    <hr>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <%= render partial: "jobs/summary", object: @jobs %>
+      <br>
+      <%= render partial: "jobs/itinerary", object: @jobs_today %>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <%= render partial: "bills/today", object: @bills %>
+      <br><br><br>
+      <%= render partial: "bills/late", object: @bills %>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+<% else %>
+  <h2>Welcome to Boomshift!</h2>
+  <p>
+    <%= link_to "Sign in", new_user_session_path, class: "btn btn-default btn-lg" %>
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-default btn-lg" %>
+  </p>
+  <hr>
+<% end %>

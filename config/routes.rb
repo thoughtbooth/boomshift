@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
+  
+  # Main Menu
   root 'pages#home'
+  get "dashboard" => "pages#dashboard"
+  get "mybusiness" => "pages#mybusiness"
+  get "myclients" => "pages#myclients"
+  get "myschedule" => "pages#myschedule"
+  get "advertising" => "pages#advertising"
+  get "reports" => "pages#reports"
+  get "pricing" => "pages#pricing"
+  
   
   devise_for :users
   get "user_setup_complete" => "pages#user_setup_complete"
@@ -32,14 +42,10 @@ Rails.application.routes.draw do
 #  get "bill_pdf" => "bills#create_pdf"
 #  get "bill_html" => "bills#render_html" #Don't want to use this in the app because it's ugly.
 
-  # Main Menu
-  get "mybusiness" => "pages#mybusiness"
-  get "myclients" => "pages#myclients"
-  get "myschedule" => "pages#myschedule"
-  get "advertising" => "pages#advertising"
-  get "reports" => "pages#reports"
+
   
-  get 'resend_confirmation' => 'pages#resend_confirmation'
+  # E-mail confirmations
+  get 'resend_confirmation' => 'pages#resend_confirmation' # user confirmation
   get 'resend_client_confirmation' => 'clients#resend_client_confirmation'
 
   # The priority is based upon order of creation: first created -> highest priority.
