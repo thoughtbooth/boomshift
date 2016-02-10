@@ -6,6 +6,11 @@
 @import "bootstrap-datetimepicker";
 @import "font-awesome";
 
+/* Remove white space beneath navbar */
+.navbar {
+    margin-bottom: 0;
+}
+
 /* Custom container */
 .container-full {
   margin: 5 auto;
