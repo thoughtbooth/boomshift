@@ -1,0 +1,29 @@
+<br><br>
+<h1 class="text-center">Plans</h1>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h1 class="panel-title"><strong>Free Beta</strong></h1>
+        </div>
+        <div class="panel-body">
+          We'll have our pricing here after we launch.  Click the button below to test drive Boomshift free of charge.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="margin: 0 auto; width: 100%; text-align: center;">
+      <br>
+      <% unless user_signed_in? %>
+        <%= link_to "Sign up", new_user_registration_path, class: "btn btn-default btn-lg" %>
+      <% end %>
+    </div>
+  </div>
+</div>

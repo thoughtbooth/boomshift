@@ -1,35 +1,37 @@
-<% if user_signed_in? %>
-  <% if current_user.business %>
-    <h1><%= current_user.business.name %></h1>
-    <hr>
-  <% end %>
-<% else %>
-  <h2>Welcome to Boomshift!</h2>
-  <p>
-    <%= link_to "Sign in", new_user_session_path, class: "btn btn-default btn-lg" %>
-    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-default btn-lg" %>
-  </p>
-  <hr>
-<% end %>
-
-<% if user_signed_in? %>
-  <% unless @business %>
-    <h3>To get started using Boomshift, you need to <%= link_to ' create your business profile...', new_business_path %></h3>
-    <hr>
-  <% end %>
-
+<div class="container-full">
   <div class="row">
-    <div class="col-md-3">
-      <%= render partial: "jobs/summary", object: @jobs %>
-      <br>
-      <%= render partial: "jobs/itinerary", object: @jobs_today %>
+    <div class="col-lg-12 text-center v-center">
+      <h1><%= image_tag "/logo_blue_white.png", height: "250", width: "208", alt: "Boomshift" %></h1>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-6">
-      <%= render partial: "bills/today", object: @bills %>
-      <br><br><br>
-      <%= render partial: "bills/late", object: @bills %>
+  </div> <!-- /row -->
+</div> <!-- /container full -->
+
+<div class="container">
+  <div class="row">
+    <br><br>
+    <div class="col-md-6 text-right">
+      <h1><strong>Spend less time.</strong></h1>
+      <h1><strong>Make more money.</strong></h1>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4 border-left">
+      <h3><strong>You're a go-getter.</strong></h3>
+      <p><strong>That's why you started your own legit  <a href="http://dictionary.reference.com/browse/microbusiness">microbusiness</a></strong> doing something like lawn care, tutoring, pet care, tech support, car care, haul away, or any number of other things you do to <strong>make money right in your own neighborhood.</strong></p>
+      <p>But you've noticed that <strong>there are a few things about running it that are kind of a pain.</strong>  Like keeping track of clients, scheduling them, getting them to pay you, getting new clients, and the list goes on.</p>
+      <h5><strong>That stuff takes too much of your time.</strong></h5>
+      <p>If you could do something to make that stuff happen faster and easier, <strong>you would.</strong>
+      <h4><strong>Now you can.</strong></h4>
+    </div>
   </div>
-<% end %>
+  <div class="row">
+    <div class="col-lg-12 text-center v-center">
+      <p>
+        <% if user_signed_in? %>
+          <%= link_to "My Dashboard", dashboard_path, class: "btn btn-default btn-lg" %>
+        <% else %>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-default btn-lg" %>
+          <%= link_to "Sign up", pricing_path, class: "btn btn-default btn-lg" %>
+        <% end %>
+      </p>
+    </div>
+  </div> <!-- /row -->
+</div>

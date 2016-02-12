@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :clear_return_url
   
+  def after_sign_in_path_for(resource)
+    dashboard_path
+  end
+  
   def set_business
     if user_signed_in?
       unless current_user.business
