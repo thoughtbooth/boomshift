@@ -15,19 +15,20 @@
 .container-full {
   margin: 5 auto;
   width: 100%;
-  min-height:100%;
-  background-color:#110123;
-  color:#eee;
-  overflow:hidden;
+  min-height: 100%;
+  background: #110123 url("/SplitShire_1920x1080.jpg") no-repeat right top;
+  color: #eee;
+  overflow: hidden;
 }
 
 .container-full a {
-  color:#efefef;
-  text-decoration:none;
+  color: #efefef;
+  text-decoration: none;
 }
 
 .v-center {
-  margin-top:7%;
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
 
 .prog-text-center {
@@ -38,6 +39,10 @@
 .vr-right {
   border-right: solid 1px #bbb;
   height: 100vh;
+}
+
+.border-left {
+  border-left: solid 1px #bbb;
 }
 
 hr {

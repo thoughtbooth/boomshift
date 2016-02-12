@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, except: [:home, :dashboard]
+  before_action :authenticate_user!, except: [:home, :pricing, :dashboard]
   before_action :set_business, except: [:home, :dashboard, :mybusiness]
 
   def resend_confirmation
