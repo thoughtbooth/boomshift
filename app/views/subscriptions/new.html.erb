@@ -17,6 +17,10 @@
             <li class="h4">Client billing</li>
             <li class="h4"><strong>Free forever</strong></li>
           </ul>
+          <br>
+          <% if user_signed_in? %>
+            <%= render 'free_plan' %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -33,19 +37,13 @@
             <li class="h4">Client billing</li>
             <li class="h4"><strong>$5 per month</strong></li>
           </ul>
+          <br>
+          <% if user_signed_in? %>
+            <%= render 'unlimited_plan' %>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="col-md-2"></div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12" style="margin: 0 auto; width: 100%; text-align: center;">
-      <br>
-      <% unless user_signed_in? %>
-        <%= link_to "Sign up", new_user_registration_path, class: "btn btn-default btn-lg" %>
-      <% end %>
-    </div>
   </div>
 </div>

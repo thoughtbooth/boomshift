@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :businesses, :payment_terms, except: [:index]
   resources :invoicing_line_items, except: [:index, :show, :edit, :new]
   resources :services, :enrollments, :bills
-  resources :charges
+  resources :subscriptions
   
   resources :clients do
     member do
