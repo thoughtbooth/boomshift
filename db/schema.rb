@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205193527) do
+ActiveRecord::Schema.define(version: 20160215213935) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 20160205193527) do
 
   add_index "clients", ["business_id"], name: "index_clients_on_business_id"
   add_index "clients", ["deleted_at"], name: "index_clients_on_deleted_at"
+
+  create_table "coupons", force: true do |t|
+    t.string   "code"
+    t.string   "free_trial_length"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "enrollments", force: true do |t|
     t.integer  "client_id",   null: false
@@ -146,6 +153,18 @@ ActiveRecord::Schema.define(version: 20160205193527) do
     t.datetime "updated_at"
   end
 
+  create_table "plans", force: true do |t|
+    t.string   "name"
+    t.string   "stripe_id"
+    t.float    "price"
+    t.string   "interval"
+    t.text     "features"
+    t.boolean  "highlight"
+    t.integer  "display_order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -158,6 +177,18 @@ ActiveRecord::Schema.define(version: 20160205193527) do
 
   add_index "services", ["business_id"], name: "index_services_on_business_id"
   add_index "services", ["deleted_at"], name: "index_services_on_deleted_at"
+
+  create_table "subscriptions", force: true do |t|
+    t.string   "stripe_id"
+    t.integer  "plan_id"
+    t.string   "last_four"
+    t.integer  "coupon_id"
+    t.string   "card_type"
+    t.float    "current_price"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

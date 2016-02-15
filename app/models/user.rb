@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+# Added by Koudoku.
+  has_one :subscription
+
   acts_as_paranoid
   
   # Include devise modules. Others available are:
