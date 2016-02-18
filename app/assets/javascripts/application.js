@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require payola
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require jquery.cookie

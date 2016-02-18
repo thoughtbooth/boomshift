@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  mount Payola::Engine => '/payola', as: :payola
+  
   # Main Menu
   root 'pages#home'
   get "dashboard" => "pages#dashboard"
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   
   resources :businesses, :payment_terms, except: [:index]
   resources :invoicing_line_items, except: [:index, :show, :edit, :new]
-  resources :services, :enrollments, :bills
+  resources :services, :enrollments, :bills, :subscriptions
   
   resources :clients do
     member do
