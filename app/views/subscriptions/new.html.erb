@@ -1,19 +1,53 @@
-<%= form_tag('/subscriptions',
-      class: 'payola-onestep-subscription-form',
-      'data-payola-base-path' => '/payola',
-      'data-payola-plan-type' => @plan.plan_class,
-      'data-payola-plan-id' => @plan.id
-  ) do |f| %>
-  <span class="payola-payment-error"></span>
-  Email:<br>
-  <input type="email" name="stripeEmail" data-payola="email"></input><br>
-  Card Number<br>
-  <input type="text" data-stripe="number"></input><br>
-  Exp Month<br>
-  <input type="text" data-stripe="exp_month"></input><br>
-  Exp Year<br>
-  <input type="text" data-stripe="exp_year"></input><br>
-  CVC<br>
-  <input type="text" data-stripe="cvc"></input><br>
-  <input type="submit"></input>
-<% end %>
+<h4>Subscribe to Boomshift</h4>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <h5>Custom Form</h5>
+      <%= form_tag('/subscriptions',
+            class: 'payola-onestep-subscription-form',
+            'data-payola-base-path' => '/payola',
+            'data-payola-plan-type' => @plan.plan_class,
+            'data-payola-plan-id' => @plan.id
+        ) do |f| %>
+        <span class="payola-payment-error"></span>
+
+        <div class="form-group">
+          <label for="stripeEmail">Email address</label>
+          <input type="email" class="form-control" id="stripeEmail" placeholder="Email" name="stripeEmail" data-payola="email">
+        </div>
+
+        <div class="form-group">
+          <label for="stripeCardNumber">Card Number</label>
+          <input type="text" class="form-control" id="stripeCardNumber" placeholder="Card Number" data-stripe="number">
+        </div>
+
+        <div class="form-group">
+          <label for="stripeExpMonth">Exp Month</label>
+          <input type="text" class="form-control" id="stripeExpMonth" placeholder="Exp Month" data-stripe="exp_month">
+        </div>
+
+        <div class="form-group">
+          <label for="stripeExpYear">Exp Year</label>
+          <input type="text" class="form-control" id="stripeExpYear" placeholder="Exp Year" data-stripe="exp_year">
+        </div>
+
+        <div class="form-group">
+          <label for="stripeCVC">CVC</label>
+          <input type="text" class="form-control" id="stripeCVC" placeholder="CVC" data-stripe="cvc">
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well">
+      <h5>Checkout Button</h5>
+      <%= render 'payola/subscriptions/checkout', plan: SubscriptionPlan.first, button_text: 'Starter' %>
+      <br>
+      <%= render 'payola/subscriptions/checkout', plan: SubscriptionPlan.second, button_text: 'Unlimited' %>
+    </div>
+  </div>
+  <div class="col-md-4"></div>
+</div>
