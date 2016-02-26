@@ -3,38 +3,22 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Job</th>
+      <!--th>Job</th-->
       <th>Description</th>
       <th>Rate/Hr</th>
       <th>Hours</th>
       <th>Total</th>
-      <% if 1 == 2 %> <!-- params.has_key?(:print) && params[:print] == 'true' -->
-        <th></th>
-      <% end %>
     </tr>
   </thead>
   
   <tbody>
     <% @invoicing_line_items.each do |invoicing_line_item| %>
       <tr>
-        <td><%= invoicing_line_item.job_id %></td>
+        <!--td--><!--%= invoicing_line_item.job_id %--><!--/td-->
         <td><%= invoicing_line_item.description %></td>
         <td><%= number_to_currency invoicing_line_item.service_rate %></td>
         <td><%= invoicing_line_item.job_hours %></td>
         <td><%= number_to_currency invoicing_line_item.net_amount %></td>
-        <% if 1 == 2 %> <!-- params.has_key?(:print) && params[:print] == 'true' -->
-          <td class="text-right">
-            <%= link_to invoicing_line_item, class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Preview" do %>
-              <i class="fa fa-search"></i>
-            <% end %>
-            <%= link_to edit_invoicing_line_item_path(invoicing_line_item), class: "btn btn-default btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Edit" do %>
-              <i class="fa fa-pencil-square-o"></i>
-            <% end %>
-            <%= link_to invoicing_line_item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", title: "Delete" do %>
-              <i class="fa fa-trash"></i>
-            <% end %>
-          </td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>
