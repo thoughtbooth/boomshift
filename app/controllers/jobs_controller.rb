@@ -45,7 +45,8 @@ class JobsController < ApplicationController
   def update     
     # Convert the date format from Moment.js to Strftime for submission to server
     job_params_strptime = job_params
-    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P') if job_params_strptime[:job_date]
+    # The DateTimePicker control sends time in local timezone to the controller, which  incorrectly assumes it is UTC. Using change method to move the offset to compensate.
+    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false)) if job_params_strptime[:job_date]
     @job.update(job_params_strptime)
     
     # If the job  status was changed from "Scheduled" to "Completed", then create a bill for the job
