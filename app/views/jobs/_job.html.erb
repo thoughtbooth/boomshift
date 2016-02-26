@@ -1,10 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-7 text-nowrap">
         <h5 class="panel-title"><%= job.enrollment.client.full_name %></h5>
       </div>
-      <div class="col-md-5 text-right">
+      <div class="col-md-5 text-right text-nowrap">
         <% if job.job_status_id == 1 %> <!-- If Scheduled -->
           <%= link_to job, method: :delete, data: { confirm: 'Are you sure?' } do %>
             <i class="fa fa-trash fa-lg" data-toggle="tooltip" data-placement="top" title="Delete"></i>
