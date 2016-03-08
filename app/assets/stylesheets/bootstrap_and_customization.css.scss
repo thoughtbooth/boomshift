@@ -67,3 +67,13 @@ hr {
 .active {
   font-weight: bold;
 }
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  wite-space: nowrap;
+  overflow: hidden;
+}
+
+.notecard {
+  background-color: LemonChiffon;
+}
