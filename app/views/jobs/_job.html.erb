@@ -19,7 +19,7 @@
       <p><strong>Amount paid:</strong> <%= number_to_currency job.amount %> (for <%= pluralize job.hours_worked, 'hour' %>)</p>
     <% end %>
   </div>
-  <div class="panel-footer">
+  <div class="panel-footer text-center">
         <% if job.job_status_id == 1 %> <!-- If Scheduled -->
           <span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
             <a href="#"><i class="fa fa-check fa-lg" data-toggle="modal" data-target="#JobHours_<%= job.id %>"></i></a>

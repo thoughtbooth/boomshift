@@ -43,16 +43,20 @@ class ServicesController < ApplicationController
   end
 
   def destroy
-    @service.destroy
-    flash[:notice] = 'Service was successfully deleted.'
-    redirect_to mybusiness_path
+    if @service.destroy
+      flash[:notice] = 'Service was successfully deleted.'
+      redirect_to mybusiness_path
+    else
+      flash[:alert] = 'The service could not be deleted, probably because there are already enrollments and/or jobs associated with it.'
+      redirect_to request.referrer
+    end
   end
 
   private
     def set_service
       @service = Service.find(params[:id])
     end
-  
+
     def correct_user
       @service = current_user.business.services.find_by(id: params[:id])
       if @service.nil?
