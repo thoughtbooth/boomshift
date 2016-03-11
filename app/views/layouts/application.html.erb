@@ -9,15 +9,10 @@
       <div class="row">
         <% if user_signed_in? %>
           <% setup_complete = current_user.setup_complete %>
-          <% unless setup_complete %>
-            <div class="col-md-3 col-lg-2 sidebar">
-              <%= render "pages/new_user_wizard" %>
-            </div>
-          <% end %>
         <% else %>
           <% setup_complete = true %>
         <% end %>
-        <div class="<%= setup_complete ? ('col-md-12') : ('col-md-9 col-lg-10') %>">
+        <div class="col-md-12">
           <% if user_signed_in? %>
             <% if current_user.business and current_user.business.payment_term and not current_user.confirmed? %>
               <div class="panel panel-warning">
@@ -29,6 +24,29 @@
           <% end %>
           <br>
           <%= render partial: "shared/flash_messages", flash: flash %>
+          <% unless setup_complete %>
+            <div class="row" style="background: WhiteSmoke;">
+              <div class="col-md-12">
+                <br><strong>Boomshift Setup</strong>
+                <a href="#" id="progressBar" data-toggle="tooltip" data-placement="bottom" title="Click or tap the progress bar to get help setting up Boomshift">
+                  <div class="progress" data-toggle="collapse" data-target="#newUserWizard" aria-expanded="false" aria-controls="newUserWizard">
+                    <% new_user_wizard %>
+                    <div class="progress-bar progress-bar-striped prog-text-center" role="progressbar" aria-valuenow="<%= @progress * 100 %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage @progress * 100, precision: 0 %>">
+                      <small><%= number_to_percentage @progress * 100, precision: 0 %></small>
+                    </div>
+                  </div>
+                </a>
+                <script>
+                  $(function() {
+                    $("#progressBar").tooltip('show');
+                  });
+                </script>
+                <div class="collapse" id="newUserWizard">
+                  <%= render "pages/new_user_wizard" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
           <%= yield %>
         </div>
       </div>
