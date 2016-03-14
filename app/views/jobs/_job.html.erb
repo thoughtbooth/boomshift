@@ -1,7 +1,8 @@
 <div class="panel panel-default">
-  <div class="panel-body notecard">
-    <h5 class="panel-title text-nowrap text-ellipsis"><strong><%= job.enrollment.client.full_name %>:</strong> <%= truncate job.enrollment.service.name, length: 50 %></h5>
-    <hr>
+  <div class="panel-heading">
+    <a data-toggle="collapse" href="#cardBody_<%= job.id %>" aria-expanded="true" aria-controls="cardBody_<%= job.id %>"><h5 class="panel-title text-nowrap text-ellipsis"><strong><%= job.enrollment.client.full_name %>:</strong> <%= truncate job.enrollment.service.name, length: 50 %></h5></a>
+  </div>
+  <div class="panel-body notecard collapse in" id="cardBody_<%= job.id %>">
     <p><strong>Appointment:</strong> <%= l job.job_date.in_time_zone, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
     <% if job.job_status_id == 2 || job.job_status_id == 3 || job.job_status_id == 4 %> <!-- If Completed, Billed, Paid -->
       <p><strong>Marked complete on:</strong> <%= l job.completed_on.in_time_zone, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
