@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Email</th>
-      <th>Confirmed?</th>
+      <th class="hidden-xs">Email</th>
+      <th class="hidden-xs">Confirmed?</th>
       <th>Phone</th>
     </tr>
   </thead>
@@ -18,10 +18,10 @@
             <i class="fa fa-search"></i> <%= client.fname %> <%= client.lname %>
           <% end %>
         </td>
-        <td><%= client.email %></td>
-        <td>
+        <td class="hidden-xs"><%= client.email %></td>
+        <td class="hidden-xs">
           <% if client.email_confirmed %>
-            <i class="fa fa-check-square-o fa-lg"></i>  
+            <i class="fa fa-check-square-o fa-lg"></i>
           <% elsif client.email.empty? %>
             N/A
           <% else %>

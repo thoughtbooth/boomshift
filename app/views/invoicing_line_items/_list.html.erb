@@ -5,7 +5,7 @@
     <tr>
       <!--th>Job</th-->
       <th>Description</th>
-      <th>Rate/Hr</th>
+      <th class="hidden-xs">Rate/Hr</th>
       <th>Hours</th>
       <th>Total</th>
     </tr>
@@ -16,7 +16,7 @@
       <tr>
         <!--td--><!--%= invoicing_line_item.job_id %--><!--/td-->
         <td><%= invoicing_line_item.description %></td>
-        <td><%= number_to_currency invoicing_line_item.service_rate %></td>
+        <td class="hidden-xs"><%= number_to_currency invoicing_line_item.service_rate %></td>
         <td><%= invoicing_line_item.job_hours %></td>
         <td><%= number_to_currency invoicing_line_item.net_amount %></td>
       </tr>

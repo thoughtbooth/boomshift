@@ -44,9 +44,9 @@
       <thead>
       <tr>
         <th>Service</th>
-        <th>Description</th>
+        <th class="hidden-xs">Description</th>
         <th>Enrolled?</th> <!-- This is for the Enrollment button -->
-        <th>As Of</th>
+        <th class="hidden-xs">As Of</th>
         <th>Preferences</th>
       </tr>
       </thead>
@@ -56,7 +56,7 @@
           <% @services.each do |s| %>
             <tr>
               <td><%= link_to s.name, s %></td>
-              <td><%= s.description %></td>
+              <td class="hidden-xs"><%= s.description %></td>
               <% @enrollment = Enrollment.where(client_id: @client.id, service_id: s.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>
                 <td>
@@ -64,7 +64,7 @@
                     <span data-toggle="tooltip" data-placement="top" title="Enroll in <%= s.name.downcase %>"><i class="fa fa-square-o"></i> No</span>
                   <% end %>
                 </td>
-                <td></td>
+                <td class="hidden-xs"></td>
                 <td></td>
               <% else %>
                 <td>
@@ -72,7 +72,7 @@
                     <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="fa fa-check-square-o"></i> Yes</span>
                   <% end %>
                 </td>
-                <td><%= l @enrollment.created_at, format: :full_date %></td>
+                <td class="hidden-xs"><%= l @enrollment.created_at, format: :full_date %></td>
                 <td>
                   <!--%= @enrollment.preferences %-->
                   <%= render 'enrollments/form', enrollment: @enrollment %>
@@ -83,9 +83,9 @@
         <% else %>
           <tr>
             <td>You haven't created any services yet. <%= link_to 'Go set up some services...', services_path %></td>
+            <td class="hidden-xs"></td>
             <td></td>
-            <td></td>
-            <td></td>
+            <td class="hidden-xs"></td>
             <td></td>
           </tr>
         <% end %>

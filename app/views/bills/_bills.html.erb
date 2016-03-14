@@ -7,7 +7,7 @@
       <th>Bill</th>
       <th>Due Date</th>
       <th>Total Amount</th>
-      <th>Job</th>
+      <th class="hidden-xs">Job</th>
     </tr>
   </thead>
 
@@ -22,7 +22,7 @@
         </td>
         <td><%= l bill.due_date, format: :default_date %></td>
         <td><%= number_to_currency bill.total_amount %></td>
-        <td><%= bill.line_items.first.job.short_description %></td>
+        <td class="hidden-xs"><%= bill.line_items.first.job.short_description %></td>
       </tr>
     <% end %>
   </tbody>
