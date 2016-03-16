@@ -20,6 +20,8 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require pickers
+//= require recurring_select
+//= require jquery-mobile-rs
 //= require turbolinks
 //= require_tree .
 
