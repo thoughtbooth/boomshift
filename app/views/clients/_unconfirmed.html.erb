@@ -1,6 +1,6 @@
 <% if not @client.email.empty? and not @client.email_confirmed %>
   <div class="panel panel-warning">
-    <div class="panel-body">
+    <div class="panel-body bg-warning">
       <strong>This client has not confirmed their email address.</strong>
       <%= link_to resend_client_confirmation_path(id: @client, user_id: current_user.id), class: 'btn btn-link btn-xs', "data-disable-with" => "Sending..." do %>
         <i class="fa fa-send"></i> Resend confirmation email to client

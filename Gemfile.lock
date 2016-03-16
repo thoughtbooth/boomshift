@@ -151,12 +151,6 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
-    recurring_select (2.0.0)
-      coffee-rails (>= 3.1)
-      ice_cube (>= 0.11)
-      jquery-rails (>= 3.0)
-      rails (>= 3.2)
-      sass-rails (>= 4.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     sass (3.2.19)
@@ -165,6 +159,9 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    schedulable (0.0.10)
+      ice_cube
+      rails (>= 4.0.3)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -216,6 +213,7 @@ DEPENDENCIES
   devise
   figaro
   font-awesome-rails
+  ice_cube
   invoicing
   jbuilder (~> 2.0)
   jquery-rails
@@ -228,8 +226,8 @@ DEPENDENCIES
   premailer-rails
   rails (= 4.1.0)
   rails_12factor
-  recurring_select
   sass-rails (~> 4.0.3)
+  schedulable
   sdoc (~> 0.4.0)
   simple_form
   spring
