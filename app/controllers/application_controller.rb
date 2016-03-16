@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   helper_method :clear_return_url
   
   def after_sign_in_path_for(resource)
-    dashboard_path
+    request.referrer
   end
   
   def set_business

@@ -4,7 +4,7 @@ I've added you as a client for my business (<%= @user.business.name %>) on Booms
 an app that I use to run my business.  I would like to use Boomshift to communicate with you via email, 
 but first you need to confirm your email address by clicking on the link below.
 
-<%= confirm_email_client_url(@client.confirm_token) %>
+<%= confirm_email_client_url(@client.confirm_token, subdomain: "www") %>
 
 Thanks,
 
