@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205193527) do
+ActiveRecord::Schema.define(version: 20160316213251) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 20160205193527) do
 
   add_index "clients", ["business_id"], name: "index_clients_on_business_id"
   add_index "clients", ["deleted_at"], name: "index_clients_on_deleted_at"
+
+  create_table "coupons", force: true do |t|
+    t.string   "code"
+    t.string   "free_trial_length"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "enrollments", force: true do |t|
     t.integer  "client_id",   null: false
@@ -146,6 +153,132 @@ ActiveRecord::Schema.define(version: 20160205193527) do
     t.datetime "updated_at"
   end
 
+  create_table "payola_affiliates", force: true do |t|
+    t.string   "code"
+    t.string   "email"
+    t.integer  "percent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payola_coupons", force: true do |t|
+    t.string   "code"
+    t.integer  "percent_off"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active",      default: true
+  end
+
+  create_table "payola_sales", force: true do |t|
+    t.string   "email",                limit: 191
+    t.string   "guid",                 limit: 191
+    t.integer  "product_id"
+    t.string   "product_type",         limit: 100
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "state"
+    t.string   "stripe_id"
+    t.string   "stripe_token"
+    t.string   "card_last4"
+    t.date     "card_expiration"
+    t.string   "card_type"
+    t.text     "error"
+    t.integer  "amount"
+    t.integer  "fee_amount"
+    t.integer  "coupon_id"
+    t.boolean  "opt_in"
+    t.integer  "download_count"
+    t.integer  "affiliate_id"
+    t.text     "customer_address"
+    t.text     "business_address"
+    t.string   "stripe_customer_id",   limit: 191
+    t.string   "currency"
+    t.text     "signed_custom_fields"
+    t.integer  "owner_id"
+    t.string   "owner_type",           limit: 100
+  end
+
+  add_index "payola_sales", ["coupon_id"], name: "index_payola_sales_on_coupon_id"
+  add_index "payola_sales", ["email"], name: "index_payola_sales_on_email"
+  add_index "payola_sales", ["guid"], name: "index_payola_sales_on_guid"
+  add_index "payola_sales", ["owner_id", "owner_type"], name: "index_payola_sales_on_owner_id_and_owner_type"
+  add_index "payola_sales", ["product_id", "product_type"], name: "index_payola_sales_on_product"
+  add_index "payola_sales", ["stripe_customer_id"], name: "index_payola_sales_on_stripe_customer_id"
+
+  create_table "payola_stripe_webhooks", force: true do |t|
+    t.string   "stripe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payola_subscriptions", force: true do |t|
+    t.string   "plan_type"
+    t.integer  "plan_id"
+    t.datetime "start"
+    t.string   "status"
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.string   "stripe_customer_id"
+    t.boolean  "cancel_at_period_end"
+    t.datetime "current_period_start"
+    t.datetime "current_period_end"
+    t.datetime "ended_at"
+    t.datetime "trial_start"
+    t.datetime "trial_end"
+    t.datetime "canceled_at"
+    t.integer  "quantity"
+    t.string   "stripe_id"
+    t.string   "stripe_token"
+    t.string   "card_last4"
+    t.date     "card_expiration"
+    t.string   "card_type"
+    t.text     "error"
+    t.string   "state"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "currency"
+    t.integer  "amount"
+    t.string   "guid",                 limit: 191
+    t.string   "stripe_status"
+    t.integer  "affiliate_id"
+    t.string   "coupon"
+    t.text     "signed_custom_fields"
+    t.text     "customer_address"
+    t.text     "business_address"
+    t.integer  "setup_fee"
+    t.integer  "tax_percent"
+  end
+
+  add_index "payola_subscriptions", ["guid"], name: "index_payola_subscriptions_on_guid"
+
+  create_table "plans", force: true do |t|
+    t.string   "name"
+    t.string   "stripe_id"
+    t.float    "price"
+    t.string   "interval"
+    t.text     "features"
+    t.boolean  "highlight"
+    t.integer  "display_order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "schedules", force: true do |t|
+    t.integer  "schedulable_id"
+    t.string   "schedulable_type"
+    t.date     "date"
+    t.time     "time"
+    t.string   "rule"
+    t.string   "interval"
+    t.text     "day"
+    t.text     "day_of_week"
+    t.datetime "until"
+    t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -158,6 +291,27 @@ ActiveRecord::Schema.define(version: 20160205193527) do
 
   add_index "services", ["business_id"], name: "index_services_on_business_id"
   add_index "services", ["deleted_at"], name: "index_services_on_deleted_at"
+
+  create_table "subscription_plans", force: true do |t|
+    t.integer  "amount"
+    t.string   "interval"
+    t.string   "stripe_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subscriptions", force: true do |t|
+    t.string   "stripe_id"
+    t.integer  "plan_id"
+    t.string   "last_four"
+    t.integer  "coupon_id"
+    t.string   "card_type"
+    t.float    "current_price"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
