@@ -62,7 +62,7 @@
     <% if @jobs.completed.any? %>
       <%= render @jobs.completed %>
     <% else %>
-      <p>No jobs have been completed yet.</p>
+      <p>There are currently no completed jobs.</p>
     <% end %>
   </div>
   <div class="col-sm-3 col-xs-12" id="Billed">
@@ -71,7 +71,7 @@
     <% if @jobs.billed.any? %>
       <%= render @jobs.billed %>
     <% else %>
-      <p>No completed jobs have been billed yet.</p>
+      <p>There are currently no billed jobs.</p>
     <% end %>
   </div>
   <div class="col-sm-3 col-xs-12" id="Paid">
