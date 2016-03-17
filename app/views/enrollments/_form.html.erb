@@ -12,13 +12,20 @@
       </div>
     <% end %>
 
-    <div class="input-group">
-      <%= f.text_field :preferences, class: 'form-control' %>
-      <span class="input-group-btn" data-toggle="tooltip" data-placement="left" title="Save preferences">
-        <%= button_tag :submit, class: 'btn btn-primary', "data-disable-with" => "Saving..." do %>
-          <i class="fa fa-save"></i>
-        <% end %>
-      </span>
+    <div class="form-inputs">
+      <!--% default_date = l Time.zone.now, format: :default_datetime %-->
+      <!--%= f.input :schedule, as: :datetime_picker, input_html: {data: {date_options: {defaultDate: default_date}}, value: default_date} %-->
+
+      <!--%= f.input :schedule, as: :schedule, interval: false, until: false, count: false %-->
+
+      <div class="input-group">
+        <%= f.text_field :preferences, class: 'form-control' %>
+        <span class="input-group-btn" data-toggle="tooltip" data-placement="left" title="Save preferences">
+          <%= button_tag :submit, class: 'btn btn-primary', "data-disable-with" => "Saving..." do %>
+            <i class="fa fa-save"></i>
+          <% end %>
+        </span>
+      </div>
     </div>
 
   <% end %>
