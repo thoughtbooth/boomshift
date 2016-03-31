@@ -1,28 +1,38 @@
-<span data-toggle="tooltip" data-placement="top" title="Mark this job complete and create a bill for it">
-  <a href="#"><i class="fa fa-check fa-lg" data-toggle="modal" data-target="#EnrollmentSchedule_<%= @enrollment.id %>"></i></a>
-</span>
+<% if not @enrollment.nil? %>
+  <p data-toggle="modal" data-target="#EnrollmentSchedule_<%= @enrollment.id %>" data-backdrop="static" data-keyboard="false">
+    <% if @enrollment.schedule %>
+      <span class="" data-toggle="tooltip" data-placement="top" title="Edit the recurring job schedule for this service">
+        <a href="#EnrollmentSchedule_<%= @enrollment.id %>"><i class="fa fa-calendar fa-lg"></i> <%= @enrollment.schedule %></a>
+      </span>
+    <% else %>
+      <span class="" data-toggle="tooltip" data-placement="top" title="Create a recurring job schedule for this service">
+        <a href="#EnrollmentSchedule_<%= @enrollment.id %>"><i class="fa fa-calendar fa-lg"></i> Make a job schedule</a>
+      </span>
+    <% end %>
+  </p>
 
-<!-- Modal -->
-<%= simple_form_for(@enrollment) do |f| %>
-  <div class="modal fade" id="EnrollmentSchedule_<%= @enrollment.id %>" tabindex="-1" role="dialog" aria-labelledby="EnrollmentScheduleLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="EnrollmentScheduleLabel">Enter Recurring Job Schedule</h4>
-        </div>
-        <div class="modal-body">
-          <%= f.input :schedule, as: :schedule, interval: false, until: false, count: false %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            <i class="fa fa-times"></i> Cancel
-          </button>
-          <%= f.button :button, class: "btn btn-primary", "data-disable-with" => "Saving...", "data-toggle" => "tooltip", "data-placement" => "top", title: "Mark this job complete and create a bill for it" do %>
-            <i class="fa fa-floppy-o"></i> Save
-          <% end %>
+  <!-- Modal -->
+  <%= simple_form_for(@enrollment) do |f| %>
+    <div class="modal fade" id="EnrollmentSchedule_<%= @enrollment.id %>" tabindex="-1" role="dialog" aria-labelledby="EnrollmentScheduleLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="EnrollmentScheduleLabel">Enter Recurring Job Schedule</h4>
+          </div>
+          <div class="modal-body">
+            <%= f.input :schedule, as: :schedule, interval: false, until: false, count: false %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              <i class="fa fa-times"></i> Cancel
+            </button>
+            <%= f.button :button, class: "btn btn-primary" do %>
+              <i class="fa fa-floppy-o"></i> Save
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

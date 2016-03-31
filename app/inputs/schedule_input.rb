@@ -39,11 +39,14 @@ class ScheduleInput < SimpleForm::Inputs::Base
 
       b.template.content_tag("div", {id: field_id}) do
 
-        b.input(:rule, collection: ['singular', 'daily', 'weekly', 'monthly'], label_method: lambda { |v| I18n.t("schedulable.rules.#{v}", default: v.capitalize) }, label: false, include_blank: false) <<
+        # Modified to remove singular
+        #b.input(:rule, collection: ['singular', 'daily', 'weekly', 'monthly'], label_method: lambda { |v| I18n.t("schedulable.rules.#{v}", default: v.capitalize) }, label: false, include_blank: false) <<
+        b.input(:rule, collection: ['daily', 'weekly', 'monthly'], label_method: lambda { |v| I18n.t("schedulable.rules.#{v}", default: v.capitalize) }, label: false, include_blank: false) <<
 
-        template.content_tag("div", {data: {group: 'singular'}}) do
-          b.input :date, date_options
-        end <<
+          # Modified to remove singular
+#         template.content_tag("div", {data: {group: 'singular'}}) do
+#           b.input :date, date_options
+#         end <<
 
         template.content_tag("div", {data: {group: 'weekly'}}) do
           b.input :day, collection: weekdays, label_method: lambda { |v| ("&nbsp;" + day_labels[v]).html_safe}, boolean_style: :nested, as: :check_boxes
@@ -75,7 +78,9 @@ class ScheduleInput < SimpleForm::Inputs::Base
           end
         end <<
 
-        template.content_tag("div", data: {group: 'singular,daily,weekly,monthly'}) do
+        # Modified to remove singular
+        #template.content_tag("div", data: {group: 'singular,daily,weekly,monthly'}) do
+        template.content_tag("div", data: {group: 'daily,weekly,monthly'}) do
           b.input :time, date_options
         end <<
 

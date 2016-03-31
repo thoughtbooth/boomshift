@@ -45,10 +45,9 @@
       <tr>
         <th>Service</th>
         <th class="hidden-xs">Description</th>
-        <th>Enrolled?</th> <!-- This is for the Enrollment button -->
+        <th>Enrolled?</th>
         <th class="hidden-xs">As Of</th>
-        <th>Schedule</th>
-        <th>Preferences</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -61,23 +60,29 @@
               <% @enrollment = Enrollment.where(client_id: @client.id, service_id: s.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>
                 <td>
-                  <%= link_to enroll_path(client_id: @client.id, service_id: s.id), class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Enroll in <%= s.name.downcase %>"><i class="fa fa-square-o"></i> No</span>
+                  <%= link_to enroll_path(client_id: @client.id, service_id: s.id), class: '' do %>
+                    <span data-toggle="tooltip" data-placement="top" title="Enroll in <%= s.name.downcase %>"><i class="fa fa-square-o fa-lg"></i> No</span>
                   <% end %>
                 </td>
                 <td class="hidden-xs"></td>
                 <td></td>
-                <td></td>
               <% else %>
                 <td>
-                  <%= link_to enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="fa fa-check-square-o"></i> Yes</span>
+                  <%= link_to enrollment_path(id: @enrollment, client_id: @client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: '' do %>
+                    <span data-toggle="tooltip" data-placement="top" title="Unenroll from <%= s.name.downcase %>"><i class="fa fa-check-square-o fa-lg"></i> Yes</span>
                   <% end %>
                 </td>
                 <td class="hidden-xs"><%= l @enrollment.created_at, format: :full_date %></td>
-                <td><%= render 'enrollments/schedule', enrollment: @enrollment %></td>
-                <td><%= render 'enrollments/form', enrollment: @enrollment %></td>
+                <td><a href="#details_<%= s.id %>" data-toggle="collapse" data-target="#details_<%= s.id %>">Details...</a></td>
               <% end %>
+            </tr>
+            <tr>
+              <td colspan="5" class="hidden-row">
+                <div class="collapse panel-body" id="details_<%= s.id %>">
+                  <p>Preferences for <%= s.name %>: <%= render 'enrollments/form', enrollment: @enrollment %></p>
+                  <p><%= s.name %> schedule:<%= render 'enrollments/schedule', enrollment: @enrollment %></p>
+                </div>
+              </td>
             </tr>
           <% end %>
         <% else %>
