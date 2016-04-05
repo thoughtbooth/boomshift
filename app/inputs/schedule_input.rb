@@ -39,21 +39,19 @@ class ScheduleInput < SimpleForm::Inputs::Base
 
       b.template.content_tag("div", {id: field_id}) do
 
-        # Modified to remove singular
-        #b.input(:rule, collection: ['singular', 'daily', 'weekly', 'monthly'], label_method: lambda { |v| I18n.t("schedulable.rules.#{v}", default: v.capitalize) }, label: false, include_blank: false) <<
-        b.input(:rule, collection: ['daily', 'weekly', 'monthly'], label_method: lambda { |v| I18n.t("schedulable.rules.#{v}", default: v.capitalize) }, label: false, include_blank: false) <<
+        # Dropdown list
+        b.input(:rule, collection: ['daily', 'weekly', 'monthly'], label_method: lambda { |v| I18n.t("schedulable.rules.#{v}", default: v.capitalize) }, label: false, include_blank: false) << #Removed 'singular' from collection
 
-          # Modified to remove singular
-#         template.content_tag("div", {data: {group: 'singular'}}) do
-#           b.input :date, date_options
-#         end <<
+        # Hide singular
+        #template.content_tag("div", {data: {group: 'singular'}}) do
+        #  b.input :date, date_options #Hiding this
+        #end <<
 
         template.content_tag("div", {data: {group: 'weekly'}}) do
           b.input :day, collection: weekdays, label_method: lambda { |v| ("&nbsp;" + day_labels[v]).html_safe}, boolean_style: :nested, as: :check_boxes
         end <<
 
         template.content_tag("div", {data: {group: 'monthly'}}) do
-
           b.simple_fields_for :day_of_week, OpenStruct.new(b.object.day_of_week || {}) do |db|
             template.content_tag("div", class: 'form-group' + (b.object.errors[:day_of_week].any? ? " has-error" : "")) do
               b.label(:day_of_week, error: true) <<
@@ -78,9 +76,7 @@ class ScheduleInput < SimpleForm::Inputs::Base
           end
         end <<
 
-        # Modified to remove singular
-        #template.content_tag("div", data: {group: 'singular,daily,weekly,monthly'}) do
-        template.content_tag("div", data: {group: 'daily,weekly,monthly'}) do
+        template.content_tag("div", data: {group: 'daily,weekly,monthly'}) do # Removed 'singular' from group
           b.input :time, date_options
         end <<
 

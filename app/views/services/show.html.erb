@@ -38,7 +38,7 @@
           <th>Client</th>
           <th>Enrolled?</th>
           <th class="hidden-xs">As Of</th>
-          <th>Preferences</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -50,21 +50,29 @@
               <% @enrollment = Enrollment.where(client_id: c.id, service_id: @service.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>
                 <td>
-                  <%= link_to enroll_path(client_id: c.id, service_id: @service.id), class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Enroll <%= c.full_name %>"><i class="fa fa-square-o"></i> No</span>
+                  <%= link_to enroll_path(client_id: c.id, service_id: @service.id), class: '' do %>
+                    <span data-toggle="tooltip" data-placement="top" title="Enroll <%= c.full_name %>"><i class="fa fa-square-o fa-lg"></i> No</span>
                   <% end %>
                 </td>
                 <td class="hidden-xs"></td>
                 <td></td>
               <% else %>
                 <td>
-                  <%= link_to enrollment_path(id: @enrollment, service_id: @service.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' do %>
-                    <span data-toggle="tooltip" data-placement="top" title="Unenroll <%= c.full_name %>"><i class="fa fa-check-square-o"></i> Yes</span>
+                  <%= link_to enrollment_path(id: @enrollment, service_id: @service.id), method: :delete, data: { confirm: 'Are you sure?' }, class: '' do %>
+                    <span data-toggle="tooltip" data-placement="top" title="Unenroll <%= c.full_name %>"><i class="fa fa-check-square-o fa-lg"></i> Yes</span>
                   <% end %>
                 </td>
                 <td class="hidden-xs"><%= l @enrollment.created_at, day: @enrollment.created_at.day.ordinalize, format: :full_date %></td>
-                <td><%= render 'enrollments/form', enrollment: @enrollment %></td>
+                <td><a href="#details_<%= c.id %>" data-toggle="collapse" data-target="#details_<%= c.id %>">Details...</a></td>
               <% end %>
+            </tr>
+            <tr>
+              <td colspan="4" class="hidden-row">
+                <div class="collapse panel-body" id="details_<%= c.id %>">
+                  <p>Preferences for <%= c.full_name %>: <%= render 'enrollments/form', enrollment: @enrollment %></p>
+                  <p><%= c.full_name %> schedule:<%= render 'enrollments/schedule', enrollment: @enrollment %></p>
+                </div>
+              </td>
             </tr>
           <% end %>
         <% else %>
