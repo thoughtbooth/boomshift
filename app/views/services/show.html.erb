@@ -46,7 +46,7 @@
         <% if @clients.count > 0 %>
           <% @clients.each do |c| %>
             <tr>
-              <td><%= link_to c.full_name, c %></td>
+              <td><%= link_to c.full_name, c, "data-no-turbolink" => true %></td>
               <% @enrollment = Enrollment.where(client_id: c.id, service_id: @service.id, deleted_at: nil).last %>
               <% if @enrollment.nil? %>
                 <td>

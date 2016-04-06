@@ -14,7 +14,7 @@
     <% @clients.each do |client| %>
       <tr class="<%= 'warning' if not client.email.empty? and not client.email_confirmed %>">
         <td>
-          <%= link_to client, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Client" do %>
+          <%= link_to client, class: "btn btn-link btn-xs", "data-no-turbolink" => true, "data-toggle" => "tooltip", "data-placement" => "top", title: "View Client" do %>
             <i class="fa fa-search"></i> <%= client.fname %> <%= client.lname %>
           <% end %>
         </td>
