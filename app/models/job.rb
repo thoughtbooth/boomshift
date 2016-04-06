@@ -68,4 +68,9 @@ class Job < ActiveRecord::Base
     InvoicingLineItem.where("ledger_item_id = ?", @job_bills.first.id)
   end
 
+  def date
+    # Schedulable gem requires it to be called "date" for the association to work
+    job_date
+  end
+
 end

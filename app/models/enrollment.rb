@@ -1,6 +1,6 @@
 class Enrollment < ActiveRecord::Base
   acts_as_paranoid
-  acts_as_schedulable :schedule
+  acts_as_schedulable :schedule, occurrences: :jobs
   scope :active, -> { where(deleted_at: nil) } # Only show active enrollments when this scope is used.
   
   belongs_to :service
