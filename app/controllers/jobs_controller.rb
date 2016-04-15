@@ -32,7 +32,7 @@ class JobsController < ApplicationController
     # Convert the date format from Moment.js to Strftime for submission to server
     job_params_strptime = job_params
     # The DateTimePicker control sends time in local timezone to the controller, which  incorrectly assumes it is UTC. Using change method to move the offset to compensate.
-    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false))
+    job_params_strptime[:date] = DateTime.strptime(job_params_strptime[:date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false))
     @job = Job.create(job_params_strptime)
     if @job.save
       flash[:success] = 'The job was successfully created.'
@@ -46,7 +46,7 @@ class JobsController < ApplicationController
     # Convert the date format from Moment.js to Strftime for submission to server
     job_params_strptime = job_params
     # The DateTimePicker control sends time in local timezone to the controller, which  incorrectly assumes it is UTC. Using change method to move the offset to compensate.
-    job_params_strptime[:job_date] = DateTime.strptime(job_params_strptime[:job_date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false)) if job_params_strptime[:job_date]
+    job_params_strptime[:date] = DateTime.strptime(job_params_strptime[:date], '%m/%d/%Y @ %l:%M %P').change(offset: Time.zone.formatted_offset(false)) if job_params_strptime[:date]
     @job.update(job_params_strptime)
 
     # If the job  status was changed from "Scheduled" to "Completed", then create a bill for the job
@@ -75,7 +75,7 @@ class JobsController < ApplicationController
   def create_bill_from_job
     # create a client bill and add line items to it
     @bills = InvoicingLedgerItem.where(type: 'Bill') # Need this so Bill.new will work
-    @bill = Bill.new type: "Bill", currency: "usd", description: "Bill for services rendered for Job #{@job.id}", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.job_date, period_end: @job.job_date, due_date: current_user.business.payment_term.days_to_pay.days.from_now
+    @bill = Bill.new type: "Bill", currency: "usd", description: "Bill for services rendered for Job #{@job.id}", status: "open", sender: current_user.business, recipient: @job.enrollment.client, period_start: @job.date, period_end: @job.date, due_date: current_user.business.payment_term.days_to_pay.days.from_now
     @bill.line_items.build job_id: @job.id, description: @job.description_for_bill, net_amount: @job.amount, quantity: 1, creator_id: current_user.id, tax_amount: 0
     if @bill.save
       flash[:success] = 'The bill was successfully created for the job. Click the airplane icon on the job card to send the bill to the client.'
@@ -109,6 +109,6 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:job_date, :job_status_id, :enrollment_id, :completed_on, :billed_on, :paid_on, :hours_worked)
+      params.require(:job).permit(:date, :job_status_id, :enrollment_id, :completed_on, :billed_on, :paid_on, :hours_worked)
     end
 end

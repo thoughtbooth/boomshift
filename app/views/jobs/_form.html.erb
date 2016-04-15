@@ -21,9 +21,9 @@
           <% if f.object.new_record? %>
             <% default_date = l Time.zone.now, format: :default_datetime %>
           <% else %>
-            <% default_date = l @job.job_date, format: :default_datetime %>
+            <% default_date = l @job.date, format: :default_datetime %>
           <% end %>
-          <%= f.input :job_date, as: :datetime_picker, input_html: {data: {date_options: {defaultDate: default_date}}, value: default_date} %>
+          <%= f.input :date, as: :datetime_picker, input_html: {data: {date_options: {defaultDate: default_date}}, value: default_date} %>
           <!--%= f.association :job_status, label_method: :status, value_method: :id %-->
           <!--%= f.input :hours_worked, input_html: { min: '0', step: '0.25' } %-->
         </div>

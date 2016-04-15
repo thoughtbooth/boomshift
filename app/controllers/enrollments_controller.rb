@@ -37,10 +37,10 @@ class EnrollmentsController < ApplicationController
   
   def add_enrollment
     @enrollment = Enrollment.new(params.permit(:client_id, :service_id, :preferences)).save
-    flash[:success] = 'The enrollment was saved.'
+    flash[:success] = 'The client was enrolled in the service.'
     redirect_to :back
   end
-  helper_method :add_enrollment # Do I even need this?
+  #helper_method :add_enrollment # Do I even need this?
 
   # PATCH/PUT /enrollments/1
   def update

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316213251) do
+ActiveRecord::Schema.define(version: 20160415170808) do
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -61,6 +61,22 @@ ActiveRecord::Schema.define(version: 20160316213251) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "enrollments", force: true do |t|
     t.integer  "client_id",   null: false
@@ -129,17 +145,19 @@ ActiveRecord::Schema.define(version: 20160316213251) do
   end
 
   create_table "jobs", force: true do |t|
-    t.datetime "job_date"
-    t.integer  "job_status_id", default: 1
+    t.datetime "date"
+    t.integer  "job_status_id",    default: 1
     t.integer  "enrollment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.datetime "completed_on"
     t.datetime "paid_on"
-    t.decimal  "hours_worked",  default: 0.0
+    t.decimal  "hours_worked",     default: 0.0
     t.datetime "billed_on"
     t.integer  "number"
+    t.integer  "schedulable_id"
+    t.string   "schedulable_type"
   end
 
   add_index "jobs", ["deleted_at"], name: "index_jobs_on_deleted_at"

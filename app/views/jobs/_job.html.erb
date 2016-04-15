@@ -3,7 +3,7 @@
     <a data-toggle="collapse" href="#cardBody_<%= job.id %>" aria-expanded="true" aria-controls="cardBody_<%= job.id %>"><h5 class="panel-title text-nowrap text-ellipsis"><strong><%= job.enrollment.client.full_name %>:</strong> <%= truncate job.enrollment.service.name, length: 50 %></h5></a>
   </div>
   <div class="panel-body notecard collapse in" id="cardBody_<%= job.id %>">
-    <p><strong>Appointment:</strong> <%= l job.job_date.in_time_zone, day: job.job_date.day.ordinalize, format: :human_datetime %></p>
+    <p><strong>Appointment:</strong> <%= l job.date.in_time_zone, day: job.date.day.ordinalize, format: :human_datetime %></p>
     <% if job.job_status_id == 2 || job.job_status_id == 3 || job.job_status_id == 4 %> <!-- If Completed, Billed, Paid -->
       <p><strong>Marked complete on:</strong> <%= l job.completed_on.in_time_zone, day: job.completed_on.day.ordinalize, format: :human_datetime %></p>
     <% end %>
@@ -34,10 +34,10 @@
             <i class="fa fa-calendar fa-lg" data-toggle="tooltip" data-placement="top" title="Change scheduled job date to..."></i>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <% @t = job.job_date.time %>
+            <% @t = job.date.time %>
 
             <!-- Yesterday -->
-            <% if job.job_date.day == Time.now.yesterday.day %>
+            <% if job.date.day == Time.now.yesterday.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
@@ -49,7 +49,7 @@
               <% @job_dt1 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
 
               <% if @disabled == "" %>
-                <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt1}), method: :put, role: 'menuitem', tabindex: -1 do %>
+                <%= link_to job_path(job, job: {id: job.id, date: @job_dt1}), method: :put, role: 'menuitem', tabindex: -1 do %>
                   <i class="fa fa-calendar"></i> Yesterday
                 <% end %>
               <% else %>
@@ -60,7 +60,7 @@
             </li>
 
             <!-- Today -->
-            <% if job.job_date.day == Time.now.day %>
+            <% if job.date.day == Time.now.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
@@ -72,7 +72,7 @@
               <% @job_dt2 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
 
               <% if @disabled == "" %>
-                <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt2}), method: :put, role: 'menuitem', tabindex: -1 do %>
+                <%= link_to job_path(job, job: {id: job.id, date: @job_dt2}), method: :put, role: 'menuitem', tabindex: -1 do %>
                   <i class="fa fa-calendar"></i> Today
                 <% end %>
               <% else %>
@@ -83,7 +83,7 @@
             </li>
 
             <!-- Tomorrow -->
-            <% if job.job_date.day == Time.now.tomorrow.day %>
+            <% if job.date.day == Time.now.tomorrow.day %>
               <% @disabled = "disabled" %>
             <% else %>
               <% @disabled = "" %>
@@ -95,7 +95,7 @@
               <% @job_dt3 = l (@d + @t.seconds_since_midnight.seconds).to_datetime, format: :default_datetime %>
 
               <% if @disabled == "" %>
-                <%= link_to job_path(job, job: {id: job.id, job_date: @job_dt3}), method: :put, role: 'menuitem', tabindex: -1 do %>
+                <%= link_to job_path(job, job: {id: job.id, date: @job_dt3}), method: :put, role: 'menuitem', tabindex: -1 do %>
                   <i class="fa fa-calendar"></i> Tomorrow
                 <% end %>
               <% else %>

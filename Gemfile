@@ -35,3 +35,6 @@ gem 'figaro'
 gem 'bootswatch-rails'
 gem 'ice_cube'
 gem 'schedulable'
+gem 'whenever', :require => false
+gem 'delayed_job_active_record'
+gem "daemons"
