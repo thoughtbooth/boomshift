@@ -13,7 +13,7 @@
     <% @services.each do |service| %>
       <tr>
         <td>
-          <%= link_to service, class: "btn btn-link btn-xs", "data-toggle" => "tooltip", "data-placement" => "top", title: "View Service" do %>
+          <%= link_to service, class: "btn btn-link btn-xs", "data-no-turbolink" => true, "data-toggle" => "tooltip", "data-placement" => "top", title: "View Service" do %>
             <i class="fa fa-search"></i> <%= service.name %>
           <% end %>
         </td>
