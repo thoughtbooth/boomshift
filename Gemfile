@@ -34,7 +34,7 @@ gem 'nokogiri'
 gem 'figaro'
 gem 'bootswatch-rails'
 gem 'ice_cube'
-gem 'schedulable'
+gem 'schedulable', github: 'benignware/schedulable'
 gem 'whenever', :require => false
 gem 'delayed_job_active_record'
 gem "daemons"

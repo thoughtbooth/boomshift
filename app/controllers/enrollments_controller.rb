@@ -45,7 +45,14 @@ class EnrollmentsController < ApplicationController
   # PATCH/PUT /enrollments/1
   def update
     if @enrollment.update(enrollment_params)
-      flash[:success] = 'Enrollment details were successfully updated.'
+      if enrollment_params[:schedule_attributes]
+        # Send to Delayed_Job to create occurances of enrollment (i.e. jobs)
+        flash[:success] = 'The schedule was successfully updated, and jobs are now being created using the schedule you specified.  Go to the Job Board to see them.'
+        # code to send 'schedulable:build_occurrences' to DJ goes here
+        # Something like this: @enrollment.schedule.delay.build_occurrences
+      else
+        flash[:success] = 'Enrollment details were successfully updated.'
+      end
       redirect_to :back
     else
       render action: 'edit'

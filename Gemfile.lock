@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/benignware/schedulable.git
+  revision: b4cac8fd548bfaea5e54bd4956ac0934017d7ecf
+  specs:
+    schedulable (0.0.10)
+      ice_cube
+      rails (>= 4.0.3)
+
+GIT
   remote: git://github.com/zpaulovics/datetimepicker-rails.git
   revision: 36d21cec5da7f5b214925804f60e63c61c747023
   branch: master
@@ -166,9 +174,6 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    schedulable (0.0.10)
-      ice_cube
-      rails (>= 4.0.3)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -238,7 +243,7 @@ DEPENDENCIES
   rails (= 4.1.0)
   rails_12factor
   sass-rails (~> 4.0.3)
-  schedulable
+  schedulable!
   sdoc (~> 0.4.0)
   simple_form
   spring
